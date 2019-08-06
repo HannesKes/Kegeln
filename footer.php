@@ -1,3 +1,4 @@
+<br/>
 <footer class="footer font-small fixed-bottom" style="background-color: #353535;">
   <div class="container">
     <div class="row">
