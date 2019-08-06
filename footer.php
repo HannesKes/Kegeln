@@ -6,10 +6,11 @@
         <!-- no text in first column -->
       </div>
       <div class="col-sm">
+        <!-- no text in second column -->
+      </div>
+      <div class="col-sm">
         <!-- symbols -->
-        <a class="ins-ic">
-          <i class="fab fa-instagram fa-lg white-text mr-md-5 mr-3 fa-2x"> </i>
-        </a>
+        <a href="https://www.instagram.com/die_bierpumpen/" class="fa fa-instagram "></a>
       </div>
       <div class="col-sm">
         <!-- Copyright -->
@@ -20,6 +21,7 @@
     </div>
   </div>
 </footer>
+
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
