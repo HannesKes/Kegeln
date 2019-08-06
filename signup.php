@@ -1,12 +1,12 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . '/Hopfenspeicher/extras/session.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   $page_title = "Registrieren";
 
   //You may not be on this page when you are logged in.
   //Redirect to profile page
   $redirect_when_loggedin = true;
   $redirect_when_loggedout = false;
-  $redirect_page = 'profile.php';
+  $redirect_page = 'index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/signup_inc.php';
