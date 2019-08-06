@@ -10,6 +10,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="media/beer.jpg">
+    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
   </head>
   <body>
 
@@ -23,16 +24,16 @@
 			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 			    <ul class="navbar-nav mr-auto">
 			      <li class="nav-item active">
-			        <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+			        <a class="nav-link" href="index.php">Home<span class="sr-only">(current)</span></a>
 			      </li>
 			      <li class="nav-item">
 			        <a class="nav-link" href="#">Kontakt</a>
 			      </li>
 			      <li class="nav-item">
-			        <a class="nav-link" href="#">Intern</a>
+			        <a class="nav-link" href="login.php">Intern</a>
 			      </li>
 			      <li class="nav-item">
-			        <a class="nav-link" href="#">Impressum</a>
+			        <a class="nav-link" href="impressum.php">Impressum</a>
 			      </li>
 			    </ul>
 			  </div>
