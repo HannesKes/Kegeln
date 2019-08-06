@@ -4,7 +4,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
   //You may not be on this page when you are logged in.
   //Redirect to profile page
-  $redirect_when_loggedin = true;
+  $redirect_when_loggedin = false;
   $redirect_when_loggedout = false;
   $redirect_page = 'index.php';
 
@@ -16,7 +16,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   foreach($_POST as $schluessel => $wert)
 {
     echo $schluessel, " ", $wert, "<br />";
-}  
+}
 
   if (isset($_POST['submit'])) {
     try {

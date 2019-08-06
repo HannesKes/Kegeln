@@ -13,7 +13,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
 <main role="main" class="container">
 
-
+  <!-- Background? Funzt nicht, ist schon im style.css -->
 
 </main>
 
