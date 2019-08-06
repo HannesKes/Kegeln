@@ -3,6 +3,9 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/database/db.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/user.php';
 
 function signupUser() {
+
+  echo "<br/>Signup_Inc<br/>";
+
   $database = new Database();
   $db = $database->getConnection();
 
@@ -24,7 +27,7 @@ function signupUser() {
 
   if ($user->create()) {
     //registration successful message
-      //TODO: Meldung: Registierung erfolgreich. Warten auf Bestätigung durch authorisierte Personen.
+
     // login user
     $user_ID = $user->getId();
     $_SESSION['session_id'] = $user_ID;

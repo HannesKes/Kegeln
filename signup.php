@@ -11,9 +11,20 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/signup_inc.php';
 
+  echo "Post: <br/>";
+
+  foreach($_POST as $schluessel => $wert)
+{
+    echo $schluessel, " ", $wert, "<br />";
+}  
+
   if (isset($_POST['submit'])) {
     try {
-      signupUser();
+      signupUser(); ?>
+      <div class="alert alert-success alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>Erfolg!</strong> Registrierung erfolgreich. Warten auf Bestätigung durch autorisierte Person.
+    </div> <?php
     } catch (Exception $e) { ?>
       <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -26,82 +37,80 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
 <main role="main" class="container">
 
-      <div class="container">
-          <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                      <div class="panel panel-info">
-                          <div class="panel-heading">
-                              <div class="panel-title font-weight-bold">Registrieren</div>
-                              <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="login.php">Login</a></div>
-                          </div>
+  <div class="container">
+    <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+            <div class="panel-title font-weight-bold">Registrieren</div>
+            <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="login.php">Login</a></div>
+        </div>
 
-                          <div style="padding-top:30px" class="panel-body" >
-                              <form id="signupform" class="form-horizontal" role="form">
+        <div style="padding-top:30px" class="panel-body" >
+            <form id="signupform" class="form-horizontal needs-validation" role="form" method="post" novalidate>
 
-                                  <div id="signupalert" style="display:none" class="alert alert-danger">
-                                      <p>Error:</p>
-                                      <span></span>
-                                  </div>
+                <div class="form-group row">
+                  <div class="col-md-3">
+                      <label for="email" class="col-md-3 control-label">E-Mail</label>
+                  </div>
+                  <div class="col-md-9">
+                      <input type="text" class="form-control" name="email" placeholder="E-Mail Addresse" required>
+                  </div>
+                  <div class="valid-feedback">Korrekt.</div>
+                  <div class="invalid-feedback">Bitte fülle dieses Feld aus.</div>
+                </div>
 
+                <div class="form-group row">
+                  <div class="col-md-3">
+                      <label for="firstname" class="col-md-3 control-label">Vorname</label>
+                  </div>
+                  <div class="col-md-9">
+                      <input type="text" class="form-control" name="firstname" placeholder="Max" required>
+                  </div>
+                  <div class="valid-feedback">Korrekt.</div>
+                  <div class="invalid-feedback">Bitte fülle dieses Feld aus.</div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-3">
+                      <label for="lastname" class="col-md-3 control-label">Nachname</label>
+                  </div>
+                  <div class="col-md-9">
+                      <input type="text" class="form-control" name="lastname" placeholder="Mustermann" required>
+                  </div>
+                  <div class="valid-feedback">Korrekt.</div>
+                  <div class="invalid-feedback">Bitte fülle dieses Feld aus.</div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-3">
+                      <label for="lastname" class="col-md-3 control-label">Username</label>
+                  </div>
+                  <div class="col-md-9">
+                      <input type="text" class="form-control" name="username" placeholder="z. B.: maxmuster123" required>
+                  </div>
+                  <div class="valid-feedback">Korrekt.</div>
+                  <div class="invalid-feedback">Bitte fülle dieses Feld aus.</div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-3">
+                      <label for="password" class="col-md-3 control-label">Passwort</label>
+                  </div>
+                  <div class="col-md-9">
+                      <input type="password" class="form-control" name="password" placeholder="sicheres Passwort" required>
+                  </div>
+                  <div class="valid-feedback">Korrekt.</div>
+                  <div class="invalid-feedback">Bitte fülle dieses Feld aus.</div>
+                </div>
 
-
-                                  <div class="form-group row">
-                                      <div class="col-md-3">
-                                          <label for="email" class="col-md-3 control-label">E-Mail</label>
-                                      </div>
-                                      <div class="col-md-9">
-                                          <input type="text" class="form-control" name="email" placeholder="E-Mail Addresse">
-                                      </div>
-                                  </div>
-
-                                  <div class="form-group row">
-                                      <div class="col-md-3">
-                                          <label for="firstname" class="col-md-3 control-label">Vorname</label>
-                                      </div>
-                                      <div class="col-md-9">
-                                          <input type="text" class="form-control" name="firstname" placeholder="Max">
-                                      </div>
-                                  </div>
-                                  <div class="form-group row">
-                                      <div class="col-md-3">
-                                          <label for="lastname" class="col-md-3 control-label">Nachname</label>
-                                      </div>
-                                      <div class="col-md-9">
-                                          <input type="text" class="form-control" name="lastname" placeholder="Mustermann">
-                                      </div>
-                                  </div>
-                                  <div class="form-group row">
-                                      <div class="col-md-3">
-                                          <label for="lastname" class="col-md-3 control-label">Username</label>
-                                      </div>
-                                      <div class="col-md-9">
-                                          <input type="text" class="form-control" name="username" placeholder="z. B.: maxmuster123">
-                                      </div>
-                                  </div>
-                                  <div class="form-group row">
-                                      <div class="col-md-3">
-                                          <label for="password" class="col-md-3 control-label">Passwort</label>
-                                      </div>
-                                      <div class="col-md-9">
-                                          <input type="password" class="form-control" name="passwd" placeholder="sicheres Passwort">
-                                      </div>
-                                  </div>
-
-                                  <div class="form-group">
-                                      <!-- Button -->
-                                      <div class="col-md-offset-3 col-md-9">
-                                          <button id="btn-signup" type="button" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Registrieren</button>
-
-                                      </div>
-                                  </div>
-
-
-                              </form>
-                           </div>
-                      </div>
-
+                <div class="form-group">
+                    <!-- Button -->
+                  <div class="col-md-offset-3 col-md-9">
+                      <button id="btn-signup" type="submit" name="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Registrieren</button>
+                  </div>
+                </div>
+              </form>
            </div>
-      </div>
-
+        </div>
+     </div>
+  </div>
 
 </main>
 
