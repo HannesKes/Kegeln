@@ -1,3 +1,31 @@
+<?php
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/db.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/user.php';
+
+$loggedin = false;
+
+// Instantiate database
+$database = new Database();
+$db = $database->getConnection();
+
+// Instantiate User object if a user is logged in
+if (isset($_SESSION['session_id'])) {
+  $loggedin_user = new User($db);
+  $loggedin_user->setId($_SESSION['session_id']);
+  $loggedin = true;
+}
+
+// Redirects to the set redirect_page so people can not visit sites they are not supposed to
+if(($redirect_when_loggedin == true) && ($loggedin == true)){
+  header("Location: $redirect_page?errorcode=2");
+  exit();
+} elseif (($redirect_when_loggedout == true) && ($loggedin == false)){
+  header("Location: $redirect_page?errorcode=1");
+  exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="de">
   <head>
