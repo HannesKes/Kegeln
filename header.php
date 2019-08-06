@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Startseite</title>
+    <title>Bierpumpen</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="media/beer.jpg">
   </head>
   <body>
 
@@ -23,9 +24,6 @@
 			    <ul class="navbar-nav mr-auto">
 			      <li class="nav-item active">
 			        <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
-			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link" href="#">Blog</a>
 			      </li>
 			      <li class="nav-item">
 			        <a class="nav-link" href="#">Kontakt</a>
