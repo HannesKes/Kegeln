@@ -4,8 +4,6 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/user.php';
 
 function signupUser() {
 
-  echo "<br/>Signup_Inc<br/>";
-
   $database = new Database();
   $db = $database->getConnection();
 
@@ -31,7 +29,12 @@ function signupUser() {
     // login user
     $user_ID = $user->getId();
     $_SESSION['session_id'] = $user_ID;
-    header("Location: ../index.php");
+    // TODO: diese Meldung muss noch woanders eingebaut werden
+    ?> <div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>Erfolg!</strong> Registrierung erfolgreich. Warten auf Bestätigung durch autorisierte Person.
+    </div> <?php
+    header("Location: /Kegeln/index.php");
     exit();
   } else {
     throw new Exception('Die Registrierung war leider nicht erfolgreich. Bitte probiere es erneut.');

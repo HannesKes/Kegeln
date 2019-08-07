@@ -56,7 +56,7 @@ class User {
   public function create() {
     // Prepares query
     $query = "INSERT INTO " . User::$table_name . " SET firstname=:firstname, lastname=:lastname,
-      username=:username, email=:email, password=:password";
+      username=:username, email=:email, password=:password, isNew=:isNew";
     $stmt = $this->db->prepare($query);
 
     // Sets the variables in the query to the corresponding attribute values of the user object
@@ -65,6 +65,7 @@ class User {
     $stmt->bindParam(":username", $this->username);
     $stmt->bindParam(":email", $this->email);
     $stmt->bindParam(":password", $this->password);
+    $stmt->bindParam(":isNew", $this->isNew);
 
     // If the execution of the query is successful return true and set the ID of the user object
     // To the one of the newly created record in the database.
@@ -156,7 +157,7 @@ class User {
     $user->setUsername($row['username']);
     $user->setEmail($row['email']);
     $user->setpassword($row['password']);
-    $user->setIsAdmin($row['isNew']);
+    $user->setIsNew($row['isNew']);
   }
 
   // Getter and Setter methods
@@ -216,7 +217,7 @@ class User {
   public function setIsNew($newIsNew){
     $this->isNew = htmlspecialchars(strip_tags($newIsNew));
   }
-  
+
   // End of Getter and Setter Methods
 }
 ?>
