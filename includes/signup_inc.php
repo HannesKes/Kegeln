@@ -4,8 +4,6 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/user.php';
 
 function signupUser() {
 
-  echo "<br/>Signup_Inc<br/>";
-
   $database = new Database();
   $db = $database->getConnection();
 

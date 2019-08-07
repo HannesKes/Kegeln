@@ -9,6 +9,21 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   $redirect_page = 'index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
+  include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/login_inc.php';
+
+  //calls loginUser function when the login button is pressed. Displays error message if an
+  //Exception is thrown during function call
+  if (isset($_POST['submit'])) {
+    try {
+      loginUser($db, $user);
+    } catch (Exception $e) { ?>
+      <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Fehler!</strong> <?php echo $e->getMessage(); ?>
+      </div>
+    <?php
+    }
+  }
 ?>
 
 <main role="main" class="container">
@@ -23,18 +38,16 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
         <div style="padding-top:30px" class="panel-body" >
 
-          <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-
-          <form id="loginform" class="form-horizontal" role="form">
+          <form id="loginform" class="form-horizontal was-validated" method="POST" role="form" novalidate>
 
             <div style="margin-bottom: 25px" class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-              <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="Username">
+              <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="Username" required>
             </div>
 
             <div style="margin-bottom: 25px" class="input-group">
               <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-              <input id="login-password" type="password" class="form-control" name="password" placeholder="Passwort">
+              <input id="login-password" type="password" class="form-control" name="password" placeholder="Passwort" required>
             </div>
 
             <div class="input-group">
@@ -48,7 +61,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
             <div style="margin-top:10px" class="form-group">
                 <!-- Button -->
               <div class="col-sm-12 controls">
-                <a id="btn-login" href="#" class="btn btn-success">Login  </a>
+                <button id="login-btn" type="submit" name="submit" class="btn btn-success">Login</button>
               </div>
             </div>
 
@@ -58,7 +71,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
                   Du hast noch keinen Account?
                   <a href="signup.php">
                   Hier registrieren! (Nur für Bierpumpen...)
-                    </a>
+                  </a>
                 </div>
               </div>
             </div>

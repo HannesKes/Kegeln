@@ -13,7 +13,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
   if (isset($_POST['submit'])) {
     try {
-      signupUser(); 
+      signupUser();
     } catch (Exception $e) { ?>
       <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -35,7 +35,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
         </div>
 
         <div style="padding-top:30px" class="panel-body" >
-            <form id="signupform" class="form-horizontal needs-validation" role="form" method="post" novalidate>
+            <form id="signupform" class="form-horizontal was-validated" role="form" method="post" novalidate>
 
                 <div class="form-group row">
                   <div class="col-md-3">
