@@ -3,6 +3,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/database/db.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/user.php';
 
 $loggedin = false;
+$isNew = false;
 
 // Instantiate database
 $database = new Database();
@@ -12,7 +13,11 @@ $db = $database->getConnection();
 if (isset($_SESSION['session_id'])) {
   $loggedin_user = new User($db);
   $loggedin_user->setId($_SESSION['session_id']);
+  $loggedin_user->readOne($db);
   $loggedin = true;
+  if($loggedin_user->getIsNew()==1){
+    $isNew = true;
+  }
 }
 
 // Redirects to the set redirect_page so people can not visit sites they are not supposed to
@@ -58,11 +63,16 @@ if(($redirect_when_loggedin == true) && ($loggedin == true)){
 			        <a class="nav-link" href="#">Kontakt</a>
 			      </li>
 			      <li class="nav-item">
-			        <a class="nav-link" href="login.php">Intern</a>
+			        <a class="nav-link" href="intern.php">Intern</a>
 			      </li>
 			      <li class="nav-item">
 			        <a class="nav-link" href="impressum.php">Impressum</a>
 			      </li>
+            <?php if ($loggedin){ ?>
+              <li class="nav-item">
+                <a class="nav-link" href="includes/logout_inc.php?logout=true">Abmelden</a>
+              </li>
+            <?php } ?>
 			    </ul>
 			  </div>
 			</nav>

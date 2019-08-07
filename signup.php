@@ -11,20 +11,9 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/signup_inc.php';
 
-  echo "Post: <br/>";
-
-  foreach($_POST as $schluessel => $wert)
-{
-    echo $schluessel, " ", $wert, "<br />";
-}  
-
   if (isset($_POST['submit'])) {
     try {
-      signupUser(); ?>
-      <div class="alert alert-success alert-dismissible">
-      <button type="button" class="close" data-dismiss="alert">&times;</button>
-      <strong>Erfolg!</strong> Registrierung erfolgreich. Warten auf Bestätigung durch autorisierte Person.
-    </div> <?php
+      signupUser(); 
     } catch (Exception $e) { ?>
       <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
