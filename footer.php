@@ -2,17 +2,14 @@
 <footer class="footer font-small fixed-bottom" style="background-color: #353535;">
   <div class="container">
     <div class="row">
-      <div class="col-sm">
+      <div class="col-sm-4 d-none d-sm-block">
         <!-- no text in first column -->
       </div>
-      <div class="col-sm">
-        <!-- no text in second column -->
-      </div>
-      <div class="col-sm">
+      <div class="col-sm-2 d-none d-sm-block">
         <!-- symbols -->
         <a href="https://www.instagram.com/die_bierpumpen/" class="fa fa-instagram "></a>
       </div>
-      <div class="col-sm">
+      <div class="col-sm-6 col-xs-12">
         <!-- Copyright -->
         <div class="footer-copyright text-center text-muted">© 2019 Copyright
           <a class="text-white"href="https://bierpumpen.de">  Bierpumpen.de</a>
