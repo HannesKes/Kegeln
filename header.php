@@ -47,13 +47,16 @@ if(($redirect_when_loggedin == true) && ($loggedin == true)){
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="media/beer.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+
   </head>
   <body>
 
   	<header>
-	    <nav class="navbar sticky-top navbar-expand-lg navbar-dark" style="background-color: #353535;">
-			  <a class="navbar-brand" href="#"><img src="media/beer.jpg" width="40" height="40" alt=""></a>
+	    <nav class="navbar sticky-top navbar-expand-md navbar-dark" style="background-color: #353535;">
+			  <a class="navbar-brand" href="index.php"><img src="media/beer.jpg" width="40" height="40" alt=""></a>
 			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			    <span class="navbar-toggler-icon"></span>
 			  </button>
@@ -84,3 +87,8 @@ if(($redirect_when_loggedin == true) && ($loggedin == true)){
 			  </div>
 			</nav>
 		</header>
+
+<div class="d-none d-lg-block">
+<img src="media/kegel links.png" align="left">
+<img src="media/kegel rechts.png" align="right">
+</div>
