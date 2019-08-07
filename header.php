@@ -40,10 +40,6 @@ if(($redirect_when_loggedin == true) && ($loggedin == true)){
     <title>Bierpumpen</title>
 
     <!-- Bootstrap -->
-
-    <!-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
-
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="media/beer.jpg">
@@ -67,7 +63,7 @@ if(($redirect_when_loggedin == true) && ($loggedin == true)){
 			        <a class="nav-link" href="index.php">Home<span class="sr-only">(current)</span></a>
 			      </li>
 			      <li class="nav-item">
-			        <a class="nav-link" href="#">Kontakt</a>
+			        <a class="nav-link" href="contact.php">Kontakt</a>
 			      </li>
 			      <li class="nav-item">
 			        <a class="nav-link" href="intern.php">Intern</a>

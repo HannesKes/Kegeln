@@ -3,7 +3,7 @@
 class database {
   // Variables of database objects
   private $host = "localhost";
-  private $db_name = "kegeldb";
+  private $db_name = "k78222_kegeldb";
   private $username = "root";
   private $password = "";
   public $db;
