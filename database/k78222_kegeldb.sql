@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 07. Aug 2019 um 17:56
+-- Erstellungszeit: 07. Aug 2019 um 18:47
 -- Server-Version: 10.1.38-MariaDB
 -- PHP-Version: 7.3.3
 
@@ -19,10 +19,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Datenbank: `kegeldb`
+-- Datenbank: `k78222_kegeldb`
 --
-CREATE DATABASE IF NOT EXISTS `kegeldb` DEFAULT CHARACTER SET utf8 COLLATE utf8_german2_ci;
-USE `kegeldb`;
+CREATE DATABASE IF NOT EXISTS `k78222_kegeldb` DEFAULT CHARACTER SET utf8 COLLATE utf8_german2_ci;
+USE `k78222_kegeldb`;
 
 -- --------------------------------------------------------
 

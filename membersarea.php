@@ -9,6 +9,11 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   $redirect_page = 'index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
+
+  if($isNew){
+    header("Location: /Kegeln/index.php?errorcode=3");
+  }
+
 ?>
 
 <main role="main" class="container d-none d-sm-block"> <!-- content for larger devices -->

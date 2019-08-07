@@ -24,7 +24,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
     </div>
   <?php
   } else {
-    echo "Hier ensteht der interne Bereich.";
+    header("Location: membersarea.php");
   }
   ?>
 
