@@ -68,10 +68,13 @@ if(($redirect_when_loggedin == true) && ($loggedin == true)){
 			      <li class="nav-item">
 			        <a class="nav-link" href="impressum.php">Impressum</a>
 			      </li>
+          </ul>
             <?php if ($loggedin){ ?>
-              <li class="nav-item">
-                <a class="nav-link" href="includes/logout_inc.php?logout=true">Abmelden</a>
-              </li>
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="includes/logout_inc.php?logout=true">Abmelden</a>
+                </li>
+              </ul>
             <?php } ?>
 			    </ul>
 			  </div>
