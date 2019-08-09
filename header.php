@@ -10,11 +10,15 @@ $database = new Database();
 $db = $database->getConnection();
 
 // Instantiate User object if a user is logged in
+$userid = "";
+$username = "";
 if (isset($_SESSION['session_id'])) {
   $loggedin_user = new User($db);
   $loggedin_user->setId($_SESSION['session_id']);
   $loggedin_user->readOne($db);
   $loggedin = true;
+  $userid = $loggedin_user->getId();
+  $username = $loggedin_user->getUsername();
   if($loggedin_user->getIsNew()==1){
     $isNew = true;
   }
@@ -22,7 +26,7 @@ if (isset($_SESSION['session_id'])) {
 
 // Redirects to the set redirect_page so people can not visit sites they are not supposed to
 if(($redirect_when_loggedin == true) && ($loggedin == true)){
-  header("Location: $redirect_page?errorcode=2");
+  header("Location: $redirect_page 2");
   exit();
 } elseif (($redirect_when_loggedout == true) && ($loggedin == false)){
   header("Location: $redirect_page?errorcode=1");
@@ -68,6 +72,15 @@ if(($redirect_when_loggedin == true) && ($loggedin == true)){
 			      <li class="nav-item">
 			        <a class="nav-link" href="intern.php">Intern</a>
 			      </li>
+            <?php
+            if ($username=="admin" or $userid=="1"){
+              ?>
+              <li class="nav-item">
+                <a class="nav-link" href="accept.php">Neue Nutzer</a>
+              </li>
+              <?php
+            }
+            ?>
 			      <li class="nav-item">
 			        <a class="nav-link" href="impressum.php">Impressum</a>
 			      </li>
