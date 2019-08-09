@@ -101,6 +101,40 @@ class User {
     }
   }
 
+  // Updates the DB using the id of the object
+  public static function accept($db, $id) {
+    // Prepares query
+    $query = "UPDATE " . User::$table_name . " SET isNew='0' WHERE id =:id";
+    $stmt = $db->prepare($query);
+
+    // Sets the variables in the query to the corresponding attribute values of the user object
+    $stmt->bindParam(':id', $id);
+
+    // Execute the query and return true if the execution was successful
+    if($stmt->execute()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // deletes an object from the database using the given id
+  public static function delete($db, $id) {
+    // Prepares query
+    $query = "DELETE FROM " . User::$table_name . " WHERE id =:id";
+    $stmt = $db->prepare($query);
+
+    // Sets the variables in the query to the corresponding attribute values of the user object
+    $stmt->bindParam(':id', $id);
+
+    // Execute the query and return true if the execution was successful
+    if($stmt->execute()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // Checks the database for multiple criteria the username has to
   // Fulfill to be a valid username. If not an Exception with the corresponding message is thrown.
   public static function isUsernameValid($db, $username) {
