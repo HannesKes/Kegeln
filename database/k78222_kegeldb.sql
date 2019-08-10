@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 07. Aug 2019 um 18:47
+-- Erstellungszeit: 10. Aug 2019 um 16:08
 -- Server-Version: 10.1.38-MariaDB
--- PHP-Version: 7.3.3
+-- PHP-Version: 7.3.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -27,9 +27,69 @@ USE `k78222_kegeldb`;
 -- --------------------------------------------------------
 
 --
+-- Tabellenstruktur für Tabelle `games`
+--
+-- Erstellt am: 10. Aug 2019 um 13:50
+--
+
+DROP TABLE IF EXISTS `games`;
+CREATE TABLE `games` (
+  `id` int(11) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+
+--
+-- RELATIONEN DER TABELLE `games`:
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `game_user`
+--
+-- Erstellt am: 10. Aug 2019 um 13:57
+--
+
+DROP TABLE IF EXISTS `game_user`;
+CREATE TABLE `game_user` (
+  `id` int(11) NOT NULL,
+  `game` int(11) NOT NULL,
+  `user` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+
+--
+-- RELATIONEN DER TABELLE `game_user`:
+--   `game`
+--       `games` -> `id`
+--   `user`
+--       `users` -> `id`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `payments`
+--
+-- Erstellt am: 10. Aug 2019 um 13:53
+--
+
+DROP TABLE IF EXISTS `payments`;
+CREATE TABLE `payments` (
+  `id` int(11) NOT NULL,
+  `description` varchar(64) COLLATE utf8_german2_ci NOT NULL,
+  `amount` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+
+--
+-- RELATIONEN DER TABELLE `payments`:
+--
+
+-- --------------------------------------------------------
+
+--
 -- Tabellenstruktur für Tabelle `users`
 --
--- Erstellt am: 06. Aug 2019 um 18:40
+-- Erstellt am: 10. Aug 2019 um 13:46
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -54,17 +114,57 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `firstname`, `lastname`, `isNew`) VALUES
 (1, 'HanKes', '$2y$10$nvV6tDPxWBTK2CSM4jbILeaw48GUlnh89ernGaatddp.WbsQXxrlC', 'hannes.kessling@gmail.com', 'Hannes', 'Keßling', 0),
 (2, 'Tester1', '$2y$10$7691kLH.LwKra54KGQ1Yp.JWNkxtU9cexDPHyfc/tMBMkUkIeyaTm', 'test@test.test', 'Test', 'Testermann', 1),
-(3, 'Tester2', '$2y$10$dGX8rE1TZV8C8Zy2FHUOfu.06ajoR8P/3Ch.B6jTlZm4AO23XX7Z6', 'Test2@test.de', 'Testi', 'Testermann', 1),
+(3, 'Tester2', '$2y$10$dGX8rE1TZV8C8Zy2FHUOfu.06ajoR8P/3Ch.B6jTlZm4AO23XX7Z6', 'Test2@test.de', 'Testi', 'Testermann', 0),
 (4, 'Tester3', '$2y$10$bjcnPuD6QMxQl.sY2BiYdeS8HEdggOVLWinaugNGzEiApz5J7ME/S', 'Test2@test.de', 'Tester', 'Testermann', 1),
-(5, 'Furz', '$2y$10$s6sJdJ2ab.X/2Z0h5uzgjuFmVLxDod.Oh0doSVAGJwXuTqKAZDm4C', 'ABC@bombe.de', 'Testaa', 'Testamann', 1),
-(6, 'Arsch123', '$2y$10$Mb/ATna0MNLEoNkA74eoVeNcWCu4UzoIwhIdMkpYNVFRwwx3YfRwm', 'niko@stinkt.hart', 'Bääääääh', 'Kotz', 1),
-(7, '', '$2y$10$e.eIWy9kD0XMhgVGS3Lz0.IJYIL/th5wy3hvEoUBN8Pmu5a.AOIJ.', '', '', '', 1),
-(8, 'a', '$2y$10$NXUfeUHCjEuLSEdSQykdV.JFqQZSdx4DlrgcKmMdHMASA2haVkFhO', '', '', '', 1),
-(9, 'sdfsdf', '$2y$10$AZuPBytTqBbwFs1H/bFTy.wULiwAw1/8tInuMstU3NN9lbEXOMxc.', 'dsfsf', 'sfsdfs', 'sfdsfsd', 1);
+(5, 'Furz', '$2y$10$s6sJdJ2ab.X/2Z0h5uzgjuFmVLxDod.Oh0doSVAGJwXuTqKAZDm4C', 'ABC@bombe.de', 'Testaa', 'Testamann', 0),
+(6, 'Arsch123', '$2y$10$Mb/ATna0MNLEoNkA74eoVeNcWCu4UzoIwhIdMkpYNVFRwwx3YfRwm', 'niko@stinkt.hart', 'Bääääääh', 'Kotz', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `user_payment`
+--
+-- Erstellt am: 10. Aug 2019 um 13:57
+--
+
+DROP TABLE IF EXISTS `user_payment`;
+CREATE TABLE `user_payment` (
+  `id` int(11) NOT NULL,
+  `user` int(11) NOT NULL,
+  `payment` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+
+--
+-- RELATIONEN DER TABELLE `user_payment`:
+--   `payment`
+--       `payments` -> `id`
+--   `user`
+--       `users` -> `id`
+--
 
 --
 -- Indizes der exportierten Tabellen
 --
+
+--
+-- Indizes für die Tabelle `games`
+--
+ALTER TABLE `games`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `game_user`
+--
+ALTER TABLE `game_user`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `game_user-game` (`game`),
+  ADD KEY `game_user-user` (`user`);
+
+--
+-- Indizes für die Tabelle `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indizes für die Tabelle `users`
@@ -73,14 +173,64 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indizes für die Tabelle `user_payment`
+--
+ALTER TABLE `user_payment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_payment-payment` (`payment`),
+  ADD KEY `user_payment-user` (`user`);
+
+--
 -- AUTO_INCREMENT für exportierte Tabellen
 --
+
+--
+-- AUTO_INCREMENT für Tabelle `games`
+--
+ALTER TABLE `games`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `game_user`
+--
+ALTER TABLE `game_user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT für Tabelle `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT für Tabelle `user_payment`
+--
+ALTER TABLE `user_payment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints der exportierten Tabellen
+--
+
+--
+-- Constraints der Tabelle `game_user`
+--
+ALTER TABLE `game_user`
+  ADD CONSTRAINT `game_user-game` FOREIGN KEY (`game`) REFERENCES `games` (`id`),
+  ADD CONSTRAINT `game_user-user` FOREIGN KEY (`user`) REFERENCES `users` (`id`);
+
+--
+-- Constraints der Tabelle `user_payment`
+--
+ALTER TABLE `user_payment`
+  ADD CONSTRAINT `user_payment-payment` FOREIGN KEY (`payment`) REFERENCES `payments` (`id`),
+  ADD CONSTRAINT `user_payment-user` FOREIGN KEY (`user`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
