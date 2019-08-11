@@ -19,7 +19,16 @@ body {
     line-height: 60px; /* Vertically center the text there */
     background-color: #f5f5f5;
   }
-/* } */
+@media (min-width: 992px) {
+  .w-login {
+    width: 50% !important
+  }
+}
+@media (max-width: 991px) {
+  .w-login {
+    width: 100% !important
+  }
+}
 .fa {
   padding: 10px;
   font-size: 30px;

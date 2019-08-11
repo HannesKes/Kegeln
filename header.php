@@ -67,9 +67,6 @@ if(($redirect_when_loggedin == true) && ($loggedin == true)){
 			        <a class="nav-link" href="index.php">Home<span class="sr-only">(current)</span></a>
 			      </li>
 			      <li class="nav-item">
-			        <a class="nav-link" href="contact.php">Kontakt</a>
-			      </li>
-			      <li class="nav-item">
 			        <a class="nav-link" href="intern.php">Intern</a>
 			      </li>
             <?php
