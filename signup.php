@@ -26,7 +26,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
 <main role="main" class="container">
 
-  <div class="container w-50">
+  <div class="container w-login">
     <div id="signupbox" style="margin-top:50px" class="mainbox justify-content-center">
       <div class="panel panel-info">
         <div class="panel-heading">
