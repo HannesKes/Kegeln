@@ -26,12 +26,14 @@ if (isset($_SESSION['session_id'])) {
 
 // Redirects to the set redirect_page so people can not visit sites they are not supposed to
 if(($redirect_when_loggedin == true) && ($loggedin == true)){
-  header("Location: $redirect_page 2");
+  header("Location: $redirect_page?errorcode=2");
   exit();
 } elseif (($redirect_when_loggedout == true) && ($loggedin == false)){
   header("Location: $redirect_page?errorcode=1");
   exit();
 }
+
+$users = User::readNew($db);
 
 ?>
 
@@ -71,9 +73,16 @@ if(($redirect_when_loggedin == true) && ($loggedin == true)){
 			      </li>
             <?php
             if ($username=="admin" or $userid=="1"){
+              if(!empty($users)){
+                ?>
+                <li class="nav-item">
+                  <a class="nav-link" href="accept.php">Neue Nutzer</a>
+                </li>
+                <?php
+              }
               ?>
               <li class="nav-item">
-                <a class="nav-link" href="accept.php">Neue Nutzer</a>
+                <a class="nav-link" href="insert_game.php">Neues Spiel</a>
               </li>
               <?php
             }

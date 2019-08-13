@@ -20,8 +20,6 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
     User::delete($db, $_POST["user_id"]);
   }
 
-  $users = User::readNew($db);
-
   if(empty($users)){
     header("Location: /Kegeln/index.php?errorcode=4");
   }

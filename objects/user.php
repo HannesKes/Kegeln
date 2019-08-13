@@ -163,7 +163,7 @@ class User {
   // Returns an array containing all User objects with values from the Database.
   public static function readAll($db) {
     // Prepares and executes the query.
-    $query = "SELECT * From " . User::$table_name . "";
+    $query = "SELECT * From " . User::$table_name . " order by username";
 
     $stmt = $db->prepare($query);
     $stmt->execute();
