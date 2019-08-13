@@ -28,8 +28,6 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
 ?>
 
-<main role="main" class="container w-50">
-
 <!-- <br/>
 <table class="table-bordered table">
   <tr>
@@ -49,48 +47,42 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   </tr>
 <table> -->
 
-  <br/>
-  <center><h1>Neu registrierte Nutzer</h1></center>
-  <br/><br/>
+<center><h1>Neu registrierte Nutzer</h1></center>
+<br/><br/>
 
-  <?php
+<?php
 
-  foreach($users as $user)
-  {
+foreach($users as $user)
+{
 
-    ?>
-    <!-- <div class="justify-content-center"> -->
-      <table class="table table-bordered">
-        <tr>
-          <td colspan="2"><?php echo $user->getUsername(); ?></td>
-          <td>
-            <form action="" method="post">
-              <input type="hidden" name="user_id" value="<?php echo $user->getId(); ?>">
-              <input type="submit" name="accept" class="float-right btn btn-success" value="Annehmen">
-            </form>
-          </td>
-        </tr>
-        <tr>
-          <td><?php echo $user->getFirstname(); ?></td>
-          <td><?php echo $user->getLastname(); ?></td>
-          <td>
-            <form action="" method="post">
-              <input type="hidden" name="user_id" value="<?php echo $user->getId(); ?>">
-              <input type="submit" name="delete" class="float-right btn btn-danger" value="Ablehnen">
-            </form>
-          </td>
-        </tr>
-      <table>
-    <!-- </div> -->
+  ?>
+  <!-- <div class="justify-content-center"> -->
+    <table class="table table-bordered">
+      <tr>
+        <td colspan="2"><?php echo $user->getUsername(); ?></td>
+        <td>
+          <form action="" method="post">
+            <input type="hidden" name="user_id" value="<?php echo $user->getId(); ?>">
+            <input type="submit" name="accept" class="float-right btn btn-success" value="Annehmen">
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td><?php echo $user->getFirstname(); ?></td>
+        <td><?php echo $user->getLastname(); ?></td>
+        <td>
+          <form action="" method="post">
+            <input type="hidden" name="user_id" value="<?php echo $user->getId(); ?>">
+            <input type="submit" name="delete" class="float-right btn btn-danger" value="Ablehnen">
+          </form>
+        </td>
+      </tr>
+    <table>
+  <!-- </div> -->
 
   <?php
 
   }
 
-  ?>
-
-</main>
-
-<?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/footer.php';
 ?>

@@ -4,6 +4,7 @@ html {
 }
 body {
   margin-bottom: 60px; /* Margin bottom by footer height */
+  background-image: url('media/beer.jpg'); /* wenn man dies in ein div unter style=" " packt, funktioniert es... */
 }
 /*
 .footer {
@@ -43,7 +44,7 @@ body {
 }
 .bg {
   /* The image used */
-  background-image: url("/media/kegeln.jpg");
+  background-image: url("media/kegeln.jpg");
 
   /* Full height */
   height: 100%;
@@ -52,4 +53,8 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.main {
+  background-color: #CCCCCC;
 }

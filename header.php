@@ -98,3 +98,6 @@ if(($redirect_when_loggedin == true) && ($loggedin == true)){
 <img src="media/kegel links.png" align="left">
 <img src="media/kegel rechts.png" align="right">
 </div>
+
+<main role="main" class="container">
+<br/>
