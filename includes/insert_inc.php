@@ -1,21 +1,13 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/database/db.php';
-include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/user.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
 
 function insertGame() {
-
-  // echo "insert Game<br/><br/>";
-  //
-  // echo "Post: <br/>";
-  // foreach($_POST as $schluessel => $wert)
-  // {
-  //     echo $schluessel, " ", $wert, "<br />";
-  // }  
 
   $database = new Database();
   $db = $database->getConnection();
 
-  $user = new User($db);
+  $game = new Game($db);
 
   //Set attributes of the new user object
   $game->setDate($_POST['date']);
