@@ -9,13 +9,14 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   $redirect_page = 'index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
+
+
+  //  style="background-image: url('Kegeln/media/kegeln.jpg'); background-color: 'CCCCCC'"
+
 ?>
 
-<main role="main" class="container">
 
   <!-- Background? Funzt nicht, ist schon im style.css -->
-
-</main>
 
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/footer.php';

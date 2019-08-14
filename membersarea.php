@@ -16,7 +16,8 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
 ?>
 
-<main role="main" class="container d-none d-sm-block"> <!-- content for larger devices -->
+<!-- <main role="main" class="container d-none d-sm-block">--> <!-- content for larger devices -->
+<div class="d-none d-sm-block">
 
   <div class="justify-content-left" style="padding-top:30px">
     <h4>Hallo Bierpumpe! <!-- User aus DB ziehen --></h4>
@@ -117,10 +118,11 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
     </div>
   </div>
 
+</div>
+<!-- </main> -->
 
-</main>
-
-<main role="main" class="container d-sm-none"> <!-- content for mobile devices -->
+<!-- <main role="main" class="container d-sm-none">--> <!-- content for mobile devices -->
+<div class="d-sm-none px-2">
   <div class="row justify-content-center d-block" style="padding-top:30px">
     <!-- Kopfbereich mit allen wichtigen Infos -->
     <h5>
@@ -212,7 +214,8 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
     </h5>
   </div>
 
-</main>
+</div>
+<!-- </main> -->
 
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/footer.php';
