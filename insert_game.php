@@ -30,14 +30,14 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
 <form method="post">
 
-  Datum:
+  Datum:*
   <input class="ml-2 pl-1" type="date" name="date" value="<?php echo $date; ?>" /><br/><br/>
 
-  Anwesend: <!-- Tabelle --> <br/><br/>
+  Anwesend:* TODO: hier noch Tabelle einfügen <!-- Tabelle --> <br/><br/>
 
 
   <div class="row">
-    Pumpenkönig:
+    Pumpenkönig:*
     <select class='form-control w-50 ml-2 pl-1' name='user_id'>
       <?php
       foreach ($allUsers as $user) { ?>
@@ -48,8 +48,11 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
     </select>
   </div><br/><br/>
 
-  Anzahl Pumpen:
+  Anzahl Pumpen:*
   <input class="pl-2" type="number" class="ml-2" name="number" value="0" min="0" /><br/><br/>
+
+  Nächstes Spiel: (TODO: Feld muss später komplett leer sein)
+  <input class="ml-2 pl-1" type="date" name="nextGame" /><br/><br/>
 
   <!-- Button -->
   <input type="submit" name="submit" value="Speichern" class="btn btn-info" /><br/>

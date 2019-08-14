@@ -13,6 +13,9 @@ function insertGame() {
   $game->setDate($_POST['date']);
   $game->setKing($_POST['user_id']);
   $game->setAmount($_POST['number']);
+  if (isset($_POST['nextGame'])){
+    $game->setNextGame($_POST['nextGame']);
+  }
 
   if ($game->create()) {
     // registration successful message
