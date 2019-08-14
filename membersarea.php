@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
   $page_title = "Bierpumpen";
 
   //You may always be on this page.
@@ -14,9 +15,15 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
     header("Location: /Kegeln/index.php?errorcode=3");
   }
 
+  $games = Game::readAll($db);
+
+  if(isset($_GET['date'])){
+    echo "Test: " . $_GET['date'];
+  } else {
+
 ?>
 
-<!-- <main role="main" class="container d-none d-sm-block">--> <!-- content for larger devices -->
+<!-- content for larger devices -->
 <div class="d-none d-sm-block">
 
   <div class="justify-content-left" style="padding-top:30px">
@@ -47,7 +54,16 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
           </tr>
           <tr>
             <th scope="row">Nächstes Treffen:</th>
-            <td>25.08.2019</td>
+            <td>
+              <?php
+                $game = Game::readLast($db);
+                if(!$game->getNextGame()==NULL){
+                  echo $game->getNextGame();
+                } else {
+                  echo "noch kein Spiel geplant";
+                }
+              ?>
+            </td>
           </tr>
           <tr>
             <td colspan="2" class="text-center"></td>
@@ -100,18 +116,22 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td colspan="2" class="text-center"><a href="#">Neuestes Treffen</a></td>
-            </tr>
-            <tr>
-              <td colspan="2" class="text-center"><a href="#">Treffen</a></td>
-            </tr>
-            <tr>
-              <td colspan="2" class="text-center"><a href="#">Treffen</a></td>
-            </tr>
-            <tr>
-              <td colspan="2" class="text-center"></td>
-            </tr>
+
+            <?php
+            foreach ($games as $game) {
+
+              // $date = date("d.m.Y", $game->getDate());
+              // TODO: Datum formatieren / mappen
+
+              ?>
+              <tr>
+                <td colspan="2" class="text-center"><a href="membersarea.php?date=<?php echo $game->getDate() ;?>"><?php echo $game->getDate() ;?></a></td>
+              </tr>
+              <?php
+
+            }
+            ?>
+
           </tbody>
         </table>
       </h5>
@@ -119,9 +139,8 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   </div>
 
 </div>
-<!-- </main> -->
 
-<!-- <main role="main" class="container d-sm-none">--> <!-- content for mobile devices -->
+<!-- content for mobile devices -->
 <div class="d-sm-none px-2">
   <div class="row justify-content-center d-block" style="padding-top:30px">
     <!-- Kopfbereich mit allen wichtigen Infos -->
@@ -215,8 +234,9 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   </div>
 
 </div>
-<!-- </main> -->
 
 <?php
+}
+
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/footer.php';
 ?>
