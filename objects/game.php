@@ -22,11 +22,11 @@ class Game {
   // After a game has been found the attributes of the game object are set using the data from the database.
   public function readOne() {
     if (!empty($this->id)){
-      $query = "SELECT * FROM " . Game::$table_name . " WHERE id=:id limit 0,1";
+      $query = "SELECT * FROM " . Game::$table_name . " WHERE id=:id LIMIT 0,1";
       $stmt = $this->db->prepare($query);
       $stmt->bindParam(":id", $this->id);
     } elseif (!empty($this->date)) {
-      $query = "SELECT * FROM " . Game::$table_name . " WHERE date=:date limit 0,1";
+      $query = "SELECT * FROM " . Game::$table_name . " WHERE date=:date LIMIT 0,1";
       $stmt = $this->db->prepare($query);
       $stmt->bindParam(":date", $this->date);
     } else {
@@ -39,7 +39,7 @@ class Game {
         return false;
       }
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
-      User::updateAttributes($this, $row);
+      Game::updateAttributes($this, $row);
       return true;
     } else {
       return false;
@@ -53,7 +53,7 @@ class Game {
       amount=:amount, nextGame=:nextGame";
     $stmt = $this->db->prepare($query);
 
-    // Sets the variables in the query to the corresponding attribute values of the user object
+    // Sets the variables in the query to the corresponding attribute values of the game object
     $stmt->bindParam(":date", $this->date);
     $stmt->bindParam(":king", $this->king);
     $stmt->bindParam(":amount", $this->amount);
@@ -76,7 +76,7 @@ class Game {
       amount=:amount, nextGame=:nextGame WHERE id =:id";
     $stmt = $this->db->prepare($query);
 
-    // Sets the variables in the query to the corresponding attribute values of the user object
+    // Sets the variables in the query to the corresponding attribute values of the game object
     $stmt->bindParam(":date", $this->date);
     $stmt->bindParam(":king", $this->king);
     $stmt->bindParam(":amount", $this->amount);
@@ -90,14 +90,47 @@ class Game {
     }
   }
 
-  public static function addDate($db, $id, $date){
+  // add date for nextGame to latest Game
+  public static function addDate($db, $date){
+    // get id of newest game
+    $game = Game::readLast($db);
+
     // Prepares query
     $query = "UPDATE " . Game::$table_name . " SET date=:date WHERE id =:id";
     $stmt = $db->prepare($query);
 
-    // Sets the variables in the query to the corresponding attribute values of the user object
-    $stmt->bindParam(":date", $this->date);
-    $stmt->bindParam(":id", $this->id);
+    // Sets the variables in the query to the corresponding attribute values of the game object
+    $stmt->bindParam(":date", $date);
+    $stmt->bindParam(":date", $game->getId());
+
+    // execute query. return false if execution failed.
+    if($stmt->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+  }
+
+  // returns the newest game from the database
+  public static function readLast($db) {
+    // Prepares and executes the query.
+    $query = "SELECT * from " . Game::$table_name . " ORDER BY date DESC LIMIT 0,1";
+
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+
+    // Executes the query. If no record was found return 0. Else update the Attributes of the Game Object.
+    $stmt->execute();
+    $count = $stmt->rowCount();
+    if($count == 0){
+      return 0;
+    }
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $game = new Game($db);
+    Game::updateAttributes($game, $row);
+
+    return $game;
   }
 
   // Returns an array containing all Game objects with values from the Database.
@@ -108,15 +141,15 @@ class Game {
     $stmt = $db->prepare($query);
     $stmt->execute();
 
-    // Create a User object array
+    // Create a Game object array
     $game_array = array();
 
     // Traverses the Resultset of the query Execution.
     // Adds a new element to the array for each record.
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-      $user = new Game($db);
+      $game = new Game($db);
       Game::updateAttributes($game, $row);
-      // Adds the User object to the array
+      // Adds the Game object to the array
       $game_array[] = $game;
     }
 

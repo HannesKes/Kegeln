@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
   $page_title = "Bierpumpen";
 
   //You may always be on this page.
@@ -47,7 +48,16 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
           </tr>
           <tr>
             <th scope="row">Nächstes Treffen:</th>
-            <td>25.08.2019</td>
+            <td>
+              <?php
+                $game = Game::readLast($db);
+                if(!$game->getNextGame()==NULL){
+                  echo $game->getNextGame();
+                } else {
+                  echo "noch kein Spiel geplant";
+                }
+              ?>
+            </td>
           </tr>
           <tr>
             <td colspan="2" class="text-center"></td>
