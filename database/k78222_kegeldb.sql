@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 10. Aug 2019 um 16:08
+-- Erstellungszeit: 14. Aug 2019 um 22:03
 -- Server-Version: 10.1.38-MariaDB
 -- PHP-Version: 7.3.4
 
@@ -29,18 +29,31 @@ USE `k78222_kegeldb`;
 --
 -- Tabellenstruktur für Tabelle `games`
 --
--- Erstellt am: 10. Aug 2019 um 13:50
+-- Erstellt am: 13. Aug 2019 um 20:21
 --
 
 DROP TABLE IF EXISTS `games`;
 CREATE TABLE `games` (
   `id` int(11) NOT NULL,
-  `date` date NOT NULL
+  `date` date NOT NULL,
+  `king` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `nextGame` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 --
 -- RELATIONEN DER TABELLE `games`:
+--   `king`
+--       `users` -> `id`
 --
+
+--
+-- Daten für Tabelle `games`
+--
+
+INSERT INTO `games` (`id`, `date`, `king`, `amount`, `nextGame`) VALUES
+(1, '2019-08-14', 6, 1, NULL),
+(2, '2019-08-15', 1, 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -124,18 +137,21 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `firstname`, `lastna
 --
 -- Tabellenstruktur für Tabelle `user_payment`
 --
--- Erstellt am: 10. Aug 2019 um 13:57
+-- Erstellt am: 13. Aug 2019 um 20:22
 --
 
 DROP TABLE IF EXISTS `user_payment`;
 CREATE TABLE `user_payment` (
   `id` int(11) NOT NULL,
   `user` int(11) NOT NULL,
-  `payment` int(11) NOT NULL
+  `payment` int(11) NOT NULL,
+  `game` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 --
 -- RELATIONEN DER TABELLE `user_payment`:
+--   `game`
+--       `games` -> `id`
 --   `payment`
 --       `payments` -> `id`
 --   `user`
@@ -150,7 +166,8 @@ CREATE TABLE `user_payment` (
 -- Indizes für die Tabelle `games`
 --
 ALTER TABLE `games`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `games_king` (`king`);
 
 --
 -- Indizes für die Tabelle `game_user`
@@ -178,7 +195,8 @@ ALTER TABLE `users`
 ALTER TABLE `user_payment`
   ADD PRIMARY KEY (`id`),
   ADD KEY `user_payment-payment` (`payment`),
-  ADD KEY `user_payment-user` (`user`);
+  ADD KEY `user_payment-user` (`user`),
+  ADD KEY `user_payment-game` (`game`);
 
 --
 -- AUTO_INCREMENT für exportierte Tabellen
@@ -188,7 +206,7 @@ ALTER TABLE `user_payment`
 -- AUTO_INCREMENT für Tabelle `games`
 --
 ALTER TABLE `games`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT für Tabelle `game_user`
@@ -206,7 +224,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT für Tabelle `user_payment`
@@ -219,6 +237,12 @@ ALTER TABLE `user_payment`
 --
 
 --
+-- Constraints der Tabelle `games`
+--
+ALTER TABLE `games`
+  ADD CONSTRAINT `games_king` FOREIGN KEY (`king`) REFERENCES `users` (`id`);
+
+--
 -- Constraints der Tabelle `game_user`
 --
 ALTER TABLE `game_user`
@@ -229,6 +253,7 @@ ALTER TABLE `game_user`
 -- Constraints der Tabelle `user_payment`
 --
 ALTER TABLE `user_payment`
+  ADD CONSTRAINT `user_payment-game` FOREIGN KEY (`game`) REFERENCES `games` (`id`),
   ADD CONSTRAINT `user_payment-payment` FOREIGN KEY (`payment`) REFERENCES `payments` (`id`),
   ADD CONSTRAINT `user_payment-user` FOREIGN KEY (`user`) REFERENCES `users` (`id`);
 COMMIT;
