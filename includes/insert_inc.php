@@ -4,6 +4,14 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/user.php';
 
 function insertGame() {
 
+  // echo "insert Game<br/><br/>";
+  //
+  // echo "Post: <br/>";
+  // foreach($_POST as $schluessel => $wert)
+  // {
+  //     echo $schluessel, " ", $wert, "<br />";
+  // }  
+
   $database = new Database();
   $db = $database->getConnection();
 
