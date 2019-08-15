@@ -92,20 +92,41 @@ class Game {
 
   // add date for nextGame to latest Game
   public static function addDate($db, $date){
+
     // get id of newest game
     $game = Game::readLast($db);
+    $id = $game->getId();
 
     // Prepares query
-    $query = "UPDATE " . Game::$table_name . " SET date=:date WHERE id =:id";
+    $query = "UPDATE " . Game::$table_name . " SET nextGame=:date WHERE id=:id";
     $stmt = $db->prepare($query);
 
     // Sets the variables in the query to the corresponding attribute values of the game object
     $stmt->bindParam(":date", $date);
-    $stmt->bindParam(":date", $game->getId());
+    $stmt->bindParam(":id", $id);
 
     // execute query. return false if execution failed.
     if($stmt->execute()) {
         return true;
+    } else {
+        return false;
+    }
+  }
+
+  //get the id vor a given date
+  public static function getIdForDate($db, $date){
+
+    // Prepares query
+    $query = "SELECT id FROM " . Game::$table_name . " WHERE date=:date";
+    $stmt = $db->prepare($query);
+
+    // Sets the variables in the query to the corresponding attribute values of the game object
+    $stmt->bindParam(":date", $date);
+
+    // execute query. return false if execution failed.
+    if($stmt->execute()) {
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['id'];
     } else {
         return false;
     }

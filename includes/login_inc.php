@@ -37,7 +37,7 @@ function loginUser ($db, User $user) {
         setcookie("identifier",$securitytoken->getIdentifier(),time()+(3600*24*365),'/'); //1 year
         setcookie("token",$securitytoken->getToken(),time()+(3600*24*365),'/'); //1 year
       }
-      header("Location: /Kegeln/index.php");
+      header("Location: /Kegeln/membersarea.php");
       exit();
     }
   } else {
