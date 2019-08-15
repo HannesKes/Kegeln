@@ -113,6 +113,25 @@ class Game {
     }
   }
 
+  //get the id vor a given date
+  public static function getIdForDate($db, $date){
+
+    // Prepares query
+    $query = "SELECT id FROM " . Game::$table_name . " WHERE date=:date";
+    $stmt = $db->prepare($query);
+
+    // Sets the variables in the query to the corresponding attribute values of the game object
+    $stmt->bindParam(":date", $date);
+
+    // execute query. return false if execution failed.
+    if($stmt->execute()) {
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['id'];
+    } else {
+        return false;
+    }
+  }
+
   // returns the newest game from the database
   public static function readLast($db) {
     // Prepares and executes the query.

@@ -1,7 +1,7 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
-  $page_title = "Bierpumpen";
+  $page_title = "Übersicht";
 
   //You may not be on this page when logged out.
   //Redirect to index page
@@ -18,8 +18,9 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
   $games = Game::readAll($db);
 
   if(isset($_GET['date'])){
-    echo "Test: " . $_GET['date'];
-  } else {
+    $id = Game::getIdForDate($db, $_GET['date']);
+    header("Location: /Kegeln/spiel.php?id=$id");
+  }
 
 ?>
 
@@ -236,7 +237,6 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
 </div>
 
 <?php
-}
 
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/footer.php';
 ?>
