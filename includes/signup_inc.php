@@ -27,13 +27,13 @@ function signupUser() {
     //registration successful message
 
     // login user
-    $user_ID = $user->getId();
-    $_SESSION['session_id'] = $user_ID;
+    // $user_ID = $user->getId();
+    // $_SESSION['session_id'] = $user_ID;
     // TODO: diese Meldung muss noch woanders eingebaut werden
-    ?> <div class="alert alert-success alert-dismissible">
+    ?> <!-- <div class="alert alert-success alert-dismissible">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <strong>Erfolg!</strong> Registrierung erfolgreich. Warten auf Bestätigung durch autorisierte Person.
-    </div> <?php
+    </div> --> <?php
     header("Location: /Kegeln/index.php");
     exit();
   } else {
