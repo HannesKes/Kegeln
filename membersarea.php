@@ -3,10 +3,10 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
   $page_title = "Bierpumpen";
 
-  //You may always be on this page.
-  //Redirect to profile page
+  //You may not be on this page when logged out.
+  //Redirect to index page
   $redirect_when_loggedin = false;
-  $redirect_when_loggedout = false;
+  $redirect_when_loggedout = true;
   $redirect_page = 'index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
