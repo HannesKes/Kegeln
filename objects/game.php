@@ -92,16 +92,18 @@ class Game {
 
   // add date for nextGame to latest Game
   public static function addDate($db, $date){
+
     // get id of newest game
     $game = Game::readLast($db);
+    $id = $game->getId();
 
     // Prepares query
-    $query = "UPDATE " . Game::$table_name . " SET date=:date WHERE id =:id";
+    $query = "UPDATE " . Game::$table_name . " SET nextGame=:date WHERE id=:id";
     $stmt = $db->prepare($query);
 
     // Sets the variables in the query to the corresponding attribute values of the game object
     $stmt->bindParam(":date", $date);
-    $stmt->bindParam(":date", $game->getId());
+    $stmt->bindParam(":id", $id);
 
     // execute query. return false if execution failed.
     if($stmt->execute()) {

@@ -1,6 +1,7 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/database/db.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/user.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
 
 $loggedin = false;
 $isNew = false;
@@ -19,8 +20,12 @@ if (isset($_SESSION['session_id'])) {
   $loggedin = true;
   $userid = $loggedin_user->getId();
   $username = $loggedin_user->getUsername();
+  $nextDate = "";
   if($loggedin_user->getIsNew()==1){
     $isNew = true;
+  } else {
+    $game = Game::readLast($db);
+    $nextGame =$game->getNextGame();
   }
 }
 
@@ -85,6 +90,13 @@ $users = User::readNew($db);
                 <a class="nav-link" href="insert_game.php">Neues Spiel</a>
               </li>
               <?php
+              if($nextGame==NULL){
+                ?>
+                <li class="nav-item">
+                  <a class="nav-link" href="update_game.php">Nächstes Spiel</a>
+                </li>
+                <?php
+              }
             }
             ?>
 			      <li class="nav-item">
