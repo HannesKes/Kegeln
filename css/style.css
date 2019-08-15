@@ -41,6 +41,7 @@ body {
 .fa-instagram {
   background: #353535;
   color: white;
+  text-decoration: none;
 }
 .bg {
   /* The image used */
