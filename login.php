@@ -6,6 +6,8 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   //Redirect to profile page
   $redirect_when_loggedin = true;
   $redirect_when_loggedout = false;
+  $redirect_when_new = false;
+  $redirect_when_no_admin = false;
   $redirect_page = 'index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';

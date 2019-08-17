@@ -7,7 +7,13 @@ function insertGame() {
   $database = new Database();
   $db = $database->getConnection();
 
+  $game = Game::readLast($db);
+  if ($game->getNextGame()==NULL){
+    throw new Exception("Es kann kein neues Spiel erstellt werden, wenn im alten Spiel noch kein nächstes Spiel festgelegt wurde. Du kannst das Datum <a href='update_game.php'>hier</a> ergänzen.");
+  }
+
   $game = new Game($db);
+  $next = false;
 
   //Set attributes of the new user object
   $game->setDate($_POST['date']);
@@ -15,16 +21,22 @@ function insertGame() {
   $game->setAmount($_POST['number']);
   if (isset($_POST['nextGame'])){
     $game->setNextGame($_POST['nextGame']);
+    $next = true;
   }
+
+
 
   if ($game->create()) {
     // registration successful message
 
-
-    header("Location: /Kegeln/index.php");
+    if(next){
+      header("Location: /Kegeln/index.php?message=2");
+    } else {
+      header("Location: /Kegeln/index.php?message=3");
+    }
     exit();
   } else {
-    throw new Exception('Es konnte kein neues Spiel erstellt werden. Bitte probiere es erneut. Es kann nicht mehrere Spiele an einem Tag geben.');
+    throw new Exception('Es konnte kein neues Spiel erstellt werden. Bitte versuchen Sie es erneut. Es kann nicht mehrere Spiele an einem Tag geben.');
   }
 }
 ?>

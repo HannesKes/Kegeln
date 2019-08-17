@@ -4,8 +4,10 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
   //You may not be on this page when you are logged in.
   //Redirect to profile page
-  $redirect_when_loggedin = false;
+  $redirect_when_loggedin = true;
   $redirect_when_loggedout = false;
+  $redirect_when_new = false;
+  $redirect_when_no_admin = false;
   $redirect_page = 'index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';

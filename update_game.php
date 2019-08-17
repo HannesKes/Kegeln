@@ -1,21 +1,21 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
-  $page_title = "Bierpumpen";
+  $page_title = "Nächstes Spiel";
 
   //You may not be on this pag when logged out.
   //Redirect to index page
   $redirect_when_loggedin = false;
   $redirect_when_loggedout = true;
+  $redirect_when_new = false;
+  $redirect_when_no_admin = true;
   $redirect_page = 'index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
 
-  if($isNew){
-    header("Location: /Kegeln/index.php?errorcode=3");
-  }
-
   if (isset($_POST['submit'])){
     Game::addDate($db, $_POST['date']);
+    header("Location: /Kegeln/index.php?message=5");
+    exit();
   }
 
   date_default_timezone_set("Europe/Berlin");
