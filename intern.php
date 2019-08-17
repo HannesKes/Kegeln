@@ -18,6 +18,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   <?php
   if (!$loggedin) {
     header("Location: /Kegeln/login.php");
+    exit();
   } elseif ($isNew) {
   ?>
     <div class="alert alert-danger mt-5">
