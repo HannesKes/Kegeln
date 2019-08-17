@@ -5,14 +5,15 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
 
 $loggedin = false;
 $isNew = false;
+$isAdmin = false;
 
 // Instantiate database
 $database = new Database();
 $db = $database->getConnection();
 
 // Instantiate User object if a user is logged in
-$userid = "";
-$username = "";
+$userid = ""; // TODO: wird das genutzt?
+$username = ""; // TODO: wird das genutzt?
 if (isset($_SESSION['session_id'])) {
   $loggedin_user = new User($db);
   $loggedin_user->setId($_SESSION['session_id']);
@@ -20,12 +21,15 @@ if (isset($_SESSION['session_id'])) {
   $loggedin = true;
   $userid = $loggedin_user->getId();
   $username = $loggedin_user->getUsername();
-  $nextDate = "";
+  $nextGame = NULL;
   if($loggedin_user->getIsNew()==1){
     $isNew = true;
   } else {
-    $game = Game::readLast($db);
-    $nextGame =$game->getNextGame();
+    $game = Game::readLast($db); // TODO: ???
+    $nextGame = $game->getNextGame(); // TODO: ???
+  }
+  if($loggedin_user->getIsAdmin()==1){
+    $isAdmin = true;
   }
 }
 
@@ -36,9 +40,105 @@ if(($redirect_when_loggedin == true) && ($loggedin == true)){
 } elseif (($redirect_when_loggedout == true) && ($loggedin == false)){
   header("Location: $redirect_page?errorcode=1");
   exit();
+} elseif (($redirect_when_new == true) && ($isNew == true)){
+  header("Location: $redirect_page?errorcode=3");
+  exit();
+} elseif (($redirect_when_no_admin == true) && ($isAdmin == false)){
+  header("Location: $redirect_page?errorcode=4");
+  exit();
 }
 
-$users = User::readNew($db);
+$users = User::readNew($db); // TODO: benötigt?
+
+if (strpos($_SERVER['PHP_SELF'], "accept.php")){
+  if(isset($_POST["accept"])){
+    User::accept($db, $_POST["user_id"]);
+  } elseif(isset($_POST["delete"])){
+    User::delete($db, $_POST["user_id"]);
+  }
+  $users = User::readNew($db);
+  if(empty($users)){
+    header("Location: /Kegeln/index.php?message=4");
+  }
+}
+
+// Waits for an errorcode to be sent and displays the correspondig message from the database.
+if(isset($_GET['errorcode'])) {
+
+  $message = "";
+
+  switch ($_GET['errorcode']) {
+    case "1":
+        // nur für eingeloggte Nutzer (Beispiel: Interner Bereich)
+        $message = "Sie haben keine Berechtigung, auf diese Seite zuzugreifen. Sie müssen sich zuerst anmelden.";
+        break;
+    case "2":
+        // nur ausgeloggte Nutzer dürfen auf diese Seite (Beispiel: SignUp)
+        $message = "Sie haben keine Berechtigung, auf diese Seite zuzugreifen.";
+        break;
+    case "3":
+        // registriert aber noch nicht bestätigt -> isNew = true
+        $message = "Sie müssen warten, bis ihre Registrierung bestätigt wurde, bevor Sie auf diese Seite zugreifen dürfen.";
+        break;
+    case "4":
+        // der angemeldete Nutzer ist kein Admin -> isAdmin = false
+        $message = "Sie müssen warten, bis ihre Registrierung bestätigt wurde, bevor Sie auf diese Seite zugreifen dürfen.";
+        break;
+    case "5":
+        // die Seite accept.php wurde aufgerufen, obwohl keine neuen Nutzer vorhanden sind
+        $message = "Es sind keine neuen Nutzer zum Aktzeptieren vorhanden.";
+        break;
+    case "6":
+        // die Seite spiel.php wurde ohne "?id=123" angegeben
+        $message = "Sie müssen die ID des Spiels mitgeben, um sich das Spiel anzeigen zu lassen.";
+        break;
+    default:
+        $message = "Für diesen Code existiert keine Fehlermeldung.";
+  }
+
+  ?>
+  <div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <?php echo $message; ?>
+  </div>
+  <?php
+
+} elseif (isset($_GET['message'])){
+  $message = "";
+
+  switch ($_GET['message']) {
+    case "1":
+      // der Nuter hat sich registriert
+      $message = "Ihre Registrierung war erfolgreich. Bevor Sie jedoch auf den internen Bereich zugreifen dürfen, muss Ihre Registrierung durch einen autorisierten Nutzer bestätigt werden. Bitte haben Sie etwas Geduld. Wir kontaktieren Sie in Kürze.";
+      break;
+    case "2":
+      // ein Admin hat ein neues Spiel erfasst
+      $message = "Das Spiel wurde erfolgreich erstellt.";
+      break;
+    case "3":
+      // neues Spiel ohne ANgabe des Datums des nächsten Spiels
+      $message = "Das Spiel wurde erfolgreich erstellt. Sie können das Datum für das nächste Spiel <a href='update_game.php'>hier</a> nachtragen.";
+      break;
+    case "4":
+      // ein Admin hat ein neues Spiel erfasst
+      $message = "Es sind keine neuen Nutzer mehr zum Aktzeptieren vorhanden.";
+      break;
+    case "5":
+      // ein Admin hat ein neues Spiel erfasst
+      $message = "Das Datum wurde erfolgreich ergänzt.";
+      break;
+    default:
+      $message = "Für diesen Code existiert keine Meldung.";
+  }
+
+  ?>
+  <div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <?php echo $message; ?>
+  </div>
+  <?php
+
+}
 
 ?>
 
@@ -77,7 +177,7 @@ $users = User::readNew($db);
 			        <a class="nav-link" href="intern.php">Intern</a>
 			      </li>
             <?php
-            if ($username=="admin" or $userid=="1"){
+            if ($isAdmin){
               if(!empty($users)){
                 ?>
                 <li class="nav-item">

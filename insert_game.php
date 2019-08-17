@@ -1,11 +1,13 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
-  $page_title = "Bierpumpen";
+  $page_title = "Neues Spiel";
 
-  //You may not be on this pag when logged out.
+  //You may not be on this page when you are logged out or no admin.
   //Redirect to index page
   $redirect_when_loggedin = false;
   $redirect_when_loggedout = true;
+  $redirect_when_new = false;
+  $redirect_when_no_admin = true;
   $redirect_page = 'index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
@@ -21,7 +23,15 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   $date = date("Y-m-d");
 
   if (isset($_POST['submit'])){
-    insertGame();
+    try {
+      insertGame();
+    } catch (Exception $e) { ?>
+      <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Fehler!</strong> <?php echo $e->getMessage(); ?>
+      </div>
+    <?php
+    }
   }
 
 ?>
@@ -40,9 +50,12 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
     Pumpenkönig:*
     <select class='form-control w-50 ml-2 pl-1' name='user_id'>
       <?php
-      foreach ($allUsers as $user) { ?>
-        <option value="<?php echo $user->getId(); ?>"><?php echo $user->getUsername() . " (" . $user->getFirstname() . " " . $user->getLastname() . ")" ; ?></option>";
-      <?php
+      foreach ($allUsers as $user) {
+        if($user->getIsNew()=="0"){
+          ?>
+          <option value="<?php echo $user->getId(); ?>"><?php echo $user->getUsername() . " (" . $user->getFirstname() . " " . $user->getLastname() . ")" ; ?></option>";
+          <?php
+        }
       }
       ?>
     </select>

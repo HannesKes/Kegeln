@@ -3,17 +3,15 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
   $page_title = "Übersicht";
 
-  //You may not be on this page when logged out.
+  //You may not be on this page when your are logged out or new.
   //Redirect to index page
   $redirect_when_loggedin = false;
   $redirect_when_loggedout = true;
+  $redirect_when_new = true;
+  $redirect_when_no_admin = false;
   $redirect_page = 'index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
-
-  if($isNew){
-    header("Location: /Kegeln/index.php?errorcode=3");
-  }
 
   $games = Game::readAll($db);
 

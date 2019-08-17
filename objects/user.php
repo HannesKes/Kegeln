@@ -13,6 +13,7 @@ class User {
   private $firstname;
   private $lastname;
   private $isNew;
+  private $isAdmin;
 
   // The constructor of the User class.
   // This function is called when a new User object is created and instantiates the db attribute.
@@ -56,7 +57,7 @@ class User {
   public function create() {
     // Prepares query
     $query = "INSERT INTO " . User::$table_name . " SET firstname=:firstname, lastname=:lastname,
-      username=:username, email=:email, password=:password, isNew=:isNew";
+      username=:username, email=:email, password=:password, isNew=:isNew, isAdmin=:isAdmin";
     $stmt = $this->db->prepare($query);
 
     // Sets the variables in the query to the corresponding attribute values of the user object
@@ -66,6 +67,7 @@ class User {
     $stmt->bindParam(":email", $this->email);
     $stmt->bindParam(":password", $this->password);
     $stmt->bindParam(":isNew", $this->isNew);
+    $stmt->bindParam(":isAdmin", $this->isAdmin);
 
     // If the execution of the query is successful return true and set the ID of the user object
     // To the one of the newly created record in the database.
@@ -81,7 +83,7 @@ class User {
   public function update() {
     // Prepares query
     $query = "UPDATE " . User::$table_name . " SET username=:username, firstname=:firstname, lastname=:lastname,
-      email=:email, password=:password, isNew=:isNew WHERE id =:id";
+      email=:email, password=:password, isNew=:isNew, isAdmin=:isAdmin WHERE id =:id";
     $stmt = $this->db->prepare($query);
 
     // Sets the variables in the query to the corresponding attribute values of the user object
@@ -91,7 +93,8 @@ class User {
     $stmt->bindParam(':email', $this->email);
     $stmt->bindParam(':id', $this->id);
     $stmt->bindParam(":password", $this->password);
-    $stmt->bindParam(":isNew", $this->isAdmin);
+    $stmt->bindParam(":isNew", $this->isNew);
+    $stmt->bindParam(":isAdmin", $this->isAdmin);
 
     // Execute the query and return true if the execution was successful
     if($stmt->execute()) {
@@ -215,6 +218,7 @@ class User {
     $user->setEmail($row['email']);
     $user->setpassword($row['password']);
     $user->setIsNew($row['isNew']);
+    $user->setIsAdmin($row['isAdmin']);
   }
 
   // Getter and Setter methods
@@ -273,6 +277,14 @@ class User {
 
   public function setIsNew($newIsNew){
     $this->isNew = htmlspecialchars(strip_tags($newIsNew));
+  }
+
+  public function getIsAdmin(){
+    return $this->isAdmin;
+  }
+
+  public function setIsAdmin($newIsAdmin){
+    $this->isAdmin = htmlspecialchars(strip_tags($newIsAdmin));
   }
 
   // End of Getter and Setter Methods

@@ -2,48 +2,22 @@
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   $page_title = "Neue Nutzer";
 
-  //You may not be on this page when you are logged out.
+  //You may not be on this page when you are logged out or new or no admin.
   //Redirect to profile page
   $redirect_when_loggedin = false;
   $redirect_when_loggedout = true;
+  $redirect_when_new = true;
+  $redirect_when_no_admin = true;
   $redirect_page = 'index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
 
-  if($isNew){
-    header("Location: /Kegeln/index.php?errorcode=3");
-  }
-
-  if(isset($_POST["accept"])){
-    User::accept($db, $_POST["user_id"]);
-  } elseif(isset($_POST["delete"])){
-    User::delete($db, $_POST["user_id"]);
-  }
-
   if(empty($users)){
-    header("Location: /Kegeln/index.php?errorcode=4");
+    header("Location: /Kegeln/index.php?errorcode=5");
+    exit();
   }
 
 ?>
-
-<!-- <br/>
-<table class="table-bordered table">
-  <tr>
-    <td>John</td>
-    <td>Doe</td>
-    <td>john@example.com</td>
-  <tr>
-  <tr>
-    <td>Mary</td>
-    <td>Moe</td>
-    <td>mary@example.com</td>
-  </tr>
-  <tr>
-    <td>July</td>
-    <td>Dooley</td>
-    <td>july@example.com</td>
-  </tr>
-<table> -->
 
 <center><h1>Neu registrierte Nutzer</h1></center>
 <br/><br/>
