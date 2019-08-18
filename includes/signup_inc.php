@@ -21,13 +21,15 @@ function signupUser() {
   //Set attributes of the new user object
   $user->setFirstname($_POST['firstname']);
   $user->setLastname($_POST['lastname']);
-  $user->setEmail($_POST['email']);
   $user->setIsNew('1');
   $user->setIsAdmin('0');
 
-  //calls isUsernameValid function. This throws an Exception when the Username for some reason isn't valid.
+  // validates the input. Throws an Exception when the Username or Email for some reason isn't valid.
   User::isUsernameValid($db, $_POST['username']);
   $user->setUsername($_POST['username']);
+
+  User::isEmailValid($db, $_POST['email']);
+  $user->setEmail($_POST['email']);
 
   //Encode Password for safer handling
   $password = password_hash($_POST['password'],PASSWORD_DEFAULT);

@@ -62,84 +62,6 @@ if (strpos($_SERVER['PHP_SELF'], "accept.php")){
   }
 }
 
-// Waits for an errorcode to be sent and displays the correspondig message from the database.
-if(isset($_GET['errorcode'])) {
-
-  $message = "";
-
-  switch ($_GET['errorcode']) {
-    case "1":
-        // nur für eingeloggte Nutzer (Beispiel: Interner Bereich)
-        $message = "Sie haben keine Berechtigung, auf diese Seite zuzugreifen. Sie müssen sich zuerst anmelden.";
-        break;
-    case "2":
-        // nur ausgeloggte Nutzer dürfen auf diese Seite (Beispiel: SignUp)
-        $message = "Sie haben keine Berechtigung, auf diese Seite zuzugreifen.";
-        break;
-    case "3":
-        // registriert aber noch nicht bestätigt -> isNew = true
-        $message = "Sie müssen warten, bis ihre Registrierung bestätigt wurde, bevor Sie auf diese Seite zugreifen dürfen.";
-        break;
-    case "4":
-        // der angemeldete Nutzer ist kein Admin -> isAdmin = false
-        $message = "Sie müssen warten, bis ihre Registrierung bestätigt wurde, bevor Sie auf diese Seite zugreifen dürfen.";
-        break;
-    case "5":
-        // die Seite accept.php wurde aufgerufen, obwohl keine neuen Nutzer vorhanden sind
-        $message = "Es sind keine neuen Nutzer zum Aktzeptieren vorhanden.";
-        break;
-    case "6":
-        // die Seite spiel.php wurde ohne "?id=123" angegeben
-        $message = "Sie müssen die ID des Spiels mitgeben, um sich das Spiel anzeigen zu lassen.";
-        break;
-    default:
-        $message = "Für diesen Code existiert keine Fehlermeldung.";
-  }
-
-  ?>
-  <div class="alert alert-danger alert-dismissible">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <?php echo $message; ?>
-  </div>
-  <?php
-
-} elseif (isset($_GET['message'])){
-  $message = "";
-
-  switch ($_GET['message']) {
-    case "1":
-      // der Nuter hat sich registriert
-      $message = "Ihre Registrierung war erfolgreich. Bevor Sie jedoch auf den internen Bereich zugreifen dürfen, muss Ihre Registrierung durch einen autorisierten Nutzer bestätigt werden. Bitte haben Sie etwas Geduld. Wir kontaktieren Sie in Kürze.";
-      break;
-    case "2":
-      // ein Admin hat ein neues Spiel erfasst
-      $message = "Das Spiel wurde erfolgreich erstellt.";
-      break;
-    case "3":
-      // neues Spiel ohne ANgabe des Datums des nächsten Spiels
-      $message = "Das Spiel wurde erfolgreich erstellt. Sie können das Datum für das nächste Spiel <a href='update_game.php'>hier</a> nachtragen.";
-      break;
-    case "4":
-      // ein Admin hat ein neues Spiel erfasst
-      $message = "Es sind keine neuen Nutzer mehr zum Aktzeptieren vorhanden.";
-      break;
-    case "5":
-      // ein Admin hat ein neues Spiel erfasst
-      $message = "Das Datum wurde erfolgreich ergänzt.";
-      break;
-    default:
-      $message = "Für diesen Code existiert keine Meldung.";
-  }
-
-  ?>
-  <div class="alert alert-success alert-dismissible">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
-    <?php echo $message; ?>
-  </div>
-  <?php
-
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -222,3 +144,91 @@ if(isset($_GET['errorcode'])) {
 
 <main role="main" class="container">
 <br/>
+
+<?php
+
+// Waits for an errorcode to be sent and displays the correspondig message.
+if(isset($_GET['errorcode'])) {
+
+  $message = "";
+
+  switch ($_GET['errorcode']) {
+    case "1":
+        // nur für eingeloggte Nutzer (Beispiel: Interner Bereich)
+        $message = "Sie haben keine Berechtigung, auf diese Seite zuzugreifen. Sie müssen sich zuerst anmelden.";
+        break;
+    case "2":
+        // nur ausgeloggte Nutzer dürfen auf diese Seite (Beispiel: SignUp)
+        $message = "Sie haben keine Berechtigung, auf diese Seite zuzugreifen.";
+        break;
+    case "3":
+        // registriert aber noch nicht bestätigt -> isNew = true
+        $message = "Sie müssen warten, bis ihre Registrierung bestätigt wurde, bevor Sie auf diese Seite zugreifen dürfen.";
+        break;
+    case "4":
+        // der angemeldete Nutzer ist kein Admin -> isAdmin = false
+        $message = "Sie müssen warten, bis ihre Registrierung bestätigt wurde, bevor Sie auf diese Seite zugreifen dürfen.";
+        break;
+    case "5":
+        // die Seite accept.php wurde aufgerufen, obwohl keine neuen Nutzer vorhanden sind
+        $message = "Es sind keine neuen Nutzer zum Aktzeptieren vorhanden.";
+        break;
+    case "6":
+        // die Seite spiel.php wurde ohne "?id=123" angegeben
+        $message = "Sie müssen die ID des Spiels mitgeben, um sich das Spiel anzeigen zu lassen.";
+        break;
+    case "7":
+        // die ID ist nicht in der DB vorhanden
+        $message = "Für dieses Spiel sind keine Daten vorhanden.";
+        break;
+    default:
+        $message = "Für diesen Code existiert keine Fehlermeldung.";
+  }
+
+  ?>
+  <div class="alert alert-danger alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <?php echo $message; ?>
+  </div>
+  <?php
+
+} elseif (isset($_GET['message'])){
+  $message = "";
+
+  switch ($_GET['message']) {
+    case "1":
+      // der Nuter hat sich registriert
+      $message = "Ihre Registrierung war erfolgreich. Bevor Sie jedoch auf den internen Bereich zugreifen dürfen, muss Ihre Registrierung durch einen autorisierten Nutzer bestätigt werden. Bitte haben Sie etwas Geduld. Wir kontaktieren Sie in Kürze.";
+      break;
+    case "2":
+      // ein Admin hat ein neues Spiel erfasst
+      $message = "Das Spiel wurde erfolgreich erstellt.";
+      break;
+    case "3":
+      // neues Spiel ohne ANgabe des Datums des nächsten Spiels
+      $message = "Das Spiel wurde erfolgreich erstellt. Sie können das Datum für das nächste Spiel <a href='update_game.php'>hier</a> nachtragen.";
+      break;
+    case "4":
+      // ein Admin hat ein neues Spiel erfasst
+      $message = "Es sind keine neuen Nutzer mehr zum Aktzeptieren vorhanden.";
+      break;
+    case "5":
+      // ein Admin hat ein neues Spiel erfasst
+      $message = "Das Datum wurde erfolgreich ergänzt.";
+      break;
+    default:
+      $message = "Für diesen Code existiert keine Meldung.";
+  }
+
+  ?>
+  <div class="alert alert-success alert-dismissible">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <?php echo $message; ?>
+  </div>
+  <?php
+
+}
+
+ ?>
+
+ <br/>

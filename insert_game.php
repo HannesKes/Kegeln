@@ -62,10 +62,10 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   </div><br/><br/>
 
   Anzahl Pumpen:*
-  <input class="pl-2" type="number" class="ml-2" name="number" value="0" min="0" /><br/><br/>
+  <input class="pl-2" type="number" class="ml-2" name="number" value="0" min="0" maxlength="11" /><br/><br/>
 
   Nächstes Spiel: (TODO: Feld muss später komplett leer sein)
-  <input class="ml-2 pl-1" type="date" name="nextGame" /><br/><br/>
+  <input class="ml-2 pl-1" type="date" value="0001-01-01" name="nextGame" /><br/><br/>
 
   <!-- Button -->
   <input type="submit" name="submit" value="Speichern" class="btn btn-info" /><br/>
