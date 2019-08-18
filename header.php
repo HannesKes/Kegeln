@@ -177,6 +177,10 @@ if(isset($_GET['errorcode'])) {
         // die Seite spiel.php wurde ohne "?id=123" angegeben
         $message = "Sie müssen die ID des Spiels mitgeben, um sich das Spiel anzeigen zu lassen.";
         break;
+    case "7":
+        // die ID ist nicht in der DB vorhanden
+        $message = "Für dieses Spiel sind keine Daten vorhanden.";
+        break;
     default:
         $message = "Für diesen Code existiert keine Fehlermeldung.";
   }
