@@ -25,7 +25,6 @@ function signupUser() {
   $user->setpassword($password);
 
   if ($user->create()) {
-    //registration successful message
     // Hier Mails versenden...
 
     $mail = new PHPMailer(true);
@@ -60,6 +59,7 @@ function signupUser() {
         echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 
+    //registration successful message
     header("Location: /Kegeln/index.php?message=1");
     exit();
   } else {
