@@ -13,7 +13,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
 
-  if (isset($_GET['id']) and $_GET['id'] != "") {
+  if (isset($_GET['id']) and $_GET['id'] !== "") {
 
     $game = new Game($db);
     $game->setId($_GET['id']);

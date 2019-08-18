@@ -163,6 +163,36 @@ class User {
     return true;
   }
 
+  // Checks the email if it contains an @ and a following dot. If not an Exception with the corresponding message is thrown.
+  public static function isEmailValid($db, $email) {
+    // Check if the email contains spaces
+    if(strpos($email, ' ') !== false) {
+      throw new Exception("Die E-Mail-Adresse $email darf kein Leerzeichen enthalten. Bitte tragen Sie eine valide E-Mail-Adresse ein und versuchen Sie es erneut.");
+    }
+
+    // Check if the email contains @
+    if(strpos($email, '@') == false) {
+      throw new Exception("Die E-Mail-Adresse $email enthält kein @. Bitte tragen Sie eine valide E-Mail-Adresse ein und versuchen Sie es erneut.");
+    }
+
+    $string1 = substr($email, strpos($email, '@'));
+
+    // Check if the email contains a dot after the @
+    if(strpos($string1, '.') == false) {
+      throw new Exception("Die E-Mail-Adresse $email enthält keinen Punkt nach dem @. Bitte tragen Sie eine valide E-Mail-Adresse ein und versuchen Sie es erneut.");
+    }
+
+    $string2 = substr($string1, strpos($string1, '.'));
+
+    // Check if the email contains a dot after the dot after the @
+    if(strpos($string2, '.') !== false) {
+      throw new Exception("Die E-Mail-Adresse $email enthält einen Punkt nach dem Punkt nach dem @. Bitte tragen Sie eine valide E-Mail-Adresse ein und versuchen Sie es erneut.");
+    }
+
+    // Return true if the Email matches all criteria
+    return true;
+  }
+
   // Returns an array containing all User objects with values from the Database.
   public static function readAll($db) {
     // Prepares and executes the query.
