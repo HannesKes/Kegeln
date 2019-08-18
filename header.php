@@ -3,15 +3,6 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/database/db.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/user.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
 
-
-//Includes for PHPMailer - should not work on localhost... but on netcup! :-)
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
-require $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/PHPMailer-master/src/Exception.php';
-require $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/PHPMailer-master/src/PHPMailer.php';
-require $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/PHPMailer-master/src/SMTP.php';
-
 $loggedin = false;
 $isNew = false;
 $isAdmin = false;
