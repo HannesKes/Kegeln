@@ -2,6 +2,15 @@
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/database/db.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/user.php';
 
+//Includes for PHPMailer - should not work on localhost... but on netcup! :-)
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/PHPMailer-master/src/Exception.php';
+require $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/PHPMailer-master/src/PHPMailer.php';
+require $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/PHPMailer-master/src/SMTP.php';
+
+
 function signupUser() {
 
   $database = new Database();
@@ -36,27 +45,27 @@ function signupUser() {
         $mail->Host       = 'mxf9ba.netcup.net';                    // Netcup SMTP-Server
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
         $mail->Username   = 'info@bierpumpen.de';                   // SMTP username
-        $mail->Password   = '';                         // SMTP password
+        $mail->Password   = '';                  // SMTP password
         $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
         $mail->Port       = 587;                                    // TCP port to connect to
 
         //Recipients
-        $mail->setFrom('info@bierpumpen.de', 'Mailer');
-        $mail->addAddress($_POST['email'],);     // Add a recipient
+        $mail->setFrom('info@bierpumpen.de', 'Bierpumpen.de'); //FROM
+        $mail->addAddress($_POST['email'],);     // TO
         $mail->addBCC('niko@theders.de', 'hannes.kessling@gmail.com');
 
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = 'Deine Registrierung auf Bierpumpen.de';
-        $mail->Body    = 'Moin moin, <br> deine Registrierung ist eingegangen und du wirst in den nächsten Tagen vom Admin aktiviert... <br> Wenn dir das nicht schnell genug geht, meld dich einfach beim Admin, du kennst ihn ja ;-)';
+        $mail->Body    = 'Moin moin, <br> deine Registrierung ist eingegangen und du wirst sehr bald vom Admin aktiviert... <br> Wenn dir das nicht schnell genug geht, meld dich einfach beim Admin, du kennst ihn ja ;-)';
         $mail->AltBody = 'Moin moin,
-        deine Registrierung ist eingegangen und du wirst in den nächsten Tagen vom Admin aktiviert...
+        deine Registrierung ist eingegangen und du wirst sehr bald vom Admin aktiviert...
         Wenn dir das nicht schnell genug geht, meld dich einfach beim Admin, du kennst ihn ja ;-)';
 
         $mail->send();
-        echo 'Message has been sent';
+        // echo 'Message has been sent';
     } catch (Exception $e) {
-        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 
     //registration successful message
