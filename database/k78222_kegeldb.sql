@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 14. Aug 2019 um 22:03
+-- Erstellungszeit: 18. Aug 2019 um 13:25
 -- Server-Version: 10.1.38-MariaDB
 -- PHP-Version: 7.3.4
 
@@ -29,7 +29,7 @@ USE `k78222_kegeldb`;
 --
 -- Tabellenstruktur für Tabelle `games`
 --
--- Erstellt am: 13. Aug 2019 um 20:21
+-- Erstellt am: 17. Aug 2019 um 20:30
 --
 
 DROP TABLE IF EXISTS `games`;
@@ -52,8 +52,10 @@ CREATE TABLE `games` (
 --
 
 INSERT INTO `games` (`id`, `date`, `king`, `amount`, `nextGame`) VALUES
-(1, '2019-08-14', 6, 1, NULL),
-(2, '2019-08-15', 1, 3, NULL);
+(1, '2019-08-14', 6, 1, '2019-08-15'),
+(2, '2019-08-15', 1, 3, '2019-08-19'),
+(3, '2019-08-19', 5, 7, '2019-10-17'),
+(5, '2019-10-17', 1, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -102,7 +104,7 @@ CREATE TABLE `payments` (
 --
 -- Tabellenstruktur für Tabelle `users`
 --
--- Erstellt am: 10. Aug 2019 um 13:46
+-- Erstellt am: 17. Aug 2019 um 21:41
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -113,7 +115,8 @@ CREATE TABLE `users` (
   `email` varchar(64) COLLATE utf8_german2_ci NOT NULL,
   `firstname` varchar(64) COLLATE utf8_german2_ci NOT NULL,
   `lastname` varchar(64) COLLATE utf8_german2_ci NOT NULL,
-  `isNew` int(1) NOT NULL
+  `isNew` int(1) NOT NULL,
+  `isAdmin` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 --
@@ -124,13 +127,14 @@ CREATE TABLE `users` (
 -- Daten für Tabelle `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `firstname`, `lastname`, `isNew`) VALUES
-(1, 'HanKes', '$2y$10$nvV6tDPxWBTK2CSM4jbILeaw48GUlnh89ernGaatddp.WbsQXxrlC', 'hannes.kessling@gmail.com', 'Hannes', 'Keßling', 0),
-(2, 'Tester1', '$2y$10$7691kLH.LwKra54KGQ1Yp.JWNkxtU9cexDPHyfc/tMBMkUkIeyaTm', 'test@test.test', 'Test', 'Testermann', 1),
-(3, 'Tester2', '$2y$10$dGX8rE1TZV8C8Zy2FHUOfu.06ajoR8P/3Ch.B6jTlZm4AO23XX7Z6', 'Test2@test.de', 'Testi', 'Testermann', 0),
-(4, 'Tester3', '$2y$10$bjcnPuD6QMxQl.sY2BiYdeS8HEdggOVLWinaugNGzEiApz5J7ME/S', 'Test2@test.de', 'Tester', 'Testermann', 1),
-(5, 'Furz', '$2y$10$s6sJdJ2ab.X/2Z0h5uzgjuFmVLxDod.Oh0doSVAGJwXuTqKAZDm4C', 'ABC@bombe.de', 'Testaa', 'Testamann', 0),
-(6, 'Arsch123', '$2y$10$Mb/ATna0MNLEoNkA74eoVeNcWCu4UzoIwhIdMkpYNVFRwwx3YfRwm', 'niko@stinkt.hart', 'Bääääääh', 'Kotz', 0);
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `firstname`, `lastname`, `isNew`, `isAdmin`) VALUES
+(1, 'HanKes', '$2y$10$nvV6tDPxWBTK2CSM4jbILeaw48GUlnh89ernGaatddp.WbsQXxrlC', 'hannes.kessling@gmail.com', 'Hannes', 'Keßling', 0, 1),
+(2, 'Tester1', '$2y$10$7691kLH.LwKra54KGQ1Yp.JWNkxtU9cexDPHyfc/tMBMkUkIeyaTm', 'test@test.test', 'Test', 'Testermann', 0, 0),
+(3, 'Tester2', '$2y$10$dGX8rE1TZV8C8Zy2FHUOfu.06ajoR8P/3Ch.B6jTlZm4AO23XX7Z6', 'Test2@test.de', 'Testi', 'Testermann', 0, 0),
+(4, 'Tester3', '$2y$10$bjcnPuD6QMxQl.sY2BiYdeS8HEdggOVLWinaugNGzEiApz5J7ME/S', 'Test2@test.de', 'Tester', 'Testermann', 0, 0),
+(5, 'Furz', '$2y$10$s6sJdJ2ab.X/2Z0h5uzgjuFmVLxDod.Oh0doSVAGJwXuTqKAZDm4C', 'ABC@bombe.de', 'Testaa', 'Testamann', 0, 0),
+(6, 'Arsch123', '$2y$10$Mb/ATna0MNLEoNkA74eoVeNcWCu4UzoIwhIdMkpYNVFRwwx3YfRwm', 'niko@stinkt.hart', 'Bääääääh', 'Kotz', 0, 0),
+(8, 'Niggo', '$2y$10$hBXnOaW2xSiQm02fDn8GHePs/GXRK93IiJRbsUHm..6agPlnJJf52', 'niko.ist@doof.de', 'Niko', 'Theders', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -167,6 +171,7 @@ CREATE TABLE `user_payment` (
 --
 ALTER TABLE `games`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nextGame` (`nextGame`),
   ADD KEY `games_king` (`king`);
 
 --
@@ -206,7 +211,7 @@ ALTER TABLE `user_payment`
 -- AUTO_INCREMENT für Tabelle `games`
 --
 ALTER TABLE `games`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT für Tabelle `game_user`
@@ -224,7 +229,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT für Tabelle `user_payment`
