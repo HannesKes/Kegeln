@@ -42,12 +42,12 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
           <div style="margin-bottom: 25px" class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="Username" required>
+            <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="Username" maxlength="32" required>
           </div>
 
           <div style="margin-bottom: 25px" class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-            <input id="login-password" type="password" class="form-control" name="password" placeholder="Passwort" required>
+            <input id="login-password" type="password" class="form-control" name="password" placeholder="Passwort" maxlength="32" required>
           </div>
 
           <div class="input-group">
