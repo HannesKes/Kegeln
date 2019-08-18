@@ -37,7 +37,7 @@ function signupUser() {
         $mail->Host       = 'mxf9ba.netcup.net';                    // Netcup SMTP-Server
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
         $mail->Username   = 'info@bierpumpen.de';                   // SMTP username
-        $mail->Password   = 'k78222bpmail';                         // SMTP password
+        $mail->Password   = '';                         // SMTP password
         $mail->SMTPSecure = 'tls';                                  // Enable TLS encryption, `ssl` also accepted
         $mail->Port       = 587;                                    // TCP port to connect to
 
