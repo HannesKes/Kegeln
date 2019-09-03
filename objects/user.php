@@ -185,7 +185,7 @@ class User {
     $string2 = substr($string1, strpos($string1, '.'));
 
     // Check if the email contains a dot after the dot after the @
-    if(strpos($string2, '.') !== false) {
+    if(strpos($string2, '.')) {
       throw new Exception("Die E-Mail-Adresse $email enthält einen Punkt nach dem Punkt nach dem @. Bitte tragen Sie eine valide E-Mail-Adresse ein und versuchen Sie es erneut.");
     }
 
