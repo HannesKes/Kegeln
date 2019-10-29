@@ -1,6 +1,7 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
   $page_title = "Übersicht";
 
   //You may not be on this page when your are logged out or new.
@@ -23,6 +24,8 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
   $pumpKingAndGame = User::readPumpKingAndGame($db);
   $pumpKingUser = $pumpKingAndGame[0];
   $pumpKingGame = $pumpKingAndGame[1];
+
+  $balance = Bill::readBalance($db);
 
 ?>
 
@@ -53,7 +56,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
           </tr>
           <tr>
             <th scope="row">Kassenstand:</th>
-            <td><!-- Alle Saldi zusammen rechnen? Geht das irgendwie mit den Tabellen? --></td>
+            <td class="pull-right"><?php echo $balance; ?></td>
           </tr>
           <tr>
             <th scope="row">Nächstes Treffen:</th>

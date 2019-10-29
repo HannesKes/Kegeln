@@ -242,7 +242,8 @@ class User {
   // Returns the User with the newest record for the most pumps and the corresponding game
   public static function readPumpKingAndGame($db) {
     // Prepares and executes the query.
-    $query = "SELECT * FROM " . Game::$table_name . " AS t1 LEFT JOIN " . User::$table_name . " AS t2 on t1.king = t2.id where t1.king IS NOT NULL ORDER BY t1.amount, t1.date DESC";
+    $query = "SELECT * FROM " . Game::$table_name . " AS t1 LEFT JOIN " . User::$table_name . " AS t2
+            on t1.king = t2.id where t1.king IS NOT NULL ORDER BY t1.amount, t1.date DESC LIMIT 0,1";
 
     $stmt = $db->prepare($query);
     $stmt->execute();

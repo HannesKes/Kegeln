@@ -136,9 +136,7 @@ class Game {
   public static function readLast($db) {
     // Prepares and executes the query.
     $query = "SELECT * from " . Game::$table_name . " ORDER BY date DESC LIMIT 0,1";
-
     $stmt = $db->prepare($query);
-    $stmt->execute();
 
     // Executes the query. If no record was found return 0. Else update the Attributes of the Game Object.
     $stmt->execute();
