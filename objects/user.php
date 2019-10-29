@@ -239,6 +239,28 @@ class User {
     return $user_array;
   }
 
+  // Returns the User with the newest record for the most pumps and the corresponding game
+  public static function readPumpKingAndGame($db) {
+    // Prepares and executes the query.
+    $query = "SELECT * FROM " . Game::$table_name . " AS t1 LEFT JOIN " . User::$table_name . " AS t2 on t1.king = t2.id where t1.king IS NOT NULL ORDER BY t1.amount, t1.date DESC";
+
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+
+    $kingAndGame = array();
+
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $user = new User($db);
+    User::updateAttributes($user, $row);
+    $kingAndGame[] = $user;
+
+    $game = new Game($db);
+    Game::updateAttributes($game, $row);
+    $kingAndGame[] = $game;
+
+    return $kingAndGame;
+  }
+
   // Updates all attributes of the consigned User object using the values from the $row parameter.
   public static function updateAttributes($user, $row){
     $user->setId($row['id']);

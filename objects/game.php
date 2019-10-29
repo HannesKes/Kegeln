@@ -3,7 +3,7 @@
 class Game {
   // Database connection and Table name used for database access
   private $db;
-  private static $table_name = "games";
+  public static $table_name = "games";
 
   // Attributes of an Game object
   private $id;

@@ -20,6 +20,10 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
     header("Location: /Kegeln/spiel.php?id=$id");
   }
 
+  $pumpKingAndGame = User::readPumpKingAndGame($db);
+  $pumpKingUser = $pumpKingAndGame[0];
+  $pumpKingGame = $pumpKingAndGame[1];
+
 ?>
 
 <!-- content for larger devices -->
@@ -41,11 +45,11 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
         <tbody>
           <tr>
             <th scope="row">Aktueller Pumpenkönig:</th>
-            <td><!-- Names aus DB ziehen (Pumpenkönig-Feld des letzten Treffens auf true) --></td>
+            <td class="pull-right"><?php echo $pumpKingUser->getUsername() . " (" . $pumpKingUser->getFirstname() . " " . $pumpKingUser->getLastname() . ")"; ?></td>
           </tr>
           <tr>
             <th scope="row">Pumpenrekord:</th>
-            <td><!-- Namen mit den meisten geworfenen Pumpen aus der DB ziehen --></td>
+            <td class="pull-right"><?php echo $pumpKingGame->getAmount(); ?></td>
           </tr>
           <tr>
             <th scope="row">Kassenstand:</th>
@@ -53,7 +57,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
           </tr>
           <tr>
             <th scope="row">Nächstes Treffen:</th>
-            <td>
+            <td class="pull-right">
               <?php
                 $game = Game::readLast($db);
                 if(!$game->getNextGame()==NULL){
