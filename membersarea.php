@@ -125,16 +125,13 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
 
             <?php
             foreach ($games as $game) {
-
-              // $date = date("d.m.Y", $game->getDate());
-              // TODO: Datum formatieren / mappen
-
+              $date = $game->getDate();
+              $date = substr($date, 8, 2) . "." . substr($date, 5, 2) . "." . substr($date, 0, 4)
               ?>
               <tr>
-                <td colspan="2" class="text-center"><a href="membersarea.php?date=<?php echo $game->getDate() ;?>"><?php echo $game->getDate() ;?></a></td>
+                <td colspan="2" class="text-center"><a href="membersarea.php?date=<?php echo $date ;?>"><?php echo $date ;?></a></td>
               </tr>
               <?php
-
             }
             ?>
 
