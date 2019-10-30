@@ -26,6 +26,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
   $pumpKingGame = $pumpKingAndGame[1];
 
   $balance = Bill::readBalance($db);
+  $balance = str_replace(".", ",", $balance);
 
 ?>
 
@@ -48,19 +49,19 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
         <tbody>
           <tr>
             <th scope="row">Aktueller Pumpenkönig:</th>
-            <td class="pull-right"><?php echo $pumpKingUser->getUsername() . " (" . $pumpKingUser->getFirstname() . " " . $pumpKingUser->getLastname() . ")"; ?></td>
+            <td><?php echo $pumpKingUser->getUsername() . " (" . $pumpKingUser->getFirstname() . " " . $pumpKingUser->getLastname() . ")"; ?></td>
           </tr>
           <tr>
             <th scope="row">Pumpenrekord:</th>
-            <td class="pull-right"><?php echo $pumpKingGame->getAmount(); ?></td>
+            <td><?php echo $pumpKingGame->getAmount(); ?></td>
           </tr>
           <tr>
             <th scope="row">Kassenstand:</th>
-            <td class="pull-right"><?php echo $balance; ?></td>
+            <td><?php echo $balance . " €"; ?></td>
           </tr>
           <tr>
             <th scope="row">Nächstes Treffen:</th>
-            <td class="pull-right">
+            <td>
               <?php
                 $game = Game::readLast($db);
                 if(!$game->getNextGame()==NULL){
@@ -90,19 +91,19 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
           <tbody>
             <tr>
               <th scope="row">Monatsbeitrag:</th>
-              <td>5 Geld</td>
+              <td>5 Euro</td>
             </tr>
             <tr>
               <th scope="row">Strafe Klingel:</th>
-              <td>1 Geld</td>
+              <td>1 Euro</td>
             </tr>
             <tr>
               <th scope="row">Strafe Pumpenkönig:</th>
-              <td>1 Geld</td>
+              <td>1 Euro</td>
             </tr>
             <tr>
               <th scope="row">Verlorene Runde:</th>
-              <td>10 Kleingeld</td>
+              <td>10 Cent</td>
             </tr>
             <tr>
               <td colspan="2" class="text-center"></td>
@@ -118,7 +119,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
         <table class="table">
           <thead class="thead-light">
             <tr>
-              <th scope="col" colspan="2" class="text-center">Termine</th>
+              <th scope="col" colspan="2" class="text-center">Bisherige Spiele</th>
             </tr>
           </thead>
           <tbody>
@@ -126,7 +127,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
             <?php
             foreach ($games as $game) {
               $date = $game->getDate();
-              $date = substr($date, 8, 2) . "." . substr($date, 5, 2) . "." . substr($date, 0, 4)
+              $date = substr($date, 8, 2) . "." . substr($date, 5, 2) . "." . substr($date, 0, 4);
               ?>
               <tr>
                 <td colspan="2" class="text-center"><a href="membersarea.php?date=<?php echo $date ;?>"><?php echo $date ;?></a></td>
@@ -157,19 +158,28 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
         <tbody>
           <tr>
             <th scope="row">Aktueller Pumpenkönig:</th>
-            <td><!-- Names aus DB ziehen (Pumpenkönig-Feld des letzten Treffens auf true) --></td>
+            <td><?php echo $pumpKingUser->getUsername() . " (" . $pumpKingUser->getFirstname() . " " . $pumpKingUser->getLastname() . ")"; ?></td>
           </tr>
           <tr>
             <th scope="row">Pumpenrekord:</th>
-            <td><!-- Namen mit den meisten geworfenen Pumpen aus der DB ziehen --></td>
+            <td><?php echo $pumpKingGame->getAmount(); ?></td>
           </tr>
           <tr>
             <th scope="row">Kassenstand:</th>
-            <td><!-- Alle Saldi zusammen rechnen? Geht das irgendwie mit den Tabellen? --></td>
+            <td><?php echo $balance . " €"; ?></td>
           </tr>
           <tr>
             <th scope="row">Nächstes Treffen:</th>
-            <td>25.08.2019</td>
+            <td>
+              <?php
+                $game = Game::readLast($db);
+                if(!$game->getNextGame()==NULL){
+                  echo $game->getNextGame();
+                } else {
+                  echo "noch kein Spiel geplant";
+                }
+              ?>
+            </td>
           </tr>
           <tr>
             <td colspan="2" class="text-center"></td>
@@ -189,19 +199,19 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
         <tbody>
           <tr>
             <th scope="row">Monatsbeitrag:</th>
-            <td>5 Geld</td>
+            <td>5 Euro</td>
           </tr>
           <tr>
             <th scope="row">Strafe Klingel:</th>
-            <td>1 Geld</td>
+            <td>1 Euro</td>
           </tr>
           <tr>
             <th scope="row">Strafe Pumpenkönig:</th>
-            <td>1 Geld</td>
+            <td>1 Euro</td>
           </tr>
           <tr>
             <th scope="row">Verlorene Runde:</th>
-            <td>10 Kleingeld</td>
+            <td>10 Cent</td>
           </tr>
           <tr>
             <td colspan="2" class="text-center"></td>
@@ -215,22 +225,23 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
       <table class="table">
         <thead class="thead-light">
           <tr>
-            <th scope="col" colspan="2" class="text-center">Termine</th>
+            <th scope="col" colspan="2" class="text-center">Bisherige Spiele</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td colspan="2" class="text-center"><a href="#">Neuestes Treffen</a></td>
-          </tr>
-          <tr>
-            <td colspan="2" class="text-center"><a href="#">Treffen</a></td>
-          </tr>
-          <tr>
-            <td colspan="2" class="text-center"><a href="#">Treffen</a></td>
-          </tr>
-          <tr>
-            <td colspan="2" class="text-center"></td>
-          </tr>
+
+          <?php
+          foreach ($games as $game) {
+            $date = $game->getDate();
+            $date = substr($date, 8, 2) . "." . substr($date, 5, 2) . "." . substr($date, 0, 4);
+            ?>
+            <tr>
+              <td colspan="2" class="text-center"><a href="membersarea.php?date=<?php echo $date ;?>"><?php echo $date ;?></a></td>
+            </tr>
+            <?php
+          }
+          ?>
+
         </tbody>
       </table>
     </h5>
