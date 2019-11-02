@@ -17,7 +17,7 @@
         <a href="https://bierpong.de.cool/" target="_blank" class="beer"><i class="fa fa-beer"></i></a>
       </div>
       <div class="col-2">
-        <a href="impressum.php">Impressum</a>
+        <a href="/Kegeln/impressum.php">Impressum</a>
       </div>
       <div class="col-4">
         <!-- Copyright -->
@@ -33,7 +33,7 @@
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
-<script src="js/script.js"></script>
+<script src="/Kegeln/js/bootstrap.min.js"></script>
+<script src="/Kegeln/js/script.js"></script>
 </body>
 </html>

@@ -73,8 +73,8 @@ if (strpos($_SERVER['PHP_SELF'], "accept.php")){
     <title>Bierpumpen</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <link href="/Kegeln/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Kegeln/css/style.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="/Kegeln/media/beer.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
@@ -134,8 +134,8 @@ if (strpos($_SERVER['PHP_SELF'], "accept.php")){
 		</header>
 
 <div class="d-none d-lg-block">
-<img src="media/kegel links.png" align="left">
-<img src="media/kegel rechts.png" align="right">
+<img src="/Kegeln/media/kegel links.png" align="left">
+<img src="/Kegeln/media/kegel rechts.png" align="right">
 </div>
 
 <main role="main" class="container">
