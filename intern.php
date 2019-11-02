@@ -8,7 +8,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   $redirect_when_loggedout = false;
   $redirect_when_new = false;
   $redirect_when_no_admin = false;
-  $redirect_page = 'index.php';
+  $redirect_page = '/Kegeln/index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
 ?>
@@ -17,7 +17,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
   <?php
   if (!$loggedin) {
-    header("Location: /Kegeln/login.php");
+    header("Location: /Kegeln/user/login.php");
     exit();
   } elseif ($isNew) {
   ?>
@@ -26,7 +26,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
     </div>
   <?php
   } else {
-    header("Location: membersarea.php");
+    header("Location: /Kegeln/membersarea.php");
   }
   ?>
 

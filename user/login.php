@@ -8,7 +8,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   $redirect_when_loggedout = false;
   $redirect_when_new = false;
   $redirect_when_no_admin = false;
-  $redirect_page = 'index.php';
+  $redirect_page = '/Kegeln/index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/login_inc.php';
@@ -69,7 +69,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
             <div class="col-md-12 control">
               <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >
                 Du hast noch keinen Account?
-                <a href="signup.php">
+                <a href="/Kegeln/user/signup.php">
                 Hier registrieren! (Nur für Bierpumpen...)
                 </a>
               </div>

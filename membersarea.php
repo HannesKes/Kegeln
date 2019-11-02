@@ -10,7 +10,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
   $redirect_when_loggedout = true;
   $redirect_when_new = true;
   $redirect_when_no_admin = false;
-  $redirect_page = 'index.php';
+  $redirect_page = '/Kegeln/index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
 
@@ -130,7 +130,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
               $date = substr($date, 8, 2) . "." . substr($date, 5, 2) . "." . substr($date, 0, 4);
               ?>
               <tr>
-                <td colspan="2" class="text-center"><a href="membersarea.php?date=<?php echo $date ;?>"><?php echo $date ;?></a></td>
+                <td colspan="2" class="text-center"><a href="/Kegeln/membersarea.php?date=<?php echo $date ;?>"><?php echo $date ;?></a></td>
               </tr>
               <?php
             }
@@ -236,7 +236,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
             $date = substr($date, 8, 2) . "." . substr($date, 5, 2) . "." . substr($date, 0, 4);
             ?>
             <tr>
-              <td colspan="2" class="text-center"><a href="membersarea.php?date=<?php echo $date ;?>"><?php echo $date ;?></a></td>
+              <td colspan="2" class="text-center"><a href="/Kegeln/membersarea.php?date=<?php echo $date ;?>"><?php echo $date ;?></a></td>
             </tr>
             <?php
           }

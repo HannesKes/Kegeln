@@ -75,59 +75,16 @@ if (strpos($_SERVER['PHP_SELF'], "accept.php")){
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <link rel="shortcut icon" type="image/x-icon" href="media/beer.jpg">
+    <link rel="shortcut icon" type="image/x-icon" href="/Kegeln/media/beer.jpg">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-    <style>
-
-    #myFooter a {
-        color: #d2d1d1;
-        text-decoration: none;
-    }
-
-    #myFooter a:hover,
-    #myFooter a:focus {
-        text-decoration: none;
-        color: white;
-    }
-
-    #myFooter .facebook:hover {
-        color: #0077e2;
-    }
-
-    #myFooter .google:hover {
-        color: #ef1a1a;
-    }
-
-    #myFooter .twitter:hover {
-        color: #00aced;
-    }
-
-    #myFooter .instagram:hover {
-        color: #EC00B5;
-    }
-
-    #myFooter .reddit:hover {
-        color: #FF0000;
-    }
-
-    #myFooter .snapchat:hover {
-        color: #FFFF33;
-    }
-
-    #myFooter .beer:hover {
-        color: #40FF00;
-    }
-
-    </style>
 
   </head>
   <body>
 
   	<header>
 	    <nav class="navbar sticky-top navbar-expand-md navbar-dark" style="background-color: #353535;">
-			  <a class="navbar-brand" href="index.php"><img src="media/beer.jpg" width="40" height="40" alt=""></a>
+			  <a class="navbar-brand" href="/Kegeln/index.php"><img src="media/beer.jpg" width="40" height="40" alt=""></a>
 			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			    <span class="navbar-toggler-icon"></span>
 			  </button>
@@ -135,29 +92,29 @@ if (strpos($_SERVER['PHP_SELF'], "accept.php")){
 			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 			    <ul class="navbar-nav mr-auto">
 			      <li class="nav-item active">
-			        <a class="nav-link" href="index.php">Home<span class="sr-only">(current)</span></a>
+			        <a class="nav-link" href="/Kegeln/index.php">Home<span class="sr-only">(current)</span></a>
 			      </li>
 			      <li class="nav-item">
-			        <a class="nav-link" href="intern.php">Intern</a>
+			        <a class="nav-link" href="/Kegeln/intern.php">Intern</a>
 			      </li>
             <?php
             if ($isAdmin){
               if(!empty($users)){
                 ?>
                 <li class="nav-item">
-                  <a class="nav-link" href="accept.php">Neue Nutzer</a>
+                  <a class="nav-link" href="/Kegeln/accept.php">Neue Nutzer</a>
                 </li>
                 <?php
               }
               ?>
               <li class="nav-item">
-                <a class="nav-link" href="insert_game.php">Neues Spiel</a>
+                <a class="nav-link" href="/Kegeln/insert_game.php">Neues Spiel</a>
               </li>
               <?php
               if($nextGame==NULL){
                 ?>
                 <li class="nav-item">
-                  <a class="nav-link" href="update_game.php">Nächstes Spiel</a>
+                  <a class="nav-link" href="/Kegeln/update_game.php">Nächstes Spiel</a>
                 </li>
                 <?php
               }
@@ -167,7 +124,7 @@ if (strpos($_SERVER['PHP_SELF'], "accept.php")){
             <?php if ($loggedin){ ?>
               <ul class="navbar-nav">
                 <li class="nav-item">
-                  <a class="nav-link" href="includes/logout_inc.php?logout=true">Abmelden</a>
+                  <a class="nav-link" href="/Kegeln/includes/logout_inc.php?logout=true">Abmelden</a>
                 </li>
               </ul>
             <?php } ?>
@@ -245,7 +202,7 @@ if(isset($_GET['errorcode'])) {
       break;
     case "3":
       // neues Spiel ohne ANgabe des Datums des nächsten Spiels
-      $message = "Das Spiel wurde erfolgreich erstellt. Sie können das Datum für das nächste Spiel <a href='update_game.php'>hier</a> nachtragen.";
+      $message = "Das Spiel wurde erfolgreich erstellt. Sie können das Datum für das nächste Spiel <a href='/Kegeln/update_game.php'>hier</a> nachtragen.";
       break;
     case "4":
       // ein Admin hat ein neues Spiel erfasst

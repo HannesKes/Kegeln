@@ -8,7 +8,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   $redirect_when_loggedout = false;
   $redirect_when_new = false;
   $redirect_when_no_admin = false;
-  $redirect_page = 'index.php';
+  $redirect_page = '/Kegeln/index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/signup_inc.php';
@@ -31,7 +31,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
     <div class="panel panel-info">
       <div class="panel-heading">
           <div class="panel-title font-weight-bold">Registrieren</div>
-          <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="login.php">Login</a></div>
+          <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="/Kegeln/login.php">Login</a></div>
       </div>
 
       <div style="padding-top:30px" class="panel-body" >
