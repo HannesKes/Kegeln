@@ -64,6 +64,7 @@ function signupUser() {
         deine Registrierung ist eingegangen und du wirst sehr bald vom Admin aktiviert...
         Wenn dir das nicht schnell genug geht, meld dich einfach beim Admin, du kennst ihn ja ;-)';
 
+        $mail->SMTPDebug = 0;
         $mail->send();
         // echo 'Message has been sent';
     } catch (Exception $e) {
