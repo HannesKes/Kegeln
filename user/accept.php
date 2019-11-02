@@ -31,32 +31,6 @@ foreach($users as $user)
 {
 
   ?>
-  <!-- <div class="justify-content-center"> -->
-
-    <!-- <table class="table table-bordered">
-      <tr>
-        <td colspan="2"><?php //echo $user->getUsername(); ?></td>
-        <td>
-          <form action="" method="post">
-            <input type="hidden" name="user_id" value="<?php //echo $user->getId(); ?>">
-            <input type="submit" name="accept" class="float-right btn btn-success" value="Annehmen">
-          </form>
-        </td>
-      </tr>
-      <tr>
-        <td><?php //echo $user->getFirstname(); ?></td>
-        <td><?php //echo $user->getLastname(); ?></td>
-        <td>
-          <form action="" method="post">
-            <input type="hidden" name="user_id" value="<?php //echo $user->getId(); ?>">
-            <input type="submit" name="delete" class="float-right btn btn-danger" value="Ablehnen">
-          </form>
-        </td>
-      </tr>
-    <table> -->
-
-  <!-- </div> -->
-
 
   <li class="list-group-item">
     <form action="" method="post">
@@ -67,16 +41,11 @@ foreach($users as $user)
         </div>
         <div class="col-5">
           <input type="hidden" name="user_id" value="<?php echo $user->getId(); ?>">
-          <!-- <input type="submit" name="delete" class="float-right btn btn-danger" value="Ablehnen">
-          <input type="submit" name="accept" class="float-right btn btn-success" value="Annehmen"> -->
-          <button class="btn float-right"><span class="fas fa-hand-middle-finger fa-2x" style="color: red; size: 9x"></span></button>
-          <button class="btn float-right"><span class="fa fa-check-circle fa-2x" style="color: green; size: 9x"></span></button>
+          <button class="btn float-right px-2"><span class="fa fa-hand-middle-finger fa-2x" style="color: red; size: 9x"></span></button>
+          <button class="btn float-right px-2 mr-2"><span class="fa fa-check-circle fa-2x" style="color: green; size: 9x"></span></button>
         </div>
       </div>
     </form>
-    <!-- <button class="btn pull-right">
-      <span class="fa fa-search-plus"></span>
-    </button> -->
   </li>
 
   <?php

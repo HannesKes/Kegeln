@@ -18,7 +18,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
 
   if(isset($_GET['date'])){
     $id = Game::getIdForDate($db, $_GET['date']);
-    header("Location: /Kegeln/spiel.php?id=$id");
+    header("Location: /Kegeln/game/game.php?id=$id");
   }
 
   $pumpKingAndGame = User::readPumpKingAndGame($db);

@@ -40,7 +40,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
       $king = $user->getUsername() . " (" . $user->getFirstname() . " " . $user->getLastname() . ")";
 
       if ($next) {
-        echo "<a href='/Kegeln/spiel.php?id=$nextId'><button class='btn btn-secondary float-right'>nächstes Spiel</button></a>";
+        echo "<a href='/Kegeln/game/game.php?id=$nextId'><button class='btn btn-secondary float-right'>nächstes Spiel</button></a>";
       }
 
     ?>
@@ -53,17 +53,17 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
       <b>Nächster Termin: </b>
       <?php
       if ($next){
-        echo "<a href='/Kegeln/spiel.php?id=$nextId'>$formattedNext</a>";
+        echo "<a href='/Kegeln/game/game.php?id=$nextId'>$formattedNext</a>";
       } else {
         if ($isAdmin) {
-          echo "Sie haben noch kein nächstes Spiel geplant. Sie können das Datum des nächsten Spiels <a href='/Kegeln/update_game.php'>hier</a> festlegen.";
+          echo "Sie haben noch kein nächstes Spiel geplant. Sie können das Datum des nächsten Spiels <a href='/Kegeln/game/update_game.php'>hier</a> festlegen.";
         } else {
           echo "noch kein nächstes Spiel geplant";
         }
       }
 
       ?>
-      <a href='/Kegeln/spiel.php?id=$nextId'></a>
+      <a href='/Kegeln/game/game.php?id=$nextId'></a>
 
       <br/><br/>
 

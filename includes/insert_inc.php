@@ -9,7 +9,7 @@ function insertGame() {
 
   $game = Game::readLast($db);
   if ($game->getNextGame()==NULL){
-    throw new Exception("Es kann kein neues Spiel erstellt werden, wenn im alten Spiel noch kein nächstes Spiel festgelegt wurde. Du kannst das Datum <a href='/Kegeln/update_game.php'>hier</a> ergänzen.");
+    throw new Exception("Es kann kein neues Spiel erstellt werden, wenn im alten Spiel noch kein nächstes Spiel festgelegt wurde. Du kannst das Datum <a href='/Kegeln/game/update_game.php'>hier</a> ergänzen.");
   }
 
   $game = new Game($db);

@@ -109,13 +109,13 @@ if (strpos($_SERVER['PHP_SELF'], "accept.php")){
               }
               ?>
               <li class="nav-item">
-                <a class="nav-link" href="/Kegeln/insert_game.php">Neues Spiel</a>
+                <a class="nav-link" href="/Kegeln/game/insert_game.php">Neues Spiel</a>
               </li>
               <?php
               if($nextGame==NULL){
                 ?>
                 <li class="nav-item">
-                  <a class="nav-link" href="/Kegeln/update_game.php">Nächstes Spiel</a>
+                  <a class="nav-link" href="/Kegeln/game/update_game.php">Nächstes Spiel</a>
                 </li>
                 <?php
               }
@@ -171,7 +171,7 @@ if(isset($_GET['errorcode'])) {
         $message = "Es sind keine neuen Nutzer zum Aktzeptieren vorhanden.";
         break;
     case "6":
-        // die Seite spiel.php wurde ohne "?id=123" angegeben
+        // die Seite game/game.php wurde ohne "?id=123" angegeben
         $message = "Sie müssen die ID des Spiels mitgeben, um sich das Spiel anzeigen zu lassen.";
         break;
     case "7":
@@ -203,7 +203,7 @@ if(isset($_GET['errorcode'])) {
       break;
     case "3":
       // neues Spiel ohne ANgabe des Datums des nächsten Spiels
-      $message = "Das Spiel wurde erfolgreich erstellt. Sie können das Datum für das nächste Spiel <a href='/Kegeln/update_game.php'>hier</a> nachtragen.";
+      $message = "Das Spiel wurde erfolgreich erstellt. Sie können das Datum für das nächste Spiel <a href='/Kegeln/game/update_game.php'>hier</a> nachtragen.";
       break;
     case "4":
       // ein Admin hat ein neues Spiel erfasst
