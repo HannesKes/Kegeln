@@ -79,6 +79,48 @@ if (strpos($_SERVER['PHP_SELF'], "accept.php")){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
+    <style>
+
+    #myFooter a {
+        color: #d2d1d1;
+        text-decoration: none;
+    }
+
+    #myFooter a:hover,
+    #myFooter a:focus {
+        text-decoration: none;
+        color: white;
+    }
+
+    #myFooter .facebook:hover {
+        color: #0077e2;
+    }
+
+    #myFooter .google:hover {
+        color: #ef1a1a;
+    }
+
+    #myFooter .twitter:hover {
+        color: #00aced;
+    }
+
+    #myFooter .instagram:hover {
+        color: #EC00B5;
+    }
+
+    #myFooter .reddit:hover {
+        color: #FF0000;
+    }
+
+    #myFooter .snapchat:hover {
+        color: #FFFF33;
+    }
+
+    #myFooter .beer:hover {
+        color: #40FF00;
+    }
+
+    </style>
 
   </head>
   <body>
@@ -121,9 +163,6 @@ if (strpos($_SERVER['PHP_SELF'], "accept.php")){
               }
             }
             ?>
-			      <li class="nav-item">
-			        <a class="nav-link" href="impressum.php">Impressum</a>
-			      </li>
           </ul>
             <?php if ($loggedin){ ?>
               <ul class="navbar-nav">

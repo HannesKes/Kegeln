@@ -30,7 +30,7 @@ body {
     width: 100% !important
   }
 }
-.fa {
+/* .fa {
   padding: 10px;
   font-size: 30px;
   width: 50px;
@@ -40,9 +40,9 @@ body {
 }
 .fa-instagram {
   background: #353535;
-  color: white;
+  color: #EC00B5;
   text-decoration: none;
-}
+} */
 .bg {
   /* The image used */
   background-image: url("media/kegeln.jpg");
