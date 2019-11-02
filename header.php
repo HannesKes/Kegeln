@@ -48,7 +48,7 @@ if(($redirect_when_loggedin == true) && ($loggedin == true)){
   exit();
 }
 
-$users = User::readNew($db); // TODO: benötigt?
+$users = User::readNew($db);
 
 if (strpos($_SERVER['PHP_SELF'], "accept.php")){
   if(isset($_POST["accept"])){
@@ -76,7 +76,8 @@ if (strpos($_SERVER['PHP_SELF'], "accept.php")){
     <link href="/Kegeln/css/bootstrap.min.css" rel="stylesheet">
     <link href="/Kegeln/css/style.css" rel="stylesheet">
     <link rel="shortcut icon" type="image/x-icon" href="/Kegeln/media/beer.jpg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><link href="https://use.fontawesome.com/releases/v5.0.1/css/all.css" rel="stylesheet"> -->
+    <link href="https://use.fontawesome.com/releases/v5.11.1/css/all.css" rel="stylesheet">
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
   </head>
@@ -84,7 +85,7 @@ if (strpos($_SERVER['PHP_SELF'], "accept.php")){
 
   	<header>
 	    <nav class="navbar sticky-top navbar-expand-md navbar-dark" style="background-color: #353535;">
-			  <a class="navbar-brand" href="/Kegeln/index.php"><img src="media/beer.jpg" width="40" height="40" alt=""></a>
+			  <a class="navbar-brand" href="/Kegeln/index.php"><img src="/Kegeln/media/beer.jpg" width="40" height="40" alt=""></a>
 			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			    <span class="navbar-toggler-icon"></span>
 			  </button>
@@ -102,7 +103,7 @@ if (strpos($_SERVER['PHP_SELF'], "accept.php")){
               if(!empty($users)){
                 ?>
                 <li class="nav-item">
-                  <a class="nav-link" href="/Kegeln/accept.php">Neue Nutzer</a>
+                  <a class="nav-link" href="/Kegeln/user/accept.php">Neue Nutzer</a>
                 </li>
                 <?php
               }
