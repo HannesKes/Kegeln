@@ -23,8 +23,9 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   shuffle($gif_array);
 
   // show random gif
+  echo "<br/><br/>";
   echo "<div style='display: flex; justify-content: center; align-items: center'>";
-    echo "<img src='$gif_array[0]' />";
+    echo "<img src='$gif_array[0]' style='max-width: 100%; height: auto' />";
   echo "</div>";
 
   echo "</br>";

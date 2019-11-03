@@ -19,8 +19,8 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
 ?>
 
-<center><h1>Neu registrierte Nutzer</h1></center>
-<br/><br/>
+<center><h1 class="my-2">Neu registrierte Nutzer</h1></center>
+<br/>
 
 
 <ul class="list-group">

@@ -140,7 +140,6 @@ if (strpos($_SERVER['PHP_SELF'], "accept.php")){
 </div>
 
 <main role="main" class="container">
-<br/>
 
 <?php
 
@@ -227,5 +226,3 @@ if(isset($_GET['errorcode'])) {
 }
 
  ?>
-
- <br/>
