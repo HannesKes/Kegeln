@@ -16,8 +16,7 @@
           <a href="https://de-de.facebook.com/ichliebebier.at/" target="_blank" class="facebook"><i class="fab fa-facebook pr-3" style="font-size: 22px"></i></a>
           <a href="https://www.youtube.com/watch?v=OXPswg0urtQ&t=2s" target="_blank" class="google"><i class="fab fa-youtube pr-3" style="font-size: 22px"></i></a>
           <a href="https://www.reddit.com/r/beer/" target="_blank" class="reddit"><i class="fab fa-reddit-alien pr-3" style="font-size: 22px"></i></a>
-          <a href="https://www.snapchat.com/add/hopfenspeicher" target="_blank" class="snapchat"><i class="fab fa-snapchat pr-3" style="font-size: 22px"></i></a>
-          <a href="https://bierpong.de.cool/" target="_blank" class="beer"><i class="fas fa-beer" style="font-size: 22px"></i></a>
+          <a href="https://www.oettinger-bier.de/" target="_blank" class="beer"><i class="fas fa-beer" style="font-size: 22px"></i></a>
         </div>
         <div class="col-2">
           <a href="/Kegeln/impressum.php">Impressum</a>
@@ -51,8 +50,7 @@
         <a href="https://de-de.facebook.com/ichliebebier.at/" target="_blank" class="facebook"><i class="fab fa-facebook pr-3" style="font-size: 22px"></i></a>
         <a href="https://www.youtube.com/watch?v=OXPswg0urtQ&t=2s" target="_blank" class="google"><i class="fab fa-youtube pr-3" style="font-size: 22px"></i></a>
         <a href="https://www.reddit.com/r/beer/" target="_blank" class="reddit"><i class="fab fa-reddit-alien pr-3" style="font-size: 22px"></i></a>
-        <a href="https://www.snapchat.com/add/hopfenspeicher" target="_blank" class="snapchat"><i class="fab fa-snapchat pr-3" style="font-size: 22px"></i></a>
-        <a href="https://bierpong.de.cool/" target="_blank" class="beer"><i class="fas fa-beer" style="font-size: 22px"></i></a>
+        <a href="https://www.oettinger-bier.de/" target="_blank" class="beer"><i class="fas fa-beer" style="font-size: 22px"></i></a>
       </div>
     </div>
   </footer>
