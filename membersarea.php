@@ -33,9 +33,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
 <!-- content for larger devices -->
 <div class="d-none d-sm-block">
 
-  <div class="justify-content-left" style="padding-top:30px">
-    <h4>Hallo Bierpumpe! <!-- User aus DB ziehen --></h4>
-  </div>
+  <h4>Hallo <?php echo $username; ?>!</h4>
 
   <div class="row justify-content-center" style="padding-top:20px">
     <!-- Kopfbereich mit allen wichtigen Infos -->
@@ -146,9 +144,8 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
 
 <!-- content for mobile devices -->
 <div class="d-sm-none px-2">
-  <div class="row justify-content-center d-block" style="padding-top:30px">
-    <!-- Kopfbereich mit allen wichtigen Infos -->
-    <h5>
+  <div class="row justify-content-center d-block">
+    <h3>Hallo <?php echo $username; ?>!</h3>
       <table class="table">
         <thead class="thead-light">
           <tr>

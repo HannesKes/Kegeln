@@ -27,11 +27,11 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 ?>
 
 <div class="container w-login">
-  <div id="signupbox" style="margin-top:50px" class="mainbox justify-content-center">
+  <div id="signupbox" class="mainbox justify-content-center">
     <div class="panel panel-info">
       <div class="panel-heading">
-          <div class="panel-title font-weight-bold">Registrieren</div>
-          <div style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="/Kegeln/login.php">Login</a></div>
+        <a id="signinlink" class="btn btn-sm btn-info float-right" href="/Kegeln/user/login.php">Login</a>
+        <div class="panel-title font-weight-bold">Registrieren</div>
       </div>
 
       <div style="padding-top:30px" class="panel-body" >
@@ -92,7 +92,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
               <div class="form-group">
                   <!-- Button -->
                 <div class="col-md-offset-3 col-md-9">
-                    <button id="btn-signup" type="submit" name="submit" class="btn btn-info"><i class="icon-hand-right"></i> &nbsp Registrieren</button>
+                  <button id="btn-signup" type="submit" name="submit" class="btn btn-success"><i class="far fa-hand-point-right"></i>&nbsp Registrieren</button>
                 </div>
               </div>
             </form>

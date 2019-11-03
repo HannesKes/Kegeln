@@ -3,12 +3,11 @@ html {
   min-height: 100%;
 }
 
-body {
-  margin-bottom: 60px; /* Margin bottom by footer height */
-  /* background-image: url('/Kegeln/media/beer.jpg') !important; TODO: funktioniert jetzt, sieht mit dem Bild aber kacke aus... */
-}
-
 @media (min-width: 992px) {
+  body {
+    margin-bottom: 60px; /* Margin bottom by footer height */
+    /* background-image: url('/Kegeln/media/beer.jpg') !important; TODO: funktioniert jetzt, sieht mit dem Bild aber kacke aus... */
+  }
   .w-login {
     width: 50% !important
   }
@@ -24,6 +23,10 @@ body {
 }
 
 @media (max-width: 991px) {
+  body {
+    margin-bottom: 120px; /* Margin bottom by footer height */
+    /* background-image: url('/Kegeln/media/beer.jpg') !important; TODO: funktioniert jetzt, sieht mit dem Bild aber kacke aus... */
+  }
   .w-login {
     width: 100% !important
   }

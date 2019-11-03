@@ -29,7 +29,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 ?>
 
 <div class="container w-login">
-  <div id="loginbox" style="margin-top:50px;" class="mainbox justify-content-center">
+  <div id="loginbox" class="mainbox justify-content-center">
     <div class="panel panel-info" >
       <div class="panel-heading">
         <div class="panel-title font-weight-bold">Login</div>

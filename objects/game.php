@@ -121,6 +121,7 @@ class Game {
     $stmt = $db->prepare($query);
 
     // Sets the variables in the query to the corresponding attribute values of the game object
+    $date = substr($date, 6, 4) . "-" . substr($date, 3, 2) . "." . substr($date, 0, 2);
     $stmt->bindParam(":date", $date);
 
     // execute query. return false if execution failed.
