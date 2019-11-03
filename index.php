@@ -27,11 +27,32 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
     echo "<img src='$gif_array[0]' />";
   echo "</div>";
 
+  echo "</br>";
+
+  $text_array[] = "<h4><b>1. Anzeichen, dass auf der Kegelbahn zu viel geraucht wird: </br>Während des Kegelns sind Nebelscheinwerfer an...</b></h4>";
+  $text_array[] = "<h4><b>2. Anzeichen, dass auf der Kegelbahn zu viel geraucht wird: </br>Die Zigarettenindustrie ist Hauptsponsor des Vereins...</b></h4>";
+  $text_array[] = "<h4><b>3. Anzeichen, dass auf der Kegelbahn zu viel geraucht wird: </br>Jeder Tisch hat seinen eigenen Zigarettenautomaten...</b></h4>";
+  $text_array[] = "<h4><b>4. Anzeichen, dass auf der Kegelbahn zu viel geraucht wird: </br>Dem Kegler schmerzt es nicht, wenn wenn ihm die Kugel auf den Fuß fällt...</b></h4>";
+  $text_array[] = "<h4><b>5. Anzeichen, dass auf der Kegelbahn zu viel geraucht wird: </br>Die Kegelkasse wird ausschließlich für Ersatzlungen und Beinprothesen verwendet...</b></h4>";
+  $text_array[] = "<h4><b>6. Anzeichen, dass auf der Kegelbahn zu viel geraucht wird: </br>Nichtraucher kegeln mit Sauerstoffmasken...</b></h4>";
+  $text_array[] = "<h4><b>1. Ausrede für schlechte Würfe: </br>Die Anderen waren zu laut...</b></h4>";
+  $text_array[] = "<h4><b>2. Ausrede für schlechte Würfe: </br>Die Bahn ist schief...</b></h4>";
+  $text_array[] = "<h4><b>3. Ausrede für schlechte Würfe: </br>Hier ziehts...</b></h4>";
+  $text_array[] = "<h4><b>4. Ausrede für schlechte Würfe: </br>Heute Morgen ist mein Hamster gestorben...</b></h4>";
+  $text_array[] = "<h4><b>5. Ausrede für schlechte Würfe: </br>Hab gestern schon 5 Stunden gespielt...</b></h4>";
+  $text_array[] = "<h4><b>6. Ausrede für schlechte Würfe: </br>Mein T-Shirt passt nicht richtig...</b></h4>";
+
+  shuffle($text_array);
+  shuffle($text_array);
+  shuffle($text_array);
+
+  echo "<div style='display: flex; justify-content: center; align-items: center'>";
+    echo $text_array[0];
+  echo "</div>";
+
   //  style="background-image: url('Kegeln/media/kegeln.jpg'); background-color: 'CCCCCC'"
 
 ?>
-
-  <!-- Background? Funzt nicht, ist schon im style.css -->
 
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/footer.php';
