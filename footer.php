@@ -9,7 +9,7 @@
         <!-- <div class="col-3"> -->
           <!-- no text in first column -->
         <!-- </div> -->
-        <div class="col-4">
+        <div class="col-5">
           <!-- symbols -->
           <a href="https://www.instagram.com/die_bierpumpen/" class="fab fa-instagram instagram pr-3" style="font-size: 22px"></a>
           <a href="https://twitter.com/hopfenspeicher" target="_blank" class="twitter"><i class="fab fa-twitter pr-3" style="font-size: 22px"></i></a>
@@ -22,7 +22,7 @@
         <div class="col-2">
           <a href="/Kegeln/impressum.php">Impressum</a>
         </div>
-        <div class="col-6">
+        <div class="col-5">
           <!-- Copyright -->
           <div class="footer-copyright text-center text-muted">© 2019 Copyright
             <a class="text-white"href="https://bierpumpen.de">  Bierpumpen.de</a>
