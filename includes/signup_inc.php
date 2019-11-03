@@ -13,6 +13,11 @@ require $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/PHPMailer-master/src/SMTP.
 
 function signupUser() {
 
+  // checks the two passwords
+  if ($_POST['password1'] != $_POST['password2']) {
+    throw new Exception("Die beiden Passwörter stimmen nicht überein.", 1);
+  }
+
   $database = new Database();
   $db = $database->getConnection();
 
@@ -32,7 +37,7 @@ function signupUser() {
   $user->setEmail($_POST['email']);
 
   //Encode Password for safer handling
-  $password = password_hash($_POST['password'],PASSWORD_DEFAULT);
+  $password = password_hash($_POST['password1'],PASSWORD_DEFAULT);
   $user->setpassword($password);
 
   if ($user->create()) {
@@ -75,7 +80,7 @@ function signupUser() {
     header("Location: /Kegeln/index.php?message=1");
     exit();
   } else {
-    throw new Exception('Die Registrierung war leider nicht erfolgreich. Bitte versuchen Sie es erneut.');
+    throw new Exception('Die Registrierung war leider nicht erfolgreich. Bitte versuchen Sie es erneut.', 4);
   }
 }
 ?>

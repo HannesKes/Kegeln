@@ -156,7 +156,7 @@ class User {
     // Execute the query and check if any User has been found. If so throw an exception.
     $stmt->execute();
     if($stmt->rowCount() > 0) {
-      throw new Exception('Dieser Benutzername existiert bereits. Bitte wähle einen anderen Namen und versuche es erneut.');
+      throw new Exception('Dieser Benutzername existiert bereits. Bitte wähle einen anderen Namen und versuche es erneut.', 2);
     }
 
     // Return true if the Username matches all criteria
@@ -167,26 +167,26 @@ class User {
   public static function isEmailValid($db, $email) {
     // Check if the email contains spaces
     if(strpos($email, ' ') !== false) {
-      throw new Exception("Die E-Mail-Adresse $email darf kein Leerzeichen enthalten. Bitte tragen Sie eine valide E-Mail-Adresse ein und versuchen Sie es erneut.");
+      throw new Exception("Die E-Mail-Adresse $email darf kein Leerzeichen enthalten. Bitte tragen Sie eine valide E-Mail-Adresse ein und versuchen Sie es erneut.", 3);
     }
 
     // Check if the email contains @
     if(strpos($email, '@') == false) {
-      throw new Exception("Die E-Mail-Adresse $email enthält kein @. Bitte tragen Sie eine valide E-Mail-Adresse ein und versuchen Sie es erneut.");
+      throw new Exception("Die E-Mail-Adresse $email enthält kein @. Bitte tragen Sie eine valide E-Mail-Adresse ein und versuchen Sie es erneut.", 3);
     }
 
     $string1 = substr($email, strpos($email, '@'));
 
     // Check if the email contains a dot after the @
     if(strpos($string1, '.') == false) {
-      throw new Exception("Die E-Mail-Adresse $email enthält keinen Punkt nach dem @. Bitte tragen Sie eine valide E-Mail-Adresse ein und versuchen Sie es erneut.");
+      throw new Exception("Die E-Mail-Adresse $email enthält keinen Punkt nach dem @. Bitte tragen Sie eine valide E-Mail-Adresse ein und versuchen Sie es erneut.", 3);
     }
 
     $string2 = substr($string1, strpos($string1, '.'));
 
     // Check if the email contains a dot after the dot after the @
     if(strpos($string2, '.')) {
-      throw new Exception("Die E-Mail-Adresse $email enthält einen Punkt nach dem Punkt nach dem @. Bitte tragen Sie eine valide E-Mail-Adresse ein und versuchen Sie es erneut.");
+      throw new Exception("Die E-Mail-Adresse $email enthält einen Punkt nach dem Punkt nach dem @. Bitte tragen Sie eine valide E-Mail-Adresse ein und versuchen Sie es erneut.", 3);
     }
 
     // Return true if the Email matches all criteria
