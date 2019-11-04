@@ -80,29 +80,29 @@ $users = User::readNew($db);
 
 			  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 			    <ul class="navbar-nav mr-auto">
-			      <li class="nav-item active">
-			        <a class="nav-link" href="/Kegeln/index.php">Home<span class="sr-only">(current)</span></a>
+			      <li class="nav-item <?php if (strpos($_SERVER['PHP_SELF'], "index.php")){echo "active";} ?>">
+			        <a class="nav-link" href="/Kegeln/index.php">Home</a>
 			      </li>
-			      <li class="nav-item">
+			      <li class="nav-item <?php if (strpos($_SERVER['PHP_SELF'], "membersarea.php")){echo "active";} ?>">
 			        <a class="nav-link" href="/Kegeln/intern.php">Intern</a>
 			      </li>
             <?php
             if ($isAdmin){
               if(!empty($users)){
                 ?>
-                <li class="nav-item">
+                <li class="nav-item <?php if (strpos($_SERVER['PHP_SELF'], "index.php")){echo "active";} ?>">
                   <a class="nav-link" href="/Kegeln/user/accept.php">Neue Nutzer</a>
                 </li>
                 <?php
               }
               ?>
-              <li class="nav-item">
+              <li class="nav-item <?php if (strpos($_SERVER['PHP_SELF'], "insert_game.php")){echo "active";} ?>">
                 <a class="nav-link" href="/Kegeln/game/insert_game.php">Neues Spiel</a>
               </li>
               <?php
               if($nextGame==NULL){
                 ?>
-                <li class="nav-item">
+                <li class="nav-item <?php if (strpos($_SERVER['PHP_SELF'], "update_game.php")){echo "active";} ?>">
                   <a class="nav-link" href="/Kegeln/game/update_game.php">Nächstes Spiel</a>
                 </li>
                 <?php
