@@ -50,18 +50,6 @@ if(($redirect_when_loggedin == true) && ($loggedin == true)){
 
 $users = User::readNew($db);
 
-if (strpos($_SERVER['PHP_SELF'], "accept.php")){
-  if(isset($_POST["accept"])){
-    User::accept($db, $_POST["user_id"]);
-  } elseif(isset($_POST["delete"])){
-    User::delete($db, $_POST["user_id"]);
-  }
-  $users = User::readNew($db);
-  if(empty($users)){
-    header("Location: /Kegeln/index.php?message=4");
-  }
-}
-
 ?>
 
 <!DOCTYPE html>
