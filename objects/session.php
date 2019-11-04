@@ -20,7 +20,7 @@ if(!isset($_SESSION['session_id']) && isset($_COOKIE['identifier']) && isset($_C
     //Set new token
     $bytes = random_bytes(16);
     $securitytoken->setToken = bin2hex($bytes);
-    $securitytoken->updateToken();
+    $securitytoken->update();
     setcookie("identifier",$identifier,time()+(3600*24*365),"/"); //1 year
     setcookie("token",$securitytoken->getToken(),time()+(3600*24*365),"/"); //1 year
 

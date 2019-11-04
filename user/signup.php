@@ -76,8 +76,10 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
               </div>
 
               <button class="btn btn-lg btn-primary btn-block text-uppercase" name="submit" type="submit">Registrieren</button>
-              <a class="d-block text-center mt-2 small" href="/Kegeln/user/login.php">Login</a>
             </form>
+            <a class="d-block text-center mt-2 small" href="/Kegeln/user/login.php">Login</a>
+            <hr>
+            <div class="text-sm-center small" style="color: #757575">(Nur für echte Bierpumpen)</div>
           </div>
         </div>
       </div>
