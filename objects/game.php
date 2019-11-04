@@ -48,6 +48,32 @@ class Game {
 
   // Creates a new Game in the database
   public function create() {
+  	// check nextGame of lastGame
+    $query = "SELECT nextGame FROM " . Game::$table_name . " ORDER BY date DESC LIMIT 0, 1";
+    $stmt = $this->db->prepare($query);
+
+    if($stmt->execute()){
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      $nextGame_last = $row['nextGame'];
+    } else {
+      return false;
+    }
+
+    // update nextGame of lastGame
+    if ($nextGame_last != $this->date){
+      $query = "UPDATE " . Game::$table_name . " SET nextGame=:nextGame WHERE nextGame=:currentGame";
+      $stmt = $this->db->prepare($query);
+      $stmt->bindParam(":nextGame", $this->date);
+      $stmt->bindParam(":currentGame", $nextGame_last);
+
+      if($stmt->execute()){
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $nextGame_last = $row['nextGame'];
+      } else {
+        return false;
+      }
+    }
+
     // Prepares query
     $query = "INSERT INTO " . Game::$table_name . " SET date=:date, king=:king,
       amount=:amount, nextGame=:nextGame";

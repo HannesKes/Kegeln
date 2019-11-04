@@ -182,6 +182,7 @@ if(isset($_GET['errorcode'])) {
   }
 
   ?>
+  <br/>
   <div class="alert alert-danger alert-dismissible">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <?php echo $message; ?>
@@ -217,6 +218,7 @@ if(isset($_GET['errorcode'])) {
   }
 
   ?>
+  <br/>
   <div class="alert alert-success alert-dismissible">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <?php echo $message; ?>

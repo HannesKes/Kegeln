@@ -47,26 +47,6 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
 
       <u><center><h2>Spiel vom <b><?php echo $formattedDate;?></b></h2></center></u><br/>
 
-      <!-- <b>Pumpenkönig: </b><?php echo $king; ?> <br/>
-      <b>Anzahl: </b><?php echo $game->getAmount(); ?> <br/><br/>
-      <b>Nächster Termin: </b> -->
-      <?php
-      // if ($next){
-      //   echo "<a href='/Kegeln/game/game.php?id=$nextId'>$formattedNext</a>";
-      // } else {
-      //   if ($isAdmin) {
-      //     echo "Sie haben noch kein nächstes Spiel geplant. Sie können das Datum des nächsten Spiels <a href='/Kegeln/game/update_game.php'>hier</a> festlegen.";
-      //   } else {
-      //     echo "noch kein nächstes Spiel geplant";
-      //   }
-      // }
-      ?>
-      <!-- <a href='/Kegeln/game/game.php?id=$nextId'></a>
-      <br/><br/>
-      <b>Strafen: </b><br/><br/>
-      <b>Ausstehender Monatsbeitrag: </b><br/><br/> -->
-
-
       <ul class="list-group">
         <li class="list-group-item">
           <b>Pumpenkönig:</b><br/>
