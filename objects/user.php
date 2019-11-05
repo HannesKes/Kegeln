@@ -216,10 +216,33 @@ class User {
     return $user_array;
   }
 
-  // Returns an array containing all User objects with values from the Database.
+  // Returns an array containing all User objects with the value isNew=1 from the Database.
   public static function readNew($db) {
     // Prepares and executes the query.
     $query = "SELECT * From " . User::$table_name . " WHERE isNew=1";
+
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+
+    // Create a User object array
+    $user_array = array();
+
+    // Traverses the Resultset of the query Execution.
+    // Adds a new element to the array for each record.
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+      $user = new User($db);
+      User::updateAttributes($user, $row);
+      // Adds the User object to the array
+      $user_array[] = $user;
+    }
+
+    return $user_array;
+  }
+
+  // Returns an array containing all Users who are not new
+  public static function readActive($db) {
+    // Prepares and executes the query.
+    $query = "SELECT * From " . User::$table_name . " WHERE isNew=0";
 
     $stmt = $db->prepare($query);
     $stmt->execute();

@@ -19,7 +19,7 @@ function insertGame() {
   $game->setDate($_POST['date']);
   $game->setKing($_POST['user_id']);
   $game->setAmount($_POST['number']);
-  if (!$_POST['nextGame']=="0001-01-01"){
+  if (!($_POST['nextGame']=="0001-01-01" || $_POST['nextGame']=="")){
     $game->setNextGame($_POST['nextGame']);
     $next = true;
   }
