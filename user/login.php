@@ -36,7 +36,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
             <h5 class="card-title text-center">Login</h5>
             <form id="loginform" class="form-signin needs-validation" method="POST" role="form" novalidate>
               <div class="form-label-group">
-                <input type="text" id="login-username" name="username" value="" class="form-control" placeholder="Email address" maxlength="32" required autofocus>
+                <input type="text" id="login-username" name="username" value="" class="form-control" placeholder="Username" maxlength="32" required autofocus>
                 <label for="login-username">Benutzername</label>
               </div>
               <div class="form-label-group">

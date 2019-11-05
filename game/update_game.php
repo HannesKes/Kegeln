@@ -23,17 +23,35 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
 ?>
 
-<center><h2>Datum des nächsten Spiels erfassen</h2></center><br/><br/><br/>
+<!-- <center><h2>Datum des nächsten Spiels erfassen</h2></center><br/><br/><br/> -->
 
 <form method="post">
 
-<div class="row justify-content-center">
-  Datum:
-  <input class="ml-2 pl-1 form-control w-25" type="date" name="date" value="<?php echo $date; ?>" /><br/><br/><br/>
-</div>
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h5 class="card-title text-center">Datum des nächsten Spiels</h5>
+          <hr class="my-4">
+          <form method="POST" role="form">
+            <div class="form-label-group">
+              <input type="date" id="date" name="date" value="<?php echo $date; ?>" class="form-control">
+              <label for="date">Datum</label>
+            </div>
+            <hr class="my-4">
+            <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" name="submit">Speichern</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- Button -->
-  <center><input type="submit" name="submit" value="Speichern" class="btn btn-info" /><br/></center>
+  <!-- <div class="form-group mx-auto">
+    <label class="font-weight-bold" for="date">Datum</label>
+    <input class="form-control w-25" type="date" name="date" value="<?php echo $date; ?>" /><br/><br/><br/>
+  </div>
+
+  <center><input type="submit" name="submit" value="Speichern" class="btn btn-info" /><br/></center> -->
 
 </form>
 
