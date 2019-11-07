@@ -61,7 +61,7 @@ class Game {
 
     // update nextGame of lastGame
     if ($nextGame_last != $this->date){
-      $query = "UPDATE " . Game::$table_name . " SET nextGame=:nextGame WHERE nextGame=:currentGame";
+      $query = "UPDATE " . Game::$table_name . " SET nextGame=:nextGame WHERE nextGame=:currentGame OR nextGame is null";
       $stmt = $this->db->prepare($query);
       $stmt->bindParam(":nextGame", $this->date);
       $stmt->bindParam(":currentGame", $nextGame_last);

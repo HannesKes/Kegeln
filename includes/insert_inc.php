@@ -7,10 +7,10 @@ function insertGame() {
   $database = new Database();
   $db = $database->getConnection();
 
-  $game = Game::readLast($db);
-  if ($game->getNextGame()==NULL){
-    throw new Exception("Es kann kein neues Spiel erstellt werden, wenn im alten Spiel noch kein nächstes Spiel festgelegt wurde. Du kannst das Datum <a href='/Kegeln/game/update_game.php'>hier</a> ergänzen.");
-  }
+  // $game = Game::readLast($db);
+  // if ($game->getNextGame()==NULL){
+  //   throw new Exception("Es kann kein neues Spiel erstellt werden, wenn im alten Spiel noch kein nächstes Spiel festgelegt wurde. Du kannst das Datum <a href='/Kegeln/game/update_game.php'>hier</a> ergänzen.");
+  // }
 
   $game = new Game($db);
   $next = false;
@@ -23,8 +23,6 @@ function insertGame() {
     $game->setNextGame($_POST['nextGame']);
     $next = true;
   }
-
-
 
   if ($game->create()) {
     // registration successful message
