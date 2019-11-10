@@ -10,7 +10,7 @@ class Bill {
   private $date;
   private $user;
   private $amount;
-  private $newBalance;
+  private $paid;
 
   // The constructor of the Bill class.
   // This function is called when a new Bill object is created and instantiates the db attribute.
@@ -22,14 +22,14 @@ class Bill {
   public function create() {
     // Prepares query
     $query = "INSERT INTO " . Bill::$table_name . " SET date=:date, user=:user,
-      amount=:amount, newBalance=:newBalance";
+      amount=:amount, paid=:paid";
     $stmt = $this->db->prepare($query);
 
     // Sets the variables in the query to the corresponding attribute values of the bill object
     $stmt->bindParam(":date", $this->date);
     $stmt->bindParam(":user", $this->user);
     $stmt->bindParam(":amount", $this->amount);
-    $stmt->bindParam(":newBalance", $this->newBalance);
+    $stmt->bindParam(":paid", $this->paid);
 
     // If the execution of the query is successful return true and set the ID of the bill object
     // To the one of the newly created record in the database.
@@ -41,7 +41,7 @@ class Bill {
     }
   }
 
-  // returns the newest bill from the database
+  // returns the sum of the bills (=balance) from the database
   public static function readBalance($db) {
     // Prepares and executes the query.
     $query = "SELECT SUM(amount) AS balance FROM " . Bill::$table_name . " WHERE paid=true";
@@ -86,9 +86,9 @@ class Bill {
   public static function updateAttributes($bill, $row){
     $bill->setId($row['id']);
     $bill->setDate($row['date']);
-    $bill->setKing($row['user']);
+    $bill->setUser($row['user']);
     $bill->setAmount($row['amount']);
-    $bill->setNextBill($row['newBalance']);
+    $bill->setPaid($row['paid']);
   }
 
   // Getter and Setter methods
@@ -109,12 +109,12 @@ class Bill {
     $this->date = htmlspecialchars(strip_tags($newDate));
   }
 
-  public function getKing() {
+  public function getUser() {
     return $this->user;
   }
 
-  public function setKing($newKing) {
-    $this->user = htmlspecialchars(strip_tags($newKing));
+  public function setUser($newUser) {
+    $this->user = htmlspecialchars(strip_tags($newUser));
   }
 
   public function getAmount() {
@@ -125,12 +125,12 @@ class Bill {
     $this->amount = htmlspecialchars(strip_tags($newAmount));
   }
 
-  public function getNextBill() {
-    return $this->newBalance;
+  public function getPaid() {
+    return $this->paid;
   }
 
-  public function setNextBill($newNextBill) {
-    $this->newBalance = htmlspecialchars(strip_tags($newNextBill));
+  public function setPaid($newPaid) {
+    $this->paid = htmlspecialchars(strip_tags($newPaid));
   }
 
   // End of Getter and Setter Methods

@@ -24,7 +24,6 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
   if (isset($_POST['submit'])){
     try {
-      echo "nextGame: " . $_POST['nextGame'];
       insertGame();
     } catch (Exception $e) { ?>
       <br/>
@@ -81,13 +80,13 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
           <th class="align-middle" scope="row"><?php echo $user->getUsername(); ?></th>
           <td class="align-middle">
             <div class="custom-control custom-checkbox text-center">
-              <input id="present<?php echo $user->getId(); ?>" type="checkbox" class="custom-control-input" name="present<?php echo $user->getId(); ?>" value="1">
+              <input id="present<?php echo $user->getId(); ?>" type="checkbox" class="custom-control-input" name="present<?php echo $user->getId(); ?>" value="0">
               <label class="custom-control-label" for="present<?php echo $user->getId(); ?>"></label>
             </div>
           </td>
           <td class="align-middle">
             <div class="custom-control custom-checkbox text-center">
-              <input id="paid<?php echo $user->getId(); ?>" type="checkbox" class="custom-control-input" name="paid<?php echo $user->getId(); ?>" value="1">
+              <input id="paid<?php echo $user->getId(); ?>" type="checkbox" class="custom-control-input" name="paid<?php echo $user->getId(); ?>" value="0">
               <label class="custom-control-label" for="paid<?php echo $user->getId(); ?>"></label>
             </div>
           </td>

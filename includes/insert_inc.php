@@ -1,6 +1,8 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/database/db.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game_user.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
 
 function insertGame() {
 
@@ -15,7 +17,7 @@ function insertGame() {
   $game = new Game($db);
   $next = false;
 
-  //Set attributes of the new user object
+  // Set attributes of the new user object
   $game->setDate($_POST['date']);
   $game->setKing($_POST['user_id']);
   $game->setAmount($_POST['number']);
@@ -24,17 +26,50 @@ function insertGame() {
     $next = true;
   }
 
-  if ($game->create()) {
-    // registration successful message
-
-    if(next){
-      header("Location: /Kegeln/index.php?message=2");
-    } else {
-      header("Location: /Kegeln/index.php?message=3");
-    }
-    exit();
-  } else {
+  if (!$game->create()) {
     throw new Exception('Es konnte kein neues Spiel erstellt werden. Bitte versuchen Sie es erneut. Es kann nicht mehrere Spiele an einem Tag geben.');
   }
+
+  $activeUsers = User::readAll($db);
+
+  // Set game_user-objects
+  foreach ($activeUsers as $user) { // #SchönPerformantFürJedenEintragEigeneDBAnfrage
+    $game_user = new Game_User($db);
+    $game_user->setGame($game->getId());
+    $game_user->setUser($user->getId());
+    $post_present = "present" . $user->getId();
+    if (isset($_POST[$post_present])) {
+      $game_user->setPresent(true);
+    } else {
+      $game_user->setPresent(false);
+    }
+    $post_pumps = "pumps" . $user->getId();
+    $game_user->setPumps($_POST[$post_pumps]);
+
+    if (!$game_user->create()) {
+      throw new Exception('Es konnte kein neues Spiel erstellt werden. Bitte versuchen Sie es erneut.');
+    }
+
+    $bill = new Bill($db);
+    $bill->setDate($_POST['date']);
+    $bill->setUser($user->getId());
+    $bill->setAmount(5);
+    $post_paid = "paid" . $user->getId();
+    if (isset($_POST[$post_paid])) {
+      $bill->setPaid(true);
+    } else {
+      $bill->setPaid(false);
+    }
+    if (!$bill->create()) {
+      throw new Exception('Es konnte keine Rechnung für den Nutzer ' . $user->getUsername() . ' erstellt werden.');
+    }
+  }
+
+  if(next){
+    header("Location: /Kegeln/index.php?message=2");
+  } else {
+    header("Location: /Kegeln/index.php?message=3");
+  }
+  exit();
 }
 ?>
