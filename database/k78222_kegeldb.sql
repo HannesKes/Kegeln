@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 29. Okt 2019 um 20:49
+-- Erstellungszeit: 10. Nov 2019 um 22:33
 -- Server-Version: 10.1.38-MariaDB
 -- PHP-Version: 7.3.4
 
@@ -60,7 +60,7 @@ INSERT INTO `bills` (`id`, `date`, `user`, `amount`, `paid`) VALUES
 --
 -- Tabellenstruktur für Tabelle `games`
 --
--- Erstellt am: 18. Aug 2019 um 12:33
+-- Erstellt am: 08. Nov 2019 um 22:13
 --
 
 DROP TABLE IF EXISTS `games`;
@@ -86,21 +86,24 @@ INSERT INTO `games` (`id`, `date`, `king`, `amount`, `nextGame`) VALUES
 (1, '2019-08-14', 6, 1, '2019-08-15'),
 (2, '2019-08-15', 1, 3, '2019-08-19'),
 (3, '2019-08-19', 5, 7, '2019-10-17'),
-(4, '2019-10-17', 1, 2, NULL);
+(4, '2019-10-17', 1, 2, '2019-11-05'),
+(9, '2019-11-05', 10, 0, 'NULL');
 
 -- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `game_user`
 --
--- Erstellt am: 18. Aug 2019 um 12:33
+-- Erstellt am: 10. Nov 2019 um 20:31
 --
 
 DROP TABLE IF EXISTS `game_user`;
 CREATE TABLE `game_user` (
   `id` int(11) NOT NULL,
   `game` int(11) NOT NULL,
-  `user` int(11) NOT NULL
+  `user` int(11) NOT NULL,
+  `present` tinyint(1) NOT NULL,
+  `pumps` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 --
@@ -128,6 +131,27 @@ CREATE TABLE `payments` (
 
 --
 -- RELATIONEN DER TABELLE `payments`:
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `securitytokens`
+--
+-- Erstellt am: 04. Nov 2019 um 21:13
+--
+
+DROP TABLE IF EXISTS `securitytokens`;
+CREATE TABLE `securitytokens` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `identifier` varchar(255) COLLATE utf8_german2_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8_german2_ci NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+
+--
+-- RELATIONEN DER TABELLE `securitytokens`:
 --
 
 -- --------------------------------------------------------
@@ -166,7 +190,11 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `firstname`, `lastna
 (5, 'Furz', '$2y$10$s6sJdJ2ab.X/2Z0h5uzgjuFmVLxDod.Oh0doSVAGJwXuTqKAZDm4C', 'ABC@bombe.de', 'Testaa', 'Testamann', 0, 0),
 (6, 'Arsch123', '$2y$10$Mb/ATna0MNLEoNkA74eoVeNcWCu4UzoIwhIdMkpYNVFRwwx3YfRwm', 'niko@stinkt.hart', 'Bääääääh', 'Kotz', 0, 0),
 (8, 'Niggo', '$2y$10$hBXnOaW2xSiQm02fDn8GHePs/GXRK93IiJRbsUHm..6agPlnJJf52', 'niko.ist@doof.de', 'Niko', 'Theders', 0, 1),
-(9, 'Ich', '$2y$10$66R7cO5REfrlXLQ60GuEReLrULDPAB0mDSgd7CEtQW1Gu97YoeYeG', 'hankes@freenet.de', 'Hannes', 'Keßling', 1, 0);
+(9, 'Ich', '$2y$10$66R7cO5REfrlXLQ60GuEReLrULDPAB0mDSgd7CEtQW1Gu97YoeYeG', 'hankes@freenet.de', 'Hannes', 'Keßling', 0, 0),
+(10, 'admin', '$2y$10$UmcqwV4jEiKMEDK8n.EjW.f0kWdaquiCwqIbZPOqwXQl2T5TmEvN6', 'hankes1202@gmail.com', 'Hannes', 'Keßling', 0, 0),
+(11, 'Test42', '$2y$10$LgNJjW.7eMoFwU2Yc/3njO9EqIky.IdAXciz/I5WTBBxdrjJVMchu', 'test@test.test', 'Niko', 'Theders', 0, 0),
+(12, 'Test43', '$2y$10$AoXYnknA6ysIHyxeMMqY9OpfWTZ8acNRLhkjWV3RA3Smfqe5dFFmK', 'test@test.test', 'Ich', 'Bin Cool', 0, 0),
+(13, 'tesssst', '$2y$10$469qxVzMm3MJO9x8mNQwN.28RH3HQFtDxhQG.nEliXm50s5ExOES6', 'test.test.test@test.de', 'Hannes', 'Test', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -210,6 +238,7 @@ ALTER TABLE `bills`
 --
 ALTER TABLE `games`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `date` (`date`),
   ADD UNIQUE KEY `nextGame` (`nextGame`),
   ADD KEY `games_king` (`king`);
 
@@ -225,6 +254,12 @@ ALTER TABLE `game_user`
 -- Indizes für die Tabelle `payments`
 --
 ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indizes für die Tabelle `securitytokens`
+--
+ALTER TABLE `securitytokens`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -250,19 +285,19 @@ ALTER TABLE `user_payment`
 -- AUTO_INCREMENT für Tabelle `bills`
 --
 ALTER TABLE `bills`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT für Tabelle `games`
 --
 ALTER TABLE `games`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT für Tabelle `game_user`
 --
 ALTER TABLE `game_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT für Tabelle `payments`
@@ -274,7 +309,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT für Tabelle `user_payment`
