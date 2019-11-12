@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/database/db.php';
+// include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/database/db.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/user.php';
 
 //Includes for PHPMailer - should not work on localhost... but on netcup! :-)

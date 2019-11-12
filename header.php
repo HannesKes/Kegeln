@@ -97,16 +97,21 @@ $users = User::readNew($db);
               }
               ?>
               <li class="nav-item <?php if (strpos($_SERVER['PHP_SELF'], "insert_game.php")){echo "active";} ?>">
-                <a class="nav-link" href="/Kegeln/game/insert_game.php">Neues Spiel</a>
+                <a class="nav-link" href="/Kegeln/game/insert_game.php">Spiel erfassen</a>
               </li>
               <?php
               if($nextGame==NULL){
                 ?>
                 <li class="nav-item <?php if (strpos($_SERVER['PHP_SELF'], "update_game.php")){echo "active";} ?>">
-                  <a class="nav-link" href="/Kegeln/game/update_game.php">Nächstes Spiel</a>
+                  <a class="nav-link" href="/Kegeln/game/update_game.php">Nächstes Spiel erfassen</a>
                 </li>
                 <?php
               }
+              ?>
+              <li class="nav-item <?php if (strpos($_SERVER['PHP_SELF'], "payment.php")){echo "active";} ?>">
+                <a class="nav-link" href="/Kegeln/payment.php">Strafe erfassen</a>
+              </li>
+              <?php
             }
             ?>
           </ul>

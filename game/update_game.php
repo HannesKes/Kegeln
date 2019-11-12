@@ -1,6 +1,6 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
-  $page_title = "Nächstes Spiel";
+  $page_title = "Nächstes Spiel festlegen";
 
   //You may not be on this pag when logged out.
   //Redirect to index page

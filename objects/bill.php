@@ -3,7 +3,7 @@
 class Bill {
   // Database connection and Table name used for database access
   private $db;
-  private static $table_name = "bills";
+  public static $table_name = "bills";
 
   // Attributes of an Bill object
   private $id;

@@ -1,6 +1,6 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
-  $page_title = "Neues Spiel";
+  $page_title = "Spiel erfassen";
 
   //You may not be on this page when you are logged out or no admin.
   //Redirect to index page
@@ -47,7 +47,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
   <div class="form-group">
     <label class="font-weight-bold" for="pumpKing">Pumpenkönig</label>
-    <select class='form-control' name='user_id'>
+    <select id="pumpKing" class='form-control' name='user_id'>
       <?php
       foreach ($activeUsers as $user) {
         ?>
