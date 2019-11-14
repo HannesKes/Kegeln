@@ -12,7 +12,7 @@ function insertGame() {
   // $game = Game::readLast($db);
   // if ($game->getNextGame()==NULL){
   //   throw new Exception("Es kann kein neues Spiel erstellt werden, wenn im alten Spiel noch kein nächstes Spiel festgelegt wurde. Du kannst das Datum <a href='/Kegeln/game/update_game.php'>hier</a> ergänzen.");
-  // }  
+  // }
 
   $game = new Game($db);
   $next = false;
@@ -64,6 +64,20 @@ function insertGame() {
     if (!$bill->create()) {
       throw new Exception('Es konnte keine Rechnung für den Nutzer ' . $user->getUsername() . ' erstellt werden.');
     }
+  }
+
+  $bill = new Bill($db);
+  $bill->setDate($_POST['date']);
+  $bill->setUser($_POST['user_id']);
+  $bill->setPayment(2);
+  $post_paid = "paid" . $_POST['user_id'];
+  if (isset($_POST[$post_paid])) {
+    $bill->setPaid(true);
+  } else {
+    $bill->setPaid(false);
+  }
+  if (!$bill->create()) {
+    throw new Exception('Es konnte keine Rechnung für den Pumpenkönig erstellt werden.');
   }
 
   if(next){
