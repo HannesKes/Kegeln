@@ -1,6 +1,8 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/payment.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
   $page_title = "Spiel " . $_GET['id'];
 
   //You may not be on this page when you are logged out or new.
@@ -39,8 +41,12 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
       $user->readOne();
       $king = $user->getUsername() . " (" . $user->getFirstname() . " " . $user->getLastname() . ")";
 
+      $punishments = Bill::getPunishmentsByDate($db, $date);
+      $dumbUsers = User::getOpenMonthly($db, $date);
+      $absentUsers = User::getAbsent($db, $date);
+
       if ($next) {
-        echo "<a href='/Kegeln/game/game.php?id=$nextId'><button class='btn btn-secondary float-right'>nächstes Spiel</button></a>";
+        echo "<br/><a href='/Kegeln/game/game.php?id=$nextId'><button class='btn btn-secondary float-right'>nächstes Spiel</button></a>";
       }
 
     ?>
@@ -49,11 +55,11 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
 
       <ul class="list-group">
         <li class="list-group-item">
-          <b>Pumpenkönig:</b><br/>
+          <b>Pumpenkönig</b><br/>
           <?php echo $king; ?>, <?php echo $game->getAmount(); ?> Pumpen
         </li>
         <li class="list-group-item">
-          <b>Nächster Termin: </b>
+          <b>Nächster Termin</b><br/>
           <?php
           if ($next){
             echo "<a href='/Kegeln/game/game.php?id=$nextId'>$formattedNext</a>";
@@ -66,8 +72,60 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
           }
           ?>
         </li>
-        <li class="list-group-item"><b>Strafen: </b></li>
-        <li class="list-group-item"><b>Ausstehender Monatsbeitrag: </b></li>
+        <li class="list-group-item"><b>Strafen</b><br/>
+          <?php
+          if (sizeof($punishments) == 0) {
+              echo "Da hat der Niko wohl ausnahmsweise mal nicht die Klingel getroffen...";
+          } else {
+            echo "<br/>";
+            $payment = new Payment($db);
+            $payment->setId($punishments[array_key_first($punishments)]->getPayment());
+            $payment->readOne();
+            echo "<u>" . $payment->getDescription() . " (" . $payment->getAmount() . " €)</U>";
+            foreach ($punishments as $punishment) {
+              $user = new User($db);
+              $user->setId($punishment->getUser());
+              $user->readOne();
+              if ($punishment->getPayment() != $payment->getId()) {
+                $payment->setId($punishment->getPayment());
+                $payment->readOne();
+                echo "<br/><br/><u>" . $payment->getDescription() . " (" . $payment->getAmount() . " €)</U>";
+              }
+              echo "<br/>" . $user->getUsername();
+            }
+          }
+          ?>
+        </li>
+        <li class="list-group-item"><b>Ausstehender Monatsbeitrag</b>
+          <?php
+          if (sizeof($dumbUsers) == 0) {
+              echo "Welch eine erfreuliche Überraschung! Alle User scheinen bezahlt zu haben... "
+              . "<i class='pl-2 far fa-grin-hearts fa-2x'></i>";
+          } else {
+            foreach ($dumbUsers as $user) {
+              echo "<br/>" . $user->getUsername();
+            }
+          }
+          ?>
+        </li>
+        <li class="list-group-item"><b>Abwesende Mitglieder: </b>
+          <?php
+          if (sizeof($absentUsers) == 0) {
+            if (sizeof($dumbUsers) == 0) {
+              echo "Eine weitere Überraschung! Alle User sind erschienen! ";
+            } else {
+              echo "Welch eine erfreuliche Überraschung! Alle User sind erschienen! ";
+            }
+            echo "<i class='pl-2 far fa-grin-hearts fa-2x'></i>";
+          } else {
+            echo array_shift($absentUsers)->getUsername();
+            foreach ($absentUsers as $user) {
+              echo ", " . $user->getUsername();
+            }
+          }
+          ?>
+        </li>
+        <li class="list-group-item"><b>Anwesend: </b>der Rest</li>
       </ul>
 
     <?php

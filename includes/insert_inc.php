@@ -37,14 +37,15 @@ function insertGame() {
     $game_user = new Game_User($db);
     $game_user->setGame($game->getId());
     $game_user->setUser($user->getId());
+    $post_pumps = "pumps" . $user->getId();
+    $game_user->setPumps($_POST[$post_pumps]);
     $post_present = "present" . $user->getId();
     if (isset($_POST[$post_present])) {
       $game_user->setPresent(true);
     } else {
       $game_user->setPresent(false);
+      $game_user->setPumps(0);
     }
-    $post_pumps = "pumps" . $user->getId();
-    $game_user->setPumps($_POST[$post_pumps]);
 
     if (!$game_user->create()) {
       throw new Exception('Es konnte kein neues Spiel erstellt werden. Bitte versuchen Sie es erneut.');
@@ -53,7 +54,7 @@ function insertGame() {
     $bill = new Bill($db);
     $bill->setDate($_POST['date']);
     $bill->setUser($user->getId());
-    $bill->setAmount(5);
+    $bill->setPayment(1);
     $post_paid = "paid" . $user->getId();
     if (isset($_POST[$post_paid])) {
       $bill->setPaid(true);

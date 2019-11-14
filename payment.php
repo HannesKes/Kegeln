@@ -11,11 +11,12 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   $redirect_page = '/Kegeln/index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
-  include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/punishment.php';
+  include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/payment.php';
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/payment_inc.php';
 
+  $games = Game::readAll($db);
   $activeUsers = User::readAll($db);
-  $punishments = Punishment::readAll($db);
+  $payments = Payment::readAll($db);
 
   date_default_timezone_set("Europe/Berlin");
   $date = date("Y-m-d");
@@ -38,10 +39,26 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 <center><h2>Strafe erfassen</h2></center><br/>
 
 <form method="post">
+
   <div class="form-group">
+    <label class="font-weight-bold" for="user">Spiel</label>
+    <select id="game" class='form-control' name='game_id'>
+      <?php
+      foreach ($games as $game) {
+        $date = $game->getDate();
+        $date = substr($date, 8, 2) . "." . substr($date, 5, 2) . "." . substr($date, 0, 4);
+        ?>
+        <option value="<?php echo $game->getId(); ?>"><?php echo $date; ?></option>";
+        <?php
+      }
+      ?>
+    </select>
+  </div>
+
+  <!-- <div class="form-group">
     <label class="font-weight-bold" for="date">Datum</label>
     <input id="date" class="form-control" type="date" name="date" value="<?php echo $date; ?>" />
-  </div>
+  </div> -->
 
   <div class="form-group">
     <label class="font-weight-bold" for="user">Nutzer</label>
@@ -57,13 +74,15 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   </div>
 
   <div class="form-group">
-    <label class="font-weight-bold" for="punishment">Art der Strafe</label>
-    <select id="punishment" class='form-control' name='punishment_id'>
+    <label class="font-weight-bold" for="payment">Art der Strafe</label>
+    <select id="payment" class='form-control' name='payment_id'>
       <?php
-      foreach ($punishments as $punishment) {
-        ?>
-        <option value="<?php echo $punishment->getId(); ?>"><?php echo $punishment->getDescription() . " (" . $punishment->getAmount() . ")" ; ?></option>";
-        <?php
+      foreach ($payments as $payment) {
+        if (!($payment->getId() == 1 || $payment->getId() == 2)) {
+          ?>
+          <option value="<?php echo $payment->getId(); ?>"><?php echo $payment->getDescription() . " (" . $payment->getAmount() . ")" ; ?></option>";
+          <?php
+        }
       }
       ?>
     </select>

@@ -63,7 +63,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
     <input class="form-control" type="number" name="number" value="0" min="0" max="100" />
   </div>
 
-  <table class="table table-striped table-bordered">
+  <table class="table table-striped table-bordered table-sm">
     <thead>
       <tr>
         <th class="font-weight-bold" scope="col"><u>Spieler</u></th>

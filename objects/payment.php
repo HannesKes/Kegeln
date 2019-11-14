@@ -7,10 +7,8 @@ class Payment {
 
   // Attributes of an Payment object
   private $id;
-  private $date;
-  private $user;
-  private $punishment;
-  private $bill;
+  private $amount;
+  private $description;
 
   // The constructor of the Payment class.
   // This function is called when a new Payment object is created and instantiates the db attribute.
@@ -21,15 +19,12 @@ class Payment {
   // Creates a new Payment in the database
   public function create() {
     // Prepares query
-    $query = "INSERT INTO " . Payment::$table_name . " SET date=:date, user=:user,
-      punishment=:punishment, bill=:bill";
+    $query = "INSERT INTO " . Payment::$table_name . " SET amount=:amount, description=:description";
     $stmt = $this->db->prepare($query);
 
     // Sets the variables in the query to the corresponding attribute values of the payment object
-    $stmt->bindParam(":date", $this->date);
-    $stmt->bindParam(":user", $this->user);
-    $stmt->bindParam(":punishment", $this->punishment);
-    $stmt->bindParam(":bill", $this->bill);
+    $stmt->bindParam(":amount", $this->amount);
+    $stmt->bindParam(":description", $this->description);
 
     // If the execution of the query is successful return true and set the ID of the payment object
     // To the one of the newly created record in the database.
@@ -41,33 +36,34 @@ class Payment {
     }
   }
 
-  // returns the payments that are not paid from the database TODO: muss noch gemacht werden
-  public static function readOpenPayments($db) {
-    // Prepares and executes the query.
-    $query = "SELECT t1.id, t1.date, t1.user, t1.punishment, t1.bill FROM " . Payment::$table_name . " AS t1
-    LEFT JOIN " . Bill::$table_name . " AS t2 ON t1.bill = t2.id WHERE t2.paid=false";
-    $stmt = $db->prepare($query);
-
-    // Executes the query. If no record was found return 0. Else update the Attributes of the Payment Object.
-    $stmt->execute();
-    $count = $stmt->rowCount();
-    if($count == 0){
-      return 0;
+  // Reads information about a single payment from the database using the ID.
+  // After a payment has been found the attributes of the payment object are set using the data from the database.
+  public function readOne() {
+    if (!empty($this->id)){
+      $query = "SELECT * FROM " . Payment::$table_name . " WHERE id=:id LIMIT 0,1";
+      $stmt = $this->db->prepare($query);
+      $stmt->bindParam(":id", $this->id);
+    } else {
+      return false;
     }
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-      $payment = new Payment($db);
-      Payment::updateAttributes($payment, $row);
-      // Adds the Payment object to the array
-      $payment_array[] = $payment;
+    // Executes the query. If no record was found return false. Else upamount the Attributes of the Game Object.
+    if($stmt->execute()){
+      $count = $stmt->rowCount();
+      if($count == 0){
+        return false;
+      }
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      Payment::upamountAttributes($this, $row);
+      return true;
+    } else {
+      return false;
     }
-
-    return $payment_array;
   }
 
   // Returns an array containing all Payment objects with values from the Database.
   public static function readAll($db) {
     // Prepares and executes the query.
-    $query = "SELECT * From " . Payment::$table_name . " ORDER BY date DESC";
+    $query = "SELECT * From " . Payment::$table_name . " ORDER BY amount DESC";
 
     $stmt = $db->prepare($query);
     $stmt->execute();
@@ -79,7 +75,7 @@ class Payment {
     // Adds a new element to the array for each record.
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
       $payment = new Payment($db);
-      Payment::updateAttributes($payment, $row);
+      Payment::upamountAttributes($payment, $row);
       // Adds the Payment object to the array
       $payment_array[] = $payment;
     }
@@ -87,13 +83,11 @@ class Payment {
     return $payment_array;
   }
 
-  // Updates all attributes of the consigned Payment object using the values from the $row parameter.
-  public static function updateAttributes($payment, $row){
+  // Upamounts all attributes of the consigned Payment object using the values from the $row parameter.
+  public static function upamountAttributes($payment, $row){
     $payment->setId($row['id']);
-    $payment->setDate($row['date']);
-    $payment->setUser($row['user']);
-    $payment->setPunishment($row['punishment']);
-    $payment->setBill($row['bill']);
+    $payment->setAmount($row['amount']);
+    $payment->setDescription($row['description']);
   }
 
   // Getter and Setter methods
@@ -106,36 +100,20 @@ class Payment {
     $this->id = htmlspecialchars(strip_tags($newId));
   }
 
-  public function getDate() {
-    return $this->date;
+  public function getAmount() {
+    return $this->amount;
   }
 
-  public function setDate($newDate) {
-    $this->date = htmlspecialchars(strip_tags($newDate));
+  public function setAmount($newAmount) {
+    $this->amount = htmlspecialchars(strip_tags($newAmount));
   }
 
-  public function getUser() {
-    return $this->user;
+  public function getDescription() {
+    return $this->description;
   }
 
-  public function setUser($newUser) {
-    $this->user = htmlspecialchars(strip_tags($newUser));
-  }
-
-  public function getPunishment() {
-    return $this->punishment;
-  }
-
-  public function setPunishment($newPunishment) {
-    $this->punishment = htmlspecialchars(strip_tags($newPunishment));
-  }
-
-  public function getBill() {
-    return $this->bill;
-  }
-
-  public function setBill($newBill) {
-    $this->bill = htmlspecialchars(strip_tags($newBill));
+  public function setDescription($newDescription) {
+    $this->description = htmlspecialchars(strip_tags($newDescription));
   }
 
   // End of Getter and Setter Methods

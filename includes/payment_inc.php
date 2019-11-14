@@ -8,14 +8,14 @@ function insertPayment() {
   $database = new Database();
   $db = $database->getConnection();
 
-  $punishment = new Punishment($db);
-  $punishment->setId($_POST['punishment_id']);
-  $punishment->readOne();
+  $game = new Game($db);
+  $game->setId($_POST['game_id']);
+  $game->readOne();
 
   $bill = new Bill($db);
-  $bill->setDate($_POST['date']); // TODO: Spiel auswählen statt Datum?
+  $bill->setDate($game->getDate());
   $bill->setUser($_POST['user_id']);
-  $bill->setAmount($punishment->getAmount());
+  $bill->setPayment($_POST['payment_id']);
   if (isset($_POST['paid'])) {
     $bill->setPaid(true);
   } else {
@@ -25,24 +25,13 @@ function insertPayment() {
     throw new Exception('Es konnte keine Rechnung erstellt werden.');
   }
 
-  $payment = new Payment($db);
-
-  // Set attributes of the new user object
-  $payment->setDate($_POST['date']);
-  $payment->setUser($_POST['user_id']);
-  $payment->setPunishment($_POST['punishment_id']);
-  $payment->setBill($bill->getId());
-
-  if (!$payment->create()) {
-    throw new Exception('Es konnte keine Strafe erstellt werden. Bitte versuchen Sie es erneut.');
-  }
-
   // TODO: Erfolgsmeldung
   // if(next){
   //   header("Location: /Kegeln/index.php?message=2");
   // } else {
   //   header("Location: /Kegeln/index.php?message=3");
   // }
+  header("Location: /Kegeln/payment.php");
   exit();
 }
 ?>

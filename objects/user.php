@@ -262,6 +262,59 @@ class User {
     return $user_array;
   }
 
+  // Returns an array containing all Users that have not paid Monatsbeitrag for given Date
+  public static function getOpenMonthly($db, $date) {
+    // Prepares and executes the query.
+    $query = "SELECT t1.username From " . User::$table_name . " AS t1 LEFT JOIN " . Bill::$table_name
+    . " AS t2 ON t1.id = t2.user WHERE t2.payment = 1 AND t2.paid = 0";
+
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+
+    // Create a User object array
+    $user_array = array();
+
+    // Traverses the Resultset of the query Execution.
+    // Adds a new element to the array for each record.
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+      $user = new User($db);
+      // User::updateAttributes($user, $row);
+      $user->setUsername($row['username']);
+      // Adds the User object to the array
+      $user_array[] = $user;
+    }
+
+    return $user_array;
+  }
+
+  // Returns an array containing all Users that were absent for game on given Date
+  public static function getAbsent($db, $date) {
+    // Prepares and executes the query.
+    $query = "SELECT t1.username From " . User::$table_name . " AS t1 LEFT JOIN game_user "
+    . " AS t2 on t1.id = t2.user LEFT JOIN " . Game::$table_name
+    . " AS t3 ON t2.game = t3.id WHERE date = :date AND t2.present = 0";
+
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(":date", $date);
+
+    $stmt->execute();
+
+    // Create a User object array
+    $user_array = array();
+
+    // Traverses the Resultset of the query Execution.
+    // Adds a new element to the array for each record.
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+      $user = new User($db);
+      // User::updateAttributes($user, $row);
+      $user->setUsername($row['username']);
+      // Adds the User object to the array
+      $user_array[] = $user;
+    }
+
+    return $user_array;
+  }
+
   // Returns the User with the newest record for the most pumps and the corresponding game
   public static function readPumpKingAndGame($db) {
     // Prepares and executes the query.

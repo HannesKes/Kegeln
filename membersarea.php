@@ -114,7 +114,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
     </div>
     <div class="col-sm">
       <h5>
-        <table class="table">
+        <table class="table table-hover">
           <thead class="thead-light">
             <tr>
               <th scope="col" colspan="2" class="text-center">Bisherige Spiele</th>
