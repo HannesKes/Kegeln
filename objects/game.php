@@ -49,26 +49,32 @@ class Game {
   // Creates a new Game in the database
   public function create() {
   	// check nextGame of lastGame
-    $query = "SELECT nextGame FROM " . Game::$table_name . " ORDER BY date DESC LIMIT 0, 1";
+    $query = "SELECT * FROM " . Game::$table_name . " ORDER BY date DESC LIMIT 0, 1";
     $stmt = $this->db->prepare($query);
 
     if($stmt->execute()){
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
-      $nextGame_last = $row['nextGame'];
+      $lastGame = new Game($this->db);
+      Game::updateAttributes($lastGame, $row);
     } else {
       return false;
     }
 
+    // Datum darf nicht vor letztem Spiel liegen
+    if ($this->date < $lastGame->getDate()) {
+      throw new Exception("Sie können kein neues Spiel erstellen, das vor dem zuletzt eingetragenen Spiel stattgefunden hat.");
+    }
+
     // update nextGame of lastGame
-    if ($nextGame_last != $this->date){
+    if ($lastGame->getNextGame() != $this->date){
       $query = "UPDATE " . Game::$table_name . " SET nextGame=:nextGame WHERE nextGame=:currentGame OR nextGame is null";
       $stmt = $this->db->prepare($query);
       $stmt->bindParam(":nextGame", $this->date);
-      $stmt->bindParam(":currentGame", $nextGame_last);
+      $stmt->bindParam(":currentGame", $lastGame->getNextGame());
 
       if($stmt->execute()){
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
-        $nextGame_last = $row['nextGame'];
+        $lastGame->setNextGame($row['nextGame']);
       } else {
         return false;
       }
