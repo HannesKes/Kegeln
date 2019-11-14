@@ -61,9 +61,16 @@ class Game {
     }
 
     // Datum darf nicht vor letztem Spiel liegen
-    if ($this->date < $lastGame->getDate()) {
+    if (!($this->date > $lastGame->getDate())) {
       throw new Exception("Sie können kein neues Spiel erstellen, das vor dem zuletzt eingetragenen Spiel stattgefunden hat.");
     }
+
+    // Datum darf nicht in der Zukunft liegen   TODO: bei produktivem Betrieb wieder rein tun, fürs testen eher hinderlich
+    // date_default_timezone_set("Europe/Berlin");
+    // $currentDate = date("Y-m-d");
+    // if ($this->date > $currentDate) {
+    //   throw new Exception("Sie können noch kein neues Spiel erstellen, welches in der Zukunft liegt.");
+    // }
 
     // update nextGame of lastGame
     if ($lastGame->getNextGame() != $this->date){
