@@ -14,7 +14,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/payment.php';
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/payment_inc.php';
 
-  $games = Game::readAll($db);
+  $games = Game::readAll($db, 0, 9999999);
   $activeUsers = User::readAll($db);
   $payments = Payment::readAll($db);
 

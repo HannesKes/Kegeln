@@ -108,6 +108,17 @@ class Game {
     }
   }
 
+  // Returns the number of games in the database. Used for paging.
+  public static function countAll($db){
+    $query = "SELECT COUNT(id) as count FROM " . Game::$table_name . "";
+
+    $stmt = $db->prepare($query);
+    if($stmt->execute()){
+      $row = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $row['count'];
+    }
+  }
+
   // Updates the DB using the attributes of the object
   public function update() {
     // Prepares query
@@ -193,9 +204,9 @@ class Game {
   }
 
   // Returns an array containing all Game objects with values from the Database.
-  public static function readAll($db) {
+  public static function readAll($db, $from_record_num, $records_per_page) {
     // Prepares and executes the query.
-    $query = "SELECT * From " . Game::$table_name . " ORDER BY date DESC";
+    $query = "SELECT * From " . Game::$table_name . " ORDER BY date DESC LIMIT {$from_record_num}, {$records_per_page}";
 
     $stmt = $db->prepare($query);
     $stmt->execute();

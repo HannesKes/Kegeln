@@ -14,7 +14,14 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
 
-  $games = Game::readAll($db);
+  // Page that is given in the URL: Default value is one.
+  $page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+  // Set the number of records per page and the LIMIT clause for the get.
+  $records_per_page = 4;
+  $from_record_num = ($records_per_page * $page) - $records_per_page;
+
+  $games = Game::readAll($db, $from_record_num, $records_per_page);
 
   if(isset($_GET['date'])){
     $id = Game::getIdForDate($db, $_GET['date']);
@@ -247,6 +254,15 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
 </div>
 
 <?php
+
+// the page where this paging is used
+$page_url = "membersarea.php?";
+
+// count all products in the database to calculate total pages
+$total_rows = Game::countAll($db);
+
+// paging buttons here
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/paging.php';
 
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/footer.php';
 ?>
