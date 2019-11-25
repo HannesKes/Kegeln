@@ -12,13 +12,20 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
   $errorcode = 0;
 
+  echo "1<br/>";
+
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
+  echo "2<br/>";
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/signup_inc.php';
+  echo "5<br/>";
 
   if (isset($_POST['submit'])) {
     try {
+      echo "6<br/>";
       signupUser();
+      echo "11<br/>";
     } catch (Exception $e) { ?>
+      <br/>
       <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>Fehler!</strong> <?php echo $e->getMessage(); ?>

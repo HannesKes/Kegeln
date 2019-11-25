@@ -19,6 +19,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
     try {
       loginUser($db, $user);
     } catch (Exception $e) { ?>
+      <br/>
       <div class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>Fehler!</strong> <?php echo $e->getMessage(); ?>

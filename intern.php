@@ -21,6 +21,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
     exit();
   } elseif ($isNew) {
   ?>
+    <br/>
     <div class="alert alert-danger mt-5">
       Du musst leider noch warten, bis dich ein autorisierter Nutzer akzptiert hat.
     </div>
