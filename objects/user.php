@@ -15,13 +15,11 @@ class User {
   private $isNew;
   private $isAdmin;
 
-  echo "2.1<br/>";
-
   // The constructor of the User class.
   // This function is called when a new User object is created and instantiates the db attribute.
   public function __construct($db) {
     $this->db = $db;
-    echo "2.2<br/>";
+    echo "2.1<br/>";
   }
 
   // Reads information about a single user from the database using either the ID, username or e-mail attribute.
