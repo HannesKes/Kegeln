@@ -12,12 +12,8 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
   $errorcode = 0;
 
-  echo "1<br/>";
-
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
-  echo "2<br/>";
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/signup_inc.php';
-  echo "5<br/>";
 
   if (isset($_POST['submit'])) {
     try {
