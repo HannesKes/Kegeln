@@ -1,7 +1,6 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/database/db.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/user.php';
-echo "3<br/>";
 
 //Includes for PHPMailer - should not work on localhost... but on netcup! :-)
 use PHPMailer\PHPMailer\PHPMailer;
@@ -10,7 +9,6 @@ use PHPMailer\PHPMailer\Exception;
 require $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/PHPMailer-master/src/Exception.php';
 require $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/PHPMailer-master/src/PHPMailer.php';
 require $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/PHPMailer-master/src/SMTP.php';
-echo "4<br/>";
 
 function signupUser() {
 
@@ -18,7 +16,6 @@ function signupUser() {
   if ($_POST['password1'] != $_POST['password2']) {
     throw new Exception("Die beiden Passwörter stimmen nicht überein.", 1);
   }
-  echo "7<br/>";
 
   $database = new Database();
   $db = $database->getConnection();
@@ -44,7 +41,6 @@ function signupUser() {
 
   if ($user->create()) {
     // Hier Mails versenden...
-    echo "8<br/>";
 
     $mail = new PHPMailer(true);
 
@@ -74,15 +70,13 @@ function signupUser() {
 
         $mail->SMTPDebug = 0;
         $mail->send();
-        echo "9<br/>";
         // echo 'Message has been sent';
     } catch (Exception $e) {
         // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
-    echo "10<br/>";
 
     //registration successful message
-    //header("Location: /Kegeln/index.php?message=1");
+    header("Location: /Kegeln/index.php?message=1");
     exit();
   } else {
     throw new Exception('Die Registrierung war leider nicht erfolgreich. Bitte versuchen Sie es erneut.', 4);
