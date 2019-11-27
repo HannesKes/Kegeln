@@ -41,12 +41,12 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
 
 <form method="post">
   <div class="form-group">
-    <label class="font-weight-bold" for="date">Datum</label>
+    <label class="font-weight-bold" for="date">Datum *</label>
     <input id="date" class="form-control" type="date" name="date" value="<?php echo $date; ?>" />
   </div>
 
   <div class="form-group">
-    <label class="font-weight-bold" for="pumpKing">Pumpenkönig</label>
+    <label class="font-weight-bold" for="pumpKing">Pumpenkönig *</label>
     <select id="pumpKing" class='form-control' name='user_id'>
       <?php
       foreach ($activeUsers as $user) {
@@ -59,14 +59,14 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
   </div>
 
   <div class="form-group mb-4">
-    <label class="font-weight-bold" for="amount">Anzahl Pumpen</label>
+    <label class="font-weight-bold" for="amount">Anzahl Pumpen *</label>
     <input class="form-control" type="number" name="number" value="0" min="0" max="100" />
   </div>
 
   <table class="table table-striped table-bordered table-sm">
     <thead>
       <tr>
-        <th class="font-weight-bold" scope="col"><u>Spieler</u></th>
+        <th class="font-weight-bold" scope="col"><u>Spieler</u> *</th>
         <th class="font-weight-bold text-center" scope="col">Anwesend</th>
         <th class="font-weight-bold text-center" scope="col">Beitrag</th>
         <th class="font-weight-bold text-center" scope="col">Pumpen</th>

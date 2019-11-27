@@ -9,10 +9,21 @@ function insertGame() {
   $database = new Database();
   $db = $database->getConnection();
 
-  // $game = Game::readLast($db);
-  // if ($game->getNextGame()==NULL){
-  //   throw new Exception("Es kann kein neues Spiel erstellt werden, wenn im alten Spiel noch kein nächstes Spiel festgelegt wurde. Du kannst das Datum <a href='/Kegeln/game/update_game.php'>hier</a> ergänzen.");
-  // }
+  $activeUsers = User::readAll($db);
+
+  // Validierungen
+  $highest_pumps = 0;
+  foreach ($activeUsers as $user) {
+    if ($_POST['pumps' . $user->getId()] > $highest_pumps) {
+      $highest_pumps = $_POST['pumps' . $user->getId()];
+    }
+    if ($_POST['pumps' . $user->getId()] > $_POST['number']) {
+      throw new Exception('Der eingetragene Pumpenkönig scheint nicht die Person mit der hächsten Pumpenanzahl zu sein. Die meisten Pumpen geworfen hat der Nutzer "' . $user->getUsername() . '".');
+    }
+  }
+  if ($highest_pumps != $_POST['number']) {
+    throw new Exception('Die Pumpenanzahl des Pumpenkönigs stimmt nicht mit dem Wert in der Tabelle überein.');
+  }
 
   $game = new Game($db);
   $next = false;
@@ -29,8 +40,6 @@ function insertGame() {
   if (!$game->create()) {
     throw new Exception('Es konnte kein neues Spiel erstellt werden. Bitte versuchen Sie es erneut. Es kann nicht mehrere Spiele an einem Tag geben.');
   }
-
-  $activeUsers = User::readAll($db);
 
   // Set game_user-objects
   foreach ($activeUsers as $user) { // #SchönPerformantFürJedenEintragEigeneDBAnfrage
@@ -87,4 +96,5 @@ function insertGame() {
   }
   exit();
 }
+
 ?>
