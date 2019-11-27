@@ -100,7 +100,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
                 $counter = $counter + 1;
               } else {
                 if ($multiple) {
-                  echo " (" . $counter . "x)";
+                  echo " <b>(" . $counter . "x)</b>";
                 }
                 echo "<br/>" . $user->getUsername();
                 $counter = 1;
