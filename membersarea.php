@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
   $page_title = "Übersicht";

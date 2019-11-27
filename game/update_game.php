@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
   $page_title = "Nächstes Spiel festlegen";
 
   //You may not be on this pag when logged out.

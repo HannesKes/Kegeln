@@ -2,6 +2,7 @@
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/database/db.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/user.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/pun.php';
 
 $loggedin = false;
 $isNew = false;
@@ -45,6 +46,9 @@ if(($redirect_when_loggedin == true) && ($loggedin == true)){
   exit();
 } elseif (($redirect_when_no_admin == true) && ($isAdmin == false)){
   header("Location: $redirect_page?errorcode=4");
+  exit();
+} elseif (isset($redirect_when_other_profile) && $redirect_when_other_profile == true) {
+  header("Location: $redirect_page?errorcode=8");
   exit();
 }
 
@@ -114,11 +118,29 @@ $users = User::readNew($db);
               <?php
             }
             ?>
+            <form action="" method="POST">
+              <li class="nav-item">
+                <button type="submit" name="displayPun" class="btn btn-link nav-link">Bierspruch</button>
+              </li>
+            </form>
           </ul>
             <?php if ($loggedin){ ?>
               <ul class="navbar-nav">
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a class="nav-link" href="/Kegeln/includes/logout_inc.php?logout=true">Abmelden</a>
+                </li> -->
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                    <img src="/Kegeln/media/user_empty.png" class="mr-1" style="height:25px;"/>
+                    <?php echo $loggedin_user->getUsername(); ?>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="/Kegeln/User/profile.php?id=<?php echo $loggedin_user->getId(); ?>">Mein Profil</a>
+                    <!-- Separation line -->
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Passwort ändern</a> <!-- /Kegeln/User/changepw.php -->
+                    <a class="dropdown-item" href="/Kegeln/includes/logout_inc.php?logout=true">Abmelden</a>
+                  </div>
                 </li>
               </ul>
             <?php } ?>
@@ -135,6 +157,17 @@ $users = User::readNew($db);
 <main role="main" class="container">
 
 <?php
+
+// Waits for the Bierspruch Button to be pressed and displays a random Pun.
+  if(isset($_POST['displayPun'])) {
+    $pun = Pun::randomPun($db); ?>
+      <br/>
+      <div class="alert alert-secondary alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong><?php echo $pun->getContent(); ?></strong>
+      </div>
+    <?php
+  }
 
 // Waits for an errorcode to be sent and displays the correspondig message.
 if(isset($_GET['errorcode'])) {
@@ -169,6 +202,10 @@ if(isset($_GET['errorcode'])) {
     case "7":
         // die ID ist nicht in der DB vorhanden
         $message = "Für dieses Spiel sind keine Daten vorhanden.";
+        break;
+    case "7":
+        // ein User versucht auf das Profil eines anderen Nutzers zuzugreifen
+        $message = "Sie dürfen nur auf ihr eigenes Profil zugreifen.";
         break;
     default:
         $message = "Für diesen Code existiert keine Fehlermeldung.";

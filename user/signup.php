@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
   $page_title = "Registrieren";
 
   //You may not be on this page when you are logged in.
@@ -12,12 +12,8 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
 
   $errorcode = 0;
 
-  echo "1<br/>";
-
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
-  echo "2<br/>";
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/signup_inc.php';
-  echo "5<br/>";
 
   if (isset($_POST['submit'])) {
     try {
@@ -31,6 +27,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
         <strong>Fehler!</strong> <?php echo $e->getMessage(); ?>
       </div>
       <?php
+      // Felder mit zuvor abgeschickten Daten füllen
       $form_username = $_POST['username'];
       $form_email = $_POST['email'];
       $form_firstname = $_POST['firstname'];

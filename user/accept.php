@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/session.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
   $page_title = "Neue Nutzer";
 
   //You may not be on this page when you are logged out or new or no admin.
