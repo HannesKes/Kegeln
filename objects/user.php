@@ -266,9 +266,10 @@ class User {
   public static function getOpenMonthly($db, $date) {
     // Prepares and executes the query.
     $query = "SELECT t1.username From " . User::$table_name . " AS t1 LEFT JOIN " . Bill::$table_name
-    . " AS t2 ON t1.id = t2.user WHERE t2.payment = 1 AND t2.paid = 0";
+    . " AS t2 ON t1.id = t2.user WHERE t2.payment = 1 AND t2.paid = 0 AND t2.date = :date";
 
     $stmt = $db->prepare($query);
+    $stmt->bindParam(":date", $date);
     $stmt->execute();
 
     // Create a User object array
