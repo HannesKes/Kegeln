@@ -46,7 +46,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
       $absentUsers = User::getAbsent($db, $date);
 
       if ($next) {
-        echo "<br/><a href='/Kegeln/game/game.php?id=$nextId'><button class='btn btn-secondary float-right'>nächstes Spiel</button></a>";
+        echo "<a href='/Kegeln/game/game.php?id=$nextId'><button class='btn btn-secondary float-right mt-2'>nächstes Spiel</button></a>";
       }
 
     ?>
@@ -81,7 +81,10 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
             $payment = new Payment($db);
             $payment->setId($punishments[array_key_first($punishments)]->getPayment());
             $payment->readOne();
-            echo "<u>" . $payment->getDescription() . " (" . $payment->getAmount() . " €)</U>";
+            echo "<i><u>" . $payment->getDescription() . " (" . $payment->getAmount() . " €)</u></i>";
+            $old_user = null;
+            $counter = 1;
+            $multiple = false;
             foreach ($punishments as $punishment) {
               $user = new User($db);
               $user->setId($punishment->getUser());
@@ -89,9 +92,21 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
               if ($punishment->getPayment() != $payment->getId()) {
                 $payment->setId($punishment->getPayment());
                 $payment->readOne();
-                echo "<br/><br/><u>" . $payment->getDescription() . " (" . $payment->getAmount() . " €)</U>";
+                echo "<br/><br/><i><u>" . $payment->getDescription() . " (" . $payment->getAmount() . " €)</u></i>";
               }
-              echo "<br/>" . $user->getUsername();
+
+              if ($old_user == $user->getId()) {
+                $multiple = true;
+                $counter = $counter + 1;
+              } else {
+                if ($multiple) {
+                  echo " (" . $counter . "x)";
+                }
+                echo "<br/>" . $user->getUsername();
+                $counter = 1;
+                $multiple = false;
+                $old_user = $user->getId();
+              }
             }
           }
           ?>

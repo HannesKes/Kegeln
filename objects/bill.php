@@ -85,7 +85,7 @@ class Bill {
   // Returns an array containing all Bill objects corresponding to the date that are punishments and no other payments
   public static function getPunishmentsByDate($db, $date) {
     // Prepares and executes the query.
-    $query = "SELECT * From " . Bill::$table_name . " WHERE date=:date AND payment != 1 AND payment != 2 ORDER BY payment";
+    $query = "SELECT * From " . Bill::$table_name . " WHERE date=:date AND payment != 1 AND payment != 2 ORDER BY payment, user";
 
     $stmt = $db->prepare($query);
     $stmt->bindParam(":date", $date);
