@@ -1,0 +1,50 @@
+<!--
+
+TODOs:
+
+wichtiges:
+- fix SignUp online ?????
+- Funktion zum bezahlen von Strafen -> direkt eintragbar bei Strafenerstellung
+- Admin-Seite: Offene Rechnungen -> Abhakbar / Bezahlbar
+- Option "kein Pumpenkönig vorhanden" einbauen
+- Validierung bei Spielerstellung: Pumpenkönig muss anwesend sein
+- Profilseite
+	- Wann anwesend? -> Link zum Spiel
+	- Welche Strafen/Rechnungen bekommen? Welche noch offent?
+	- Status der Registrierung
+- neue Buttons: zurück und "Spiel bearbeiten" + auf Strafenseite Link zum Spiel erstellen
+- Implementierung Passwort vergessen -> Mails schicken (Funktion zum Generieren eines Links und der Mail bekannt, muss nur noch abgeschickt werden)
+- Strafanpassungen einpflegen
+- kein Spiel mit Datum in der Zukunft erfassbar -> verhindern nicht ermöglichen (ist das schon auskommentiert drin??)
+- Feld "bezahlt" für Pumpenkönig einführen
+- mehr GIFs und Sprüche!!!
+- Initialen Kontostand einplegen
+
+etwas weniger wichtig bzw. kläruungsbedarf:
+- Prüfen, ob das mit den Checkboxen beim Spiel anlegen funktioniert
+- Nutzerübersicht: "Über mich" -> Zugriff auf andere Profile + Profilbild
+- Kommentarfunktion -> Unter Spielen und auf Profilseite
+- Admin-Rechte vergeben (temporär?)
+- "Spenden" erfassen ermöglichen -> aktuell nicht abbildbar
+- Nach Fehler bei Spielerstellung POST-Werte wieder in die Tabelle schreiben
+- Username/Passwort ändern + Änderungen sperren (für jeden Nutzer einzeln vom Admin einstellbar, ob er Namen ändern darf -> z.B. bei häufigen Änderungen)
+- messages/codes in DB?
+- Meldungen schließen
+	- onClose() ?
+	- Verweis auf # (gleiche Seite) ohne Get-Parameter ?
+- Spiel erfassen: Feld nextGame komplett leer anzeigen (null) -> kein 01.01.0001 o.ä.
+- Neues Spiel // bereits Meldung eingebaut, dass Admin die DB bereinigen muss
+	- erst nach Rechnungen Spiel erstellen -> bei Fehlern kein Spiel erfasst (sonst bereits angelegte Dinge wieder entfernen) - wenn allerdings Rechnungen erstellt wurden und das Spiel nicht, stimmt der Kontostand nicht überein -> Admin benachrichtigen (vielleicht sogar per Mail), dass er die erstellten Rechnungen aus der DB löscchen soll
+- Pumpenkönig weglassen in Tabelle Games ? -> redundante Datenspeicherung -> vorerst zu viel Aufwand, da gibt es besseres zu tun
+- redirects prüfen -> mit isNew doppelte bzw. unnötige Prüfung ?
+
+Infos:
+- Strafen aktuell nur nach Spielerstellung anwendbar
+	- erst Spiel erstellen und dann Strafen erfassen
+	- Button nötig um zuerst Spiel zu erstellen
+	- Anwesenheit erfassen ausreichend, Rest kann später bearbeitet werden (nur Datum theoretisch auch ausreichend)
+	- Während dem Spiel können dann direkt Strafen erfasst werden und dem Spiel zugeordnet werden
+	- Zuordnung über Datum statt Spiel eventuell nicht so schön bzw. problematisch bei Nachtragungen (wird schon das Spiel genommen?)
+- Monatsbeitrag ist nur pro Spiel und nicht pro Monat erfassbar -> bei Spielerstellung werden Rechnungen erstellt
+
+-->

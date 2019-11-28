@@ -57,7 +57,7 @@ function insertGame() {
     }
 
     if (!$game_user->create()) {
-      throw new Exception('Es konnte kein neues Spiel erstellt werden. Bitte versuchen Sie es erneut.');
+      throw new Exception('Es konnte kein neues Spiel erstellt werden. Bitte versuchen Sie es erneut. Sie müssen zuerst das aktuelle Spiel sowie die dazugehörigen Einträge ind er Tabelle \'game_user\' entfernen. Viel Spaß!');
     }
 
     $bill = new Bill($db);
@@ -71,7 +71,7 @@ function insertGame() {
       $bill->setPaid(false);
     }
     if (!$bill->create()) {
-      throw new Exception('Es konnte keine Rechnung für den Nutzer ' . $user->getUsername() . ' erstellt werden.');
+      throw new Exception('Es konnte keine Rechnung für den Nutzer ' . $user->getUsername() . ' erstellt werden. Sie müssen die Rechnungen unbedingt manuell in der Datenbank korrigieren, damit der Kontostand übereinstimmt. Sie sollten dabei auch das aktuelle Spiel sowie die dazugehörigen Einträge in der Tabelle \'game_user\' entfernen. Viel Spaß dabei!');
     }
   }
 
@@ -86,10 +86,10 @@ function insertGame() {
     $bill->setPaid(false);
   }
   if (!$bill->create()) {
-    throw new Exception('Es konnte keine Rechnung für den Pumpenkönig erstellt werden.');
+    throw new Exception('Es konnte keine Rechnung für den Pumpenkönig erstellt werden. Sie müss dies manuell in der Datenbank ergänzen. Wenden Sie sich hierzu an den unnützen Admin Niko Theders. Schönen Tag noch!');
   }
 
-  if(next){
+  if($next){
     header("Location: /Kegeln/index.php?message=2");
   } else {
     header("Location: /Kegeln/index.php?message=3");

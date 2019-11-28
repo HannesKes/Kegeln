@@ -110,6 +110,12 @@ $users = User::readNew($db);
                   <a class="nav-link" href="/Kegeln/game/update_game.php">Nächstes Spiel erfassen</a>
                 </li>
                 <?php
+              } else {
+                ?>
+                <li class="nav-item <?php if (strpos($_SERVER['PHP_SELF'], "update_game.php")){echo "active";} ?>">
+                  <a class="nav-link" href="/Kegeln/game/update_game.php">Nächstes Spiel ändern</a>
+                </li>
+                <?php
               }
               ?>
               <li class="nav-item <?php if (strpos($_SERVER['PHP_SELF'], "payment.php")){echo "active";} ?>">

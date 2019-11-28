@@ -21,6 +21,11 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
   date_default_timezone_set("Europe/Berlin");
   $date = date("Y-m-d");
 
+  $lastGame = Game::readLast($db);
+  if ($lastGame->getNextGame() != null) {
+    $date = $lastGame->getNextGame();
+  }
+
 ?>
 
 <!-- <center><h2>Datum des nächsten Spiels erfassen</h2></center><br/><br/><br/> -->
