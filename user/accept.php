@@ -13,16 +13,11 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
 
   if(isset($_POST["accept"])){
-    echo "Annehmen";
     User::accept($db, $_POST["user_id"]);
     $users = User::readNew($db);
   } elseif(isset($_POST["delete"])){
-    echo "Ablehnen";
     User::delete($db, $_POST["user_id"]);
     $users = User::readNew($db);
-  }
-  if(empty($users)){
-    header("Location: /Kegeln/index.php?message=4");
   }
 
   if(empty($users)){

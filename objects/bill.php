@@ -59,6 +59,23 @@ class Bill {
     return $balance;
   }
 
+  // Updates the DB using the id of the object
+  public static function pay($db, $id) {
+    // Prepares query
+    $query = "UPDATE " . Bill::$table_name . " SET paid=true WHERE id =:id";
+    $stmt = $db->prepare($query);
+
+    // Sets the variables in the query to the corresponding attribute values of the user object
+    $stmt->bindParam(':id', $id);
+
+    // Execute the query and return true if the execution was successful
+    if($stmt->execute()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   // Returns an array containing all Bill objects with values from the Database.
   public static function readAll($db) {
     // Prepares and executes the query.
@@ -105,6 +122,77 @@ class Bill {
     }
 
     return $bill_array;
+  }
+
+  // Returns an array containing all Bill objects with attribute paid = false
+  public static function getOpenBills($db) {
+    // Prepares and executes the query.
+    $query = "SELECT * From " . Bill::$table_name . " WHERE paid=false ORDER BY payment, user, date";
+
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+
+    // Create a Bill object array
+    $bill_array = array();
+
+    // Traverses the Resultset of the query Execution.
+    // Adds a new element to the array for each record.
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+      $bill = new Bill($db);
+      Bill::updateAttributes($bill, $row);
+      // Adds the Bill object to the array
+      $bill_array[] = $bill;
+    }
+
+    return $bill_array;
+  }
+
+  // Returns an array containing all Bill objects with attribute paid = false and corresponding to the given payment
+  public static function getOpenBillsByPayment($db, $payment) {
+    // Prepares and executes the query.
+    $query = "SELECT * From " . Bill::$table_name . " WHERE paid=false AND payment=:payment ORDER BY user, date";
+
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(":payment", $payment);
+
+    $stmt->execute();
+
+    // Create a Bill object array
+    $bill_array = array();
+
+    // Traverses the Resultset of the query Execution.
+    // Adds a new element to the array for each record.
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+      $bill = new Bill($db);
+      Bill::updateAttributes($bill, $row);
+      // Adds the Bill object to the array
+      $bill_array[] = $bill;
+    }
+
+    return $bill_array;
+  }
+
+  // Returns an array containing all payment objects that have corresponding relations to an unpaid bill
+  public static function getOpenPayments($db) {
+    // Prepares and executes the query.
+    $query = "SELECT * From payments AS t1 WHERE EXISTS (SELECT * FROM bills AS t2 where t1.id = t2.payment)";
+
+    $stmt = $db->prepare($query);
+    $stmt->execute();
+
+    // Create a Bill object array
+    $payment_array = array();
+
+    // Traverses the Resultset of the query Execution.
+    // Adds a new element to the array for each record.
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+      $payment = new Payment($db);
+      Payment::updateAttributes($payment, $row);
+      // Adds the Bill object to the array
+      $payment_array[] = $payment;
+    }
+
+    return $payment_array;
   }
 
   // Updates all attributes of the consigned Bill object using the values from the $row parameter.

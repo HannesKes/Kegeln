@@ -53,7 +53,7 @@ class Payment {
         return false;
       }
       $row = $stmt->fetch(PDO::FETCH_ASSOC);
-      Payment::upamountAttributes($this, $row);
+      Payment::updateAttributes($this, $row);
       return true;
     } else {
       return false;
@@ -75,7 +75,7 @@ class Payment {
     // Adds a new element to the array for each record.
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
       $payment = new Payment($db);
-      Payment::upamountAttributes($payment, $row);
+      Payment::updateAttributes($payment, $row);
       // Adds the Payment object to the array
       $payment_array[] = $payment;
     }
@@ -84,7 +84,7 @@ class Payment {
   }
 
   // Upamounts all attributes of the consigned Payment object using the values from the $row parameter.
-  public static function upamountAttributes($payment, $row){
+  public static function updateAttributes($payment, $row){
     $payment->setId($row['id']);
     $payment->setAmount($row['amount']);
     $payment->setDescription($row['description']);

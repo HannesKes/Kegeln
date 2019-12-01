@@ -3,6 +3,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/database/db.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/user.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/pun.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
 
 $loggedin = false;
 $isNew = false;
@@ -31,6 +32,7 @@ if (isset($_SESSION['session_id'])) {
   }
   if($loggedin_user->getIsAdmin()==1){
     $isAdmin = true;
+    $open_bills = Bill::getOpenBills($db);
   }
 }
 
@@ -122,6 +124,13 @@ $users = User::readNew($db);
                 <a class="nav-link" href="/Kegeln/payment.php">Strafe erfassen</a>
               </li>
               <?php
+              if (isset($open_bills)) {
+                ?>
+                <li class="nav-item <?php if (strpos($_SERVER['PHP_SELF'], "open_payments.php")){echo "active";} ?>">
+                  <a class="nav-link" href="/Kegeln/open_payments.php">Offene Rechnungen</a>
+                </li>
+                <?php
+              }
             }
             ?>
             <form action="" method="POST">
@@ -212,6 +221,10 @@ if(isset($_GET['errorcode'])) {
     case "7":
         // ein User versucht auf das Profil eines anderen Nutzers zuzugreifen
         $message = "Sie dürfen nur auf ihr eigenes Profil zugreifen.";
+        break;
+    case "7":
+        // auf der Seite open_payments sind keine offenen Rechnungen vorhanden
+        $message = "Alle Rechnungen sind bezahlt. Es sind keine offenen Rechnungen vorhanden.";
         break;
     default:
         $message = "Für diesen Code existiert keine Fehlermeldung.";
