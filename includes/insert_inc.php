@@ -12,17 +12,23 @@ function insertGame() {
   $activeUsers = User::readAll($db);
 
   // Validierungen
-  $highest_pumps = 0;
-  foreach ($activeUsers as $user) {
-    if ($_POST['pumps' . $user->getId()] > $highest_pumps) {
-      $highest_pumps = $_POST['pumps' . $user->getId()];
+  if (!isset($_POST['no_pumpking'])) {
+    if (!isset($_POST['present' . $_POST['pumpking_id']])) {
+      throw new Exception('Der eingetragene Pumpenkönig scheint nicht anwesend zu sein.');
     }
-    if ($_POST['pumps' . $user->getId()] > $_POST['number']) {
-      throw new Exception('Der eingetragene Pumpenkönig scheint nicht die Person mit der hächsten Pumpenanzahl zu sein. Die meisten Pumpen geworfen hat der Nutzer "' . $user->getUsername() . '".');
+
+    $highest_pumps = 0;
+    foreach ($activeUsers as $user) {
+      if ($_POST['pumps' . $user->getId()] > $highest_pumps) {
+        $highest_pumps = $_POST['pumps' . $user->getId()];
+      }
+      if ($_POST['pumps' . $user->getId()] > $_POST['number']) {
+        throw new Exception('Der eingetragene Pumpenkönig scheint nicht die Person mit der hächsten Pumpenanzahl zu sein. Die meisten Pumpen geworfen hat der Nutzer "' . $user->getUsername() . '".');
+      }
     }
-  }
-  if ($highest_pumps != $_POST['number']) {
-    throw new Exception('Die Pumpenanzahl des Pumpenkönigs stimmt nicht mit dem Wert in der Tabelle überein.');
+    if ($highest_pumps != $_POST['number']) {
+      throw new Exception('Die Pumpenanzahl des Pumpenkönigs stimmt nicht mit dem Wert in der Tabelle überein.');
+    }
   }
 
   $game = new Game($db);
@@ -30,8 +36,10 @@ function insertGame() {
 
   // Set attributes of the new user object
   $game->setDate($_POST['date']);
-  $game->setKing($_POST['pumpking_id']);
-  $game->setAmount($_POST['number']);
+  if (!isset($_POST['no_pumpking'])) {
+    $game->setKing($_POST['pumpking_id']);
+    $game->setAmount($_POST['number']);
+  }
   if (!($_POST['nextGame']=="0001-01-01" || $_POST['nextGame']=="")){
     $game->setNextGame($_POST['nextGame']);
     $next = true;
@@ -75,17 +83,19 @@ function insertGame() {
     }
   }
 
-  $bill = new Bill($db);
-  $bill->setDate($_POST['date']);
-  $bill->setUser($_POST['pumpking_id']);
-  $bill->setPayment(2);
-  if (isset($_POST['pumpking_paid'])) {
-    $bill->setPaid(true);
-  } else {
-    $bill->setPaid(false);
-  }
-  if (!$bill->create()) {
-    throw new Exception('Es konnte keine Rechnung für den Pumpenkönig erstellt werden. Sie müss dies manuell in der Datenbank ergänzen. Wenden Sie sich hierzu an den unnützen Admin Niko Theders. Schönen Tag noch!');
+  if (!isset($_POST['no_pumpking'])) {
+    $bill = new Bill($db);
+    $bill->setDate($_POST['date']);
+    $bill->setUser($_POST['pumpking_id']);
+    $bill->setPayment(2);
+    if (isset($_POST['pumpking_paid'])) {
+      $bill->setPaid(true);
+    } else {
+      $bill->setPaid(false);
+    }
+    if (!$bill->create()) {
+      throw new Exception('Es konnte keine Rechnung für den Pumpenkönig erstellt werden. Sie müss dies manuell in der Datenbank ergänzen. Wenden Sie sich hierzu an den unnützen Admin Niko Theders. Schönen Tag noch!');
+    }
   }
 
   if($next){

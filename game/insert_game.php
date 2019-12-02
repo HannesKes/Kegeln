@@ -41,23 +41,10 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
 <center><h2>Erfassen des aktuellen Spiels</h2></center><br/>
 
 <form method="post">
-  <div class="form-group">
-    <label class="font-weight-bold" for="date">Datum *</label>
-    <input id="date" class="form-control" type="date" name="date" value="<?php echo $date; ?>" />
-  </div>
-
   <div class="row">
     <div class="form-group col-8">
-      <label class="font-weight-bold" for="pumpKing">Pumpenkönig *</label>
-      <select id="pumpKing" class='form-control' name='pumpking_id'>
-        <?php
-        foreach ($activeUsers as $user) {
-          ?>
-          <option value="<?php echo $user->getId(); ?>"><?php echo $user->getUsername() . " (" . $user->getFirstname() . " " . $user->getLastname() . ")" ; ?></option>";
-          <?php
-        }
-        ?>
-      </select>
+      <label class="font-weight-bold" for="date">Datum *</label>
+      <input id="date" class="form-control" type="date" name="date" value="<?php echo $date; ?>" />
     </div>
     <div class="col-4 my-auto">
       <div class="custom-control custom-checkbox">
@@ -67,9 +54,30 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
     </div>
   </div>
 
-  <div class="form-group mb-4">
-    <label class="font-weight-bold" for="amount">Anzahl Pumpen *</label>
-    <input class="form-control" type="number" name="number" value="0" min="0" max="100" />
+  <div class="form-group">
+    <label class="font-weight-bold" for="pumpKing">Pumpenkönig *</label>
+    <select id="pumpKing" class='form-control' name='pumpking_id'>
+      <?php
+      foreach ($activeUsers as $user) {
+        ?>
+        <option value="<?php echo $user->getId(); ?>"><?php echo $user->getUsername() . " (" . $user->getFirstname() . " " . $user->getLastname() . ")" ; ?></option>";
+        <?php
+      }
+      ?>
+    </select>
+  </div>
+
+  <div class="row">
+    <div class="form-group mb-4 col-6">
+      <label class="font-weight-bold" for="amount">Anzahl Pumpen *</label>
+      <input class="form-control" type="number" name="number" value="0" min="0" max="100" />
+    </div>
+    <div class="col-6 my-auto">
+      <div class="custom-control custom-checkbox">
+        <input id="no_pumpking" type="checkbox" class="custom-control-input" name="no_pumpking" value="">
+        <label class="custom-control-label" for="no_pumpking">Kein Pumpenkönig</label>
+      </div>
+    </div>
   </div>
 
   <table class="table table-striped table-bordered table-sm">
