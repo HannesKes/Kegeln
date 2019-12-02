@@ -45,7 +45,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
                 <label for="login-password">Passwort</label>
               </div>
               <div class="custom-control custom-checkbox mb-3">
-                <input type="checkbox" class="custom-control-input" id="login-remember" name="remember" value="1">
+                <input type="checkbox" class="custom-control-input" id="login-remember" name="remember" value="">
                 <label class="custom-control-label" style="border-color:#ccc;color:#333" for="login-remember"><i class="fas fa-cookie"></i><i class="fas fa-cookie-bite"></i> nutzen und eingeloggt bleiben</label>
               </div>
               <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" name="submit">Einloggen</button>
