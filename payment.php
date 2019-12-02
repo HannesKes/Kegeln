@@ -81,13 +81,26 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
       foreach ($payments as $payment) {
         if (!($payment->getId() == 1 || $payment->getId() == 2)) {
           ?>
-          <option value="<?php echo $payment->getId(); ?>"><?php echo $payment->getDescription() . " (" . $payment->getAmount() . ")" ; ?></option>";
+          <option value="<?php echo $payment->getId(); ?>"><?php echo $payment->getDescription() . " (" . $payment->getAmount() . " €)" ; ?></option>";
           <?php
         }
       }
       ?>
     </select>
   </div>
+
+  <!-- <div class="form-group">
+    <label class="font-weight-bold" for="paid">Bezahlt?</label>
+    <select id="paid" class='form-control' name='paid'>
+      <option value="0">Nein</option selected>";
+      <option value="1">Ja</option>";
+    </select>
+  </div> -->
+
+  <div class="custom-control custom-checkbox">
+    <input id="paid" type="checkbox" class="custom-control-input" name="paid" value="">
+    <label class="custom-control-label" for="paid"><b>Bezahlt?</b></label>
+  </div><br/>
 
   <input type="submit" name="submit" value="Speichern" class="btn btn-info" /><br/>
 
