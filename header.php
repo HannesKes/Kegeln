@@ -141,9 +141,6 @@ $users = User::readNew($db);
           </ul>
             <?php if ($loggedin){ ?>
               <ul class="navbar-nav">
-                <!-- <li class="nav-item">
-                  <a class="nav-link" href="/Kegeln/includes/logout_inc.php?logout=true">Abmelden</a>
-                </li> -->
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                     <img src="/Kegeln/media/user_empty.png" class="mr-1" style="height:25px;"/>
@@ -159,7 +156,7 @@ $users = User::readNew($db);
                 </li>
               </ul>
             <?php } ?>
-			    </ul>
+          </ul>
 			  </div>
 			</nav>
 		</header>

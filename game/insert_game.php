@@ -37,6 +37,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
 
 ?>
 
+<br/>
 <center><h2>Erfassen des aktuellen Spiels</h2></center><br/>
 
 <form method="post">
