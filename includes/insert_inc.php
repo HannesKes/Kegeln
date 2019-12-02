@@ -30,7 +30,7 @@ function insertGame() {
 
   // Set attributes of the new user object
   $game->setDate($_POST['date']);
-  $game->setKing($_POST['user_id']);
+  $game->setKing($_POST['pumpking_id']);
   $game->setAmount($_POST['number']);
   if (!($_POST['nextGame']=="0001-01-01" || $_POST['nextGame']=="")){
     $game->setNextGame($_POST['nextGame']);
@@ -77,10 +77,9 @@ function insertGame() {
 
   $bill = new Bill($db);
   $bill->setDate($_POST['date']);
-  $bill->setUser($_POST['user_id']);
+  $bill->setUser($_POST['pumpking_id']);
   $bill->setPayment(2);
-  $post_paid = "paid" . $_POST['user_id'];
-  if (isset($_POST[$post_paid])) {
+  if (isset($_POST['pumpking_paid'])) {
     $bill->setPaid(true);
   } else {
     $bill->setPaid(false);

@@ -45,17 +45,25 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
     <input id="date" class="form-control" type="date" name="date" value="<?php echo $date; ?>" />
   </div>
 
-  <div class="form-group">
-    <label class="font-weight-bold" for="pumpKing">Pumpenkönig *</label>
-    <select id="pumpKing" class='form-control' name='user_id'>
-      <?php
-      foreach ($activeUsers as $user) {
-        ?>
-        <option value="<?php echo $user->getId(); ?>"><?php echo $user->getUsername() . " (" . $user->getFirstname() . " " . $user->getLastname() . ")" ; ?></option>";
+  <div class="row">
+    <div class="form-group col-8">
+      <label class="font-weight-bold" for="pumpKing">Pumpenkönig *</label>
+      <select id="pumpKing" class='form-control' name='pumpking_id'>
         <?php
-      }
-      ?>
-    </select>
+        foreach ($activeUsers as $user) {
+          ?>
+          <option value="<?php echo $user->getId(); ?>"><?php echo $user->getUsername() . " (" . $user->getFirstname() . " " . $user->getLastname() . ")" ; ?></option>";
+          <?php
+        }
+        ?>
+      </select>
+    </div>
+    <div class="col-4 my-auto">
+      <div class="custom-control custom-checkbox">
+        <input id="pumpking_paid" type="checkbox" class="custom-control-input" name="pumpking_paid" value="">
+        <label class="custom-control-label" for="pumpking_paid">Bezahlt?</label>
+      </div>
+    </div>
   </div>
 
   <div class="form-group mb-4">
@@ -80,13 +88,13 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
           <th class="align-middle" scope="row"><?php echo $user->getUsername(); ?></th>
           <td class="align-middle">
             <div class="custom-control custom-checkbox text-center">
-              <input id="present<?php echo $user->getId(); ?>" type="checkbox" class="custom-control-input" name="present<?php echo $user->getId(); ?>" value="0">
+              <input id="present<?php echo $user->getId(); ?>" type="checkbox" class="custom-control-input" name="present<?php echo $user->getId(); ?>" value="">
               <label class="custom-control-label" for="present<?php echo $user->getId(); ?>"></label>
             </div>
           </td>
           <td class="align-middle">
             <div class="custom-control custom-checkbox text-center">
-              <input id="paid<?php echo $user->getId(); ?>" type="checkbox" class="custom-control-input" name="paid<?php echo $user->getId(); ?>" value="0">
+              <input id="paid<?php echo $user->getId(); ?>" type="checkbox" class="custom-control-input" name="paid<?php echo $user->getId(); ?>" value="">
               <label class="custom-control-label" for="paid<?php echo $user->getId(); ?>"></label>
             </div>
           </td>

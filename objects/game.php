@@ -77,7 +77,8 @@ class Game {
       $query = "UPDATE " . Game::$table_name . " SET nextGame=:nextGame WHERE nextGame=:currentGame OR nextGame is null";
       $stmt = $this->db->prepare($query);
       $stmt->bindParam(":nextGame", $this->date);
-      $stmt->bindParam(":currentGame", $lastGame->getNextGame());
+      $currentLastGame = $lastGame->getNextGame();
+      $stmt->bindParam(":currentGame", $currentLastGame);
 
       if($stmt->execute()){
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
