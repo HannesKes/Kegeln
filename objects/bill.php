@@ -44,7 +44,7 @@ class Bill {
   // returns the sum of the bills (=balance) from the database
   public static function readBalance($db) {
     // Prepares and executes the query.
-    $query = "SELECT SUM(payment) AS balance FROM " . Bill::$table_name . " WHERE paid=true";
+    $query = "SELECT SUM(t2.amount) AS balance FROM bills AS t1 LEFT JOIN payments AS t2 ON t1.payment = t2.id WHERE paid=true";
     $stmt = $db->prepare($query);
 
     // Executes the query. If no record was found return 0. Else update the Attributes of the Bill Object.
