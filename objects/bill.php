@@ -147,6 +147,31 @@ class Bill {
     return $bill_array;
   }
 
+  // Returns an array containing all Bill objects with attribute paid = false and corresponding to the given user
+  public static function getOpenBillsByUser($db, $userid) {
+    // Prepares and executes the query.
+    $query = "SELECT * From " . Bill::$table_name . " WHERE user=:user AND paid=false ORDER BY payment, date DESC";
+
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(":user", $userid);
+
+    $stmt->execute();
+
+    // Create a Bill object array
+    $bill_array = array();
+
+    // Traverses the Resultset of the query Execution.
+    // Adds a new element to the array for each record.
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+      $bill = new Bill($db);
+      Bill::updateAttributes($bill, $row);
+      // Adds the Bill object to the array
+      $bill_array[] = $bill;
+    }
+
+    return $bill_array;
+  }
+
   // Returns an array containing all Bill objects with attribute paid = false and corresponding to the given payment
   public static function getOpenBillsByPayment($db, $payment) {
     // Prepares and executes the query.

@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/payment.php';
 
   //You may not be on this page when you are logged in.
   //Redirect to profile page
@@ -47,7 +48,17 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
           <input type="submit" name="edit" class="btn btn-primary mt-2" value="Profil Bierarbeiten">
         </form>
     </div>
-    <br/><br/>
+    <br/>
+
+    <?php
+      if ($isNew) {
+        ?>
+          <b>Status der Registrierung:</b> Warten auf Antwort des Admins<br/>
+        <?php
+      }
+     ?>
+
+    <br/>
 
     <div class="row">
       <!--The profile picture of the user-->
@@ -103,8 +114,41 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
       </div>
     </form>
     <?php
-    } ?>
+    }
 
+    $open_bills_user = Bill::getOpenBillsByUser($db, $userid);
+    ?>
+    <br/>
+
+    <h3>Offene Rechnungen</h3>
+
+    <?php
+    if (!empty($open_bills_user)) {
+
+      $old_payment = new Payment($db);
+      $old_payment->setId($open_bills_user[array_key_first($open_bills_user)]->getPayment());
+      $old_payment->readOne();
+      echo "<h5>" . $old_payment->getDescription() . " (" . $old_payment->getAmount() . " €)</h5>";
+      foreach ($open_bills_user as $bill) {
+        if ($bill->getPayment() != $old_payment->getId()) {
+          $old_payment->setId($bill->getPayment());
+          $old_payment->readOne();
+          echo "<br/><h5>" . $old_payment->getDescription() . " (" . $old_payment->getAmount() . " €)</h5>";
+        }
+        $game = new Game($db);
+        $game->setDate($bill->getDate());
+        $game->readOne();
+        ?>
+          <a href="/Kegeln/game/game.php?id=<?php echo $game->getId(); ?>"><?php echo $bill->getDate(); ?></a><br/>
+        <?php
+      }
+
+    } else {
+      ?>
+      Geil! Sie haben alle Rechnungen bezahlt!!! <i class='pl-2 far fa-grin-hearts fa-2x'></i>
+      <?php
+    }
+    ?>
 
 </div>
 

@@ -17,9 +17,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
 
   if (isset($_POST['submit'])) {
     try {
-      echo "6<br/>";
       signupUser();
-      echo "11<br/>";
     } catch (Exception $e) { ?>
       <br/>
       <div class="alert alert-danger alert-dismissible">
