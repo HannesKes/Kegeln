@@ -119,95 +119,41 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/payment.php';
     $open_bills_user = Bill::getOpenBillsByUser($db, $userid);
     $all_games = Game::getGamesByUser($db, $userid);
     $all_bills = Bill:: getAllBillsByUser($db, $userid);
+    $sum_bills = Bill::getSumByUser($db, $userid);
     ?>
     <br/>
     <br/>
 
-    <div class="row">
-      <div class="col-4">
+    <!-- content for larger devices -->
+    <div class="d-none d-sm-block">
+      <div class="row">
+        <div class="col-4">
 
-        <h3>Offene Rechnungen</h3>
+          <?php include $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/user/ausgelagert/openbills.php'; ?>
 
-        <?php
-        if (!empty($open_bills_user)) {
+        </div>
+        <div class="col-4">
 
-          $old_payment = new Payment($db);
-          $old_payment->setId($open_bills_user[array_key_first($open_bills_user)]->getPayment());
-          $old_payment->readOne();
-          echo "<h5>" . $old_payment->getDescription() . " (" . $old_payment->getAmount() . " €)</h5>";
-          foreach ($open_bills_user as $bill) {
-            if ($bill->getPayment() != $old_payment->getId()) {
-              $old_payment->setId($bill->getPayment());
-              $old_payment->readOne();
-              echo "<br/><h5>" . $old_payment->getDescription() . " (" . $old_payment->getAmount() . " €)</h5>";
-            }
-            $game = new Game($db);
-            $game->setDate($bill->getDate());
-            $game->readOne();
-            ?>
-              <a href="/Kegeln/game/game.php?id=<?php echo $game->getId(); ?>"><?php echo $bill->getDate(); ?></a><br/>
-            <?php
-          }
+          <?php include $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/user/ausgelagert/allgames.php'; ?>
 
-        } else {
-          ?>
-          Geil! Sie haben alle Rechnungen bezahlt!!! <i class='pl-2 far fa-grin-hearts fa-2x'></i>
-          <?php
-        }
-        ?>
+        </div>
+        <div class="col-4">
 
+          <?php include $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/user/ausgelagert/allbills.php'; ?>
+
+        </div>
       </div>
-      <div class="col-4">
+    </div>
 
-        <h3>Teilgenommene Spiele</h3>
-
-        <?php
-        if (!empty($all_games)) {
-          foreach ($all_games as $game) {
-            ?>
-              <a href="/Kegeln/game/game.php?id=<?php echo $game->getId(); ?>"><?php echo $bill->getDate(); ?></a><br/>
-            <?php
-          }
-        } else {
-          ?>
-          Sie waren wohl scheinbar noch nie dabei... Das sollte Sie unbedingt nachholen! <i class="far fa-sad-tear ml-1"></i>
-          <?php
-        }
-        ?>
-
-      </div><div class="col-4">
-
-        <h3>Alle Rechnungen</h3>
-
-        <?php
-        if (!empty($all_bills)) {
-
-          $old_payment = new Payment($db);
-          $old_payment->setId($all_bills[array_key_first($all_bills)]->getPayment());
-          $old_payment->readOne();
-          echo "<h5>" . $old_payment->getDescription() . " (" . $old_payment->getAmount() . " €)</h5>";
-          foreach ($all_bills as $bill) {
-            if ($bill->getPayment() != $old_payment->getId()) {
-              $old_payment->setId($bill->getPayment());
-              $old_payment->readOne();
-              echo "<br/><h5>" . $old_payment->getDescription() . " (" . $old_payment->getAmount() . " €)</h5>";
-            }
-            $game = new Game($db);
-            $game->setDate($bill->getDate());
-            $game->readOne();
-            ?>
-              <a href="/Kegeln/game/game.php?id=<?php echo $game->getId(); ?>"><?php echo $bill->getDate(); ?></a><br/>
-            <?php
-          }
-
-        } else {
-          ?>
-          Geil! Sie haben alle Rechnungen bezahlt!!! <i class='pl-2 far fa-grin-hearts fa-2x'></i>
-          <?php
-        }
-        ?>
-
-      </div>
+    <!-- content for mobile devices -->
+    <div class="d-sm-none px-2">
+      <hr/>
+      <?php include $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/user/ausgelagert/openbills.php'; ?>
+      <hr/>
+      <?php include $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/user/ausgelagert/allgames.php'; ?>
+      <hr/>
+      <?php include $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/user/ausgelagert/allbills.php'; ?>
+    </div>
 
 </div>
 

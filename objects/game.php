@@ -188,7 +188,7 @@ class Game {
   public static function getGamesByUser($db, $user){
 
     // Prepares query
-    $query = "SELECT * FROM " . Game::$table_name . "AS t1 WHERE EXISTS (SELECT * FROM game_user AS t2 WHERE t1.id = t2.game AND present = 1 AND user = :user )";
+    $query = "SELECT * FROM " . Game::$table_name . " AS t1 WHERE EXISTS (SELECT * FROM game_user AS t2 WHERE t1.id = t2.game AND present = 1 AND user = :user )";
     $stmt = $db->prepare($query);
 
     // Sets the variables in the query to the corresponding attribute values of the game object and executes the query

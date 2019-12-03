@@ -59,6 +59,25 @@ class Bill {
     return $balance;
   }
 
+  // returns the sum of the bills (=balance) from the database
+  public static function getSumByUser($db, $user) {
+    // Prepares and executes the query.
+    $query = "SELECT SUM(t2.amount) AS sum FROM bills AS t1 LEFT JOIN payments AS t2 ON t1.payment = t2.id WHERE t1.user = :user";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':user', $user);
+
+    // Executes the query. If no record was found return 0. Else update the Attributes of the Bill Object.
+    $stmt->execute();
+    $count = $stmt->rowCount();
+    if($count == 0){
+      return 0;
+    }
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    $sum = $row['sum'];
+
+    return $sum;
+  }
+
   // Updates the DB using the id of the object
   public static function pay($db, $id) {
     // Prepares query
