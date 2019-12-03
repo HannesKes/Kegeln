@@ -36,10 +36,12 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
       $nextDate = $nextGame->getDate();
       $formattedNext = substr($nextDate, 8, 2) . "." . substr($nextDate, 5, 2) . "." . substr($nextDate, 0, 4);
 
-      $user = new User($db);
-      $user->setId($game->getKing());
-      $user->readOne();
-      $king = $user->getUsername() . " (" . $user->getFirstname() . " " . $user->getLastname() . ")";
+      if ($game->getKing() != null) {
+        $user = new User($db);
+        $user->setId($game->getKing());
+        $user->readOne();
+        $king = $user->getUsername() . " (" . $user->getFirstname() . " " . $user->getLastname() . ")";
+      }
 
       $punishments = Bill::getPunishmentsByDate($db, $date);
       $dumbUsers = User::getOpenMonthly($db, $date);
@@ -56,7 +58,12 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
       <ul class="list-group">
         <li class="list-group-item">
           <b>Pumpenkönig</b><br/>
-          <?php echo $king; ?>, <?php echo $game->getAmount(); ?> Pumpen
+          <?php if ($game->getKing() != null) {
+            echo $king . "," . $game->getAmount() . " Pumpen";
+          } else {
+            echo "Kein Pumpenkönig vorhanden <i class='far fa-frown'></i>";
+          }
+          ?>
         </li>
         <li class="list-group-item">
           <b>Nächster Termin</b><br/>
