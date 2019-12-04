@@ -147,10 +147,10 @@ $users = User::readNew($db);
                     <?php echo $loggedin_user->getUsername(); ?>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="/Kegeln/User/profile.php?id=<?php echo $loggedin_user->getId(); ?>">Mein Profil</a>
+                    <a class="dropdown-item" href="/Kegeln/user/profile.php?id=<?php echo $loggedin_user->getId(); ?>">Mein Profil</a>
                     <!-- Separation line -->
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Passwort ändern</a> <!-- /Kegeln/User/changepw.php -->
+                    <a class="dropdown-item" href="#">Passwort ändern</a> <!-- /Kegeln/user/changepw.php -->
                     <a class="dropdown-item" href="/Kegeln/includes/logout_inc.php?logout=true">Abmelden</a>
                   </div>
                 </li>

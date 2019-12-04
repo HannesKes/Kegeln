@@ -82,7 +82,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
         <li class="list-group-item"><b>Strafen</b><br/>
           <?php
           if (sizeof($punishments) == 0) {
-              echo "Da hat der Niko wohl ausnahmsweise mal nicht die Klingel getroffen...";
+              echo "Da hat der Niko wohl ausnahmsweise mal nicht die Klingel getroffen... Keine Strafen bei diesem Spiel.";
           } else {
             echo "<br/>";
             $payment = new Payment($db);
@@ -147,7 +147,15 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
           }
           ?>
         </li>
-        <li class="list-group-item"><b>Anwesend: </b>der Rest</li>
+        <li class="list-group-item"><b>Anwesend: </b>
+          <?php
+          if (sizeof($absentUsers) == 0) {
+            echo "Alle!";
+          } else {
+            echo "der Rest";
+          }
+          ?>
+        </li>
       </ul>
 
     <?php
