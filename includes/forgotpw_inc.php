@@ -72,22 +72,12 @@ if(isset($_POST['submit']) ) {
 
           $mail->SMTPDebug = 0;
           $mail->send();
-          // echo 'Message has been sent';
+
+          header('Location: /Kegeln/index.php?message=7');
+          exit;
       } catch (Exception $e) {
           echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
       }
-
-      $page_title = "Passwort zurücksetzen";
-      include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
-
-
-      
-
-
-      include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/footer.php';
-
-      // If showForm is false, the e-mail for the user is shown
-      $showForm = false;
     }
   }
 }

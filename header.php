@@ -263,6 +263,10 @@ if(isset($_GET['errorcode'])) {
       // ein User hat sein Passwort geändert
       $message = "Das Passwort wurde erfolgreich geändert.";
       break;
+    case "6":
+      // ein User hat sein Passwort vergessen
+      $message = "Um ihr Passwort zu ändern müssen Sie innerhalb von 24 Stunden auf den Link in der Mail klicken, die sie soeben erhalten haben sollten.";
+      break;
     default:
       $message = "Für diesen Code existiert keine Meldung.";
   }
