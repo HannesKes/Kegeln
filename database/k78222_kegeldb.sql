@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 02. Dez 2019 um 22:47
+-- Erstellungszeit: 10. Dez 2019 um 00:56
 -- Server-Version: 10.1.38-MariaDB
 -- PHP-Version: 7.3.4
 
@@ -641,7 +641,7 @@ INSERT INTO `securitytokens` (`id`, `user_id`, `identifier`, `token`, `created_a
 --
 -- Tabellenstruktur für Tabelle `users`
 --
--- Erstellt am: 18. Aug 2019 um 12:33
+-- Erstellt am: 09. Dez 2019 um 23:06
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -653,7 +653,8 @@ CREATE TABLE `users` (
   `firstname` varchar(64) COLLATE utf8_german2_ci NOT NULL,
   `lastname` varchar(64) COLLATE utf8_german2_ci NOT NULL,
   `isNew` int(1) NOT NULL,
-  `isAdmin` int(1) NOT NULL
+  `isAdmin` int(1) NOT NULL,
+  `passwordcode` varchar(255) COLLATE utf8_german2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 --
@@ -664,21 +665,22 @@ CREATE TABLE `users` (
 -- Daten für Tabelle `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `firstname`, `lastname`, `isNew`, `isAdmin`) VALUES
-(1, 'HanKes', '$2y$10$nvV6tDPxWBTK2CSM4jbILeaw48GUlnh89ernGaatddp.WbsQXxrlC', 'hannes.kessling@gmail.de', 'Hannes', 'Keßling', 0, 1),
-(2, 'Tester1', '$2y$10$7691kLH.LwKra54KGQ1Yp.JWNkxtU9cexDPHyfc/tMBMkUkIeyaTm', 'test@test.test', 'Test', 'Testermann', 0, 0),
-(3, 'Tester2', '$2y$10$dGX8rE1TZV8C8Zy2FHUOfu.06ajoR8P/3Ch.B6jTlZm4AO23XX7Z6', 'Test2@test.de', 'Testi', 'Testermann', 0, 0),
-(4, 'Tester3', '$2y$10$bjcnPuD6QMxQl.sY2BiYdeS8HEdggOVLWinaugNGzEiApz5J7ME/S', 'Test2@test.de', 'Tester', 'Testermann', 0, 0),
-(5, 'Furz', '$2y$10$s6sJdJ2ab.X/2Z0h5uzgjuFmVLxDod.Oh0doSVAGJwXuTqKAZDm4C', 'ABC@bombe.de', 'Testaa', 'Testamann', 0, 0),
-(6, 'Arsch123', '$2y$10$Mb/ATna0MNLEoNkA74eoVeNcWCu4UzoIwhIdMkpYNVFRwwx3YfRwm', 'niko@stinkt.hart', 'Bääääääh', 'Kotz', 0, 0),
-(8, 'Niggo', '$2y$10$hBXnOaW2xSiQm02fDn8GHePs/GXRK93IiJRbsUHm..6agPlnJJf52', 'niko.ist@doof.de', 'Niko', 'Theders', 0, 1),
-(9, 'Ich', '$2y$10$66R7cO5REfrlXLQ60GuEReLrULDPAB0mDSgd7CEtQW1Gu97YoeYeG', 'hankes@freenet.de', 'Hannes', 'Keßling', 0, 0),
-(10, 'admin', '$2y$10$UmcqwV4jEiKMEDK8n.EjW.f0kWdaquiCwqIbZPOqwXQl2T5TmEvN6', 'hankes1202@gmail.com', 'Hannes', 'Keßling', 0, 0),
-(11, 'Test42', '$2y$10$LgNJjW.7eMoFwU2Yc/3njO9EqIky.IdAXciz/I5WTBBxdrjJVMchu', 'test@test.test', 'Niko', 'Theders', 0, 0),
-(12, 'Test43', '$2y$10$AoXYnknA6ysIHyxeMMqY9OpfWTZ8acNRLhkjWV3RA3Smfqe5dFFmK', 'test@test.test', 'Ich', 'Bin Cool', 0, 0),
-(13, 'tesssst', '$2y$10$469qxVzMm3MJO9x8mNQwN.28RH3HQFtDxhQG.nEliXm50s5ExOES6', 'test.test.test@test.de', 'Hannes', 'Test', 0, 0),
-(14, 'TestABC', '$2y$10$OOQlz2XmIs1jfgjr/MRbkuH8kG51zX5ixcYvQKqRDjfSm4l7HNGKK', 'djfkgh@xn--fsdglkj-80a.pfdoigh', 'Hallo', 'I Bims', 1, 0),
-(15, 'ABC', '$2y$10$ww8TaQXfMYcVgE5A3q0ibe7Qd5w4EFbSEaG0EYFKUfB0LH5Yg6yky', 'lskjkfghd@fdgslkgsjh.sdhgkjh', 'sfjklgh', 'jgsdhfgk', 1, 0);
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `firstname`, `lastname`, `isNew`, `isAdmin`, `passwordcode`) VALUES
+(1, 'HanKes', '$2y$10$lzy98E/xUO78fHjllvDoh.TudCGiJg0OpTPQVrwmF73SiYJ3176vW', 'hannes.kessling@gmail.com', 'Hannes', 'Keßling', 0, 1, 'cd3c040d4e41fc1f279ff8f28ed7906f'),
+(2, 'Tester1', '$2y$10$7691kLH.LwKra54KGQ1Yp.JWNkxtU9cexDPHyfc/tMBMkUkIeyaTm', 'test@test.test', 'Test', 'Testermann', 0, 0, ''),
+(3, 'Tester2', '$2y$10$dGX8rE1TZV8C8Zy2FHUOfu.06ajoR8P/3Ch.B6jTlZm4AO23XX7Z6', 'Test2@test.de', 'Testi', 'Testermann', 0, 0, ''),
+(4, 'Tester3', '$2y$10$bjcnPuD6QMxQl.sY2BiYdeS8HEdggOVLWinaugNGzEiApz5J7ME/S', 'Test2@test.de', 'Tester', 'Testermann', 0, 0, ''),
+(5, 'Furz', '$2y$10$s6sJdJ2ab.X/2Z0h5uzgjuFmVLxDod.Oh0doSVAGJwXuTqKAZDm4C', 'ABC@bombe.de', 'Testaa', 'Testamann', 0, 0, ''),
+(6, 'Arsch123', '$2y$10$Mb/ATna0MNLEoNkA74eoVeNcWCu4UzoIwhIdMkpYNVFRwwx3YfRwm', 'niko@stinkt.hart', 'Bääääääh', 'Kotz', 0, 0, ''),
+(8, 'Niggo', '$2y$10$hBXnOaW2xSiQm02fDn8GHePs/GXRK93IiJRbsUHm..6agPlnJJf52', 'niko.ist@doof.de', 'Niko', 'Theders', 0, 1, ''),
+(9, 'Ich', '$2y$10$66R7cO5REfrlXLQ60GuEReLrULDPAB0mDSgd7CEtQW1Gu97YoeYeG', 'hankes@freenet.de', 'Hannes', 'Keßling', 0, 0, ''),
+(10, 'admin', '$2y$10$UmcqwV4jEiKMEDK8n.EjW.f0kWdaquiCwqIbZPOqwXQl2T5TmEvN6', 'hankes1202@gmail.com', 'Hannes', 'Keßling', 0, 0, ''),
+(11, 'Test42', '$2y$10$LgNJjW.7eMoFwU2Yc/3njO9EqIky.IdAXciz/I5WTBBxdrjJVMchu', 'test@test.test', 'Niko', 'Theders', 0, 0, ''),
+(12, 'Test43', '$2y$10$AoXYnknA6ysIHyxeMMqY9OpfWTZ8acNRLhkjWV3RA3Smfqe5dFFmK', 'test@test.test', 'Ich', 'Bin Cool', 0, 0, ''),
+(13, 'tesssst', '$2y$10$469qxVzMm3MJO9x8mNQwN.28RH3HQFtDxhQG.nEliXm50s5ExOES6', 'test.test.test@test.de', 'Hannes', 'Test', 0, 0, ''),
+(14, 'TestABC', '$2y$10$OOQlz2XmIs1jfgjr/MRbkuH8kG51zX5ixcYvQKqRDjfSm4l7HNGKK', 'djfkgh@xn--fsdglkj-80a.pfdoigh', 'Hallo', 'I Bims', 1, 0, ''),
+(15, 'ABC', '$2y$10$ww8TaQXfMYcVgE5A3q0ibe7Qd5w4EFbSEaG0EYFKUfB0LH5Yg6yky', 'lskjkfghd@fdgslkgsjh.sdhgkjh', 'sfjklgh', 'jgsdhfgk', 1, 0, ''),
+(16, 'IBims', '$2y$10$lxHydwQojFjOgDuX5CIIM..Qx0Kqfjc33WXJxAQs8/YpRo6Pn8XBG', 'hallooo@de.de', 'Hallo', 'I Bims', 1, 0, '');
 
 --
 -- Indizes der exportierten Tabellen
@@ -770,7 +772,7 @@ ALTER TABLE `puns`
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints der exportierten Tabellen
