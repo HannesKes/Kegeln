@@ -1,5 +1,4 @@
 <?php
-//include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/database/db.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/user.php';
 
 //Includes for PHPMailer - should not work on localhost... but on netcup! :-)
@@ -72,7 +71,7 @@ function signupUser() {
         $mail->send();
         // echo 'Message has been sent';
     } catch (Exception $e) {
-        // echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 
     //registration successful message
