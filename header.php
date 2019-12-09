@@ -96,7 +96,7 @@ $users = User::readNew($db);
             if ($isAdmin){
               if(!empty($users)){
                 ?>
-                <li class="nav-item <?php if (strpos($_SERVER['PHP_SELF'], "index.php")){echo "active";} ?>">
+                <li class="nav-item <?php if (strpos($_SERVER['PHP_SELF'], "accept.php")){echo "active";} ?>">
                   <a class="nav-link" href="/Kegeln/user/accept.php">Neue Nutzer</a>
                 </li>
                 <?php
@@ -150,7 +150,7 @@ $users = User::readNew($db);
                     <a class="dropdown-item" href="/Kegeln/user/profile.php?id=<?php echo $loggedin_user->getId(); ?>">Mein Profil</a>
                     <!-- Separation line -->
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Passwort ändern</a> <!-- /Kegeln/user/changepw.php -->
+                    <a class="dropdown-item" href="/Kegeln/user/changepw.php">Passwort ändern</a>
                     <a class="dropdown-item" href="/Kegeln/includes/logout_inc.php?logout=true">Abmelden</a>
                   </div>
                 </li>
@@ -258,6 +258,10 @@ if(isset($_GET['errorcode'])) {
     case "5":
       // ein Admin hat ein neues Spiel erfasst
       $message = "Das Datum wurde erfolgreich ergänzt.";
+      break;
+    case "6":
+      // ein User hat sein Passwort geändert
+      $message = "Das Passwort wurde erfolgreich geändert.";
       break;
     default:
       $message = "Für diesen Code existiert keine Meldung.";

@@ -2,7 +2,7 @@
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/payment.php';
 
-  //You may not be on this page when you are logged in.
+  //You may not be on this page when you are logged out.
   //Redirect to profile page
   $redirect_when_loggedin = false;
   $redirect_when_loggedout = true;
@@ -45,7 +45,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/payment.php';
         <h1><?php echo $username ?>'s Benutzerprofil</h1>
       </div>
         <form action="" method="POST">
-          <input type="submit" name="edit" class="btn btn-primary mt-2" value="Profil Bierarbeiten">
+          <input type="submit" name="edit" class="btn btn-primary mt-2" value="Profil bearbeiten">
         </form>
     </div>
     <br/>

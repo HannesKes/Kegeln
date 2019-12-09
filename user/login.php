@@ -54,7 +54,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/session.php';
             <center><h5 style="color: #757575">Noch nicht registriert?</h5></center>
             <a class="btn btn-secondary btn-block text-uppercase" href="/Kegeln/user/signup.php">Stattdessen Registrieren</a>
             <hr class="my-4">
-            <center><a href="#">Passwort vergessen?</a></center>
+            <center><a href="/Kegeln/user/forgotpw.php">Passwort vergessen?</a></center>
           </div>
         </div>
       </div>
