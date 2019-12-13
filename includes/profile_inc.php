@@ -26,10 +26,20 @@ $lastname = $profileUser->getLastname();
 $username = $profileUser->getUsername();
 $email = $profileUser->getEmail();
 
+$image = $profileUser->getFullImagePath();
+
 // Controls toggle of $edit
 $edit = false;
 if (isset($_POST['edit']) ) {
   $edit = true;
+}
+
+// Disconnects the image from the user in the database
+function deleteImage(User $profileUser){
+  $profileUser->setImage(null);
+  $profileUser->update();
+  header("Location: ?id=". $profileUser->getId());
+  exit();
 }
 
 function updateUser($db, $profileUser) {
@@ -66,5 +76,48 @@ function updateUser($db, $profileUser) {
 
     header("Location: /Kegeln/index.php?message=1");
     exit();
+}
+
+// Will upload image file to server
+function uploadImage($image){
+
+  // If image is not empty, try to upload the image
+  if($image){
+    $target_directory = "../uploads/";
+    $target_file = $target_directory . $image;
+    $file_type = pathinfo($target_file, PATHINFO_EXTENSION);
+
+    // Make sure that file is a real image
+    $check = exif_imagetype($_FILES["image"]["tmp_name"]);
+    if($check!==false){
+        // Submitted file is an image
+    } else {
+        throw new Exception("Die hochgeladene Datei ist kein Bild!");
+    }
+    // Make sure certain file types are allowed
+    $allowed_file_types=array("jpg", "jpeg", "png", "gif");
+    if(!in_array($file_type, $allowed_file_types)){
+        throw new Exception("Es sind nur die Dateitypen JPG, JPEG, PNG und GIF erlaubt");
+    }
+
+    // Make sure file does not exist
+    if(file_exists($target_file)){
+        throw new Exception("Es gibt schon ein Bild mit diesem Namen. Bitte nenne das Bild um.");
+    }
+
+    // Make sure the 'uploads' folder exists
+    // If not, create it
+    if(!is_dir($target_directory)){
+        mkdir($target_directory, 0777, true);
+    }
+
+    // It means there are no errors, so try to upload the file
+    if(move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)){
+      // It means image was uploaded
+    } else {
+      throw new Exception("Das Bild konnte nicht hochgeladen werden.");
+    }
+    return true;
+  }
 }
 ?>

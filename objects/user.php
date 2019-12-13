@@ -10,6 +10,7 @@ class User {
   private $username;
   private $password;
   private $email;
+  private $image;
   private $firstname;
   private $lastname;
   private $isNew;
@@ -58,7 +59,7 @@ class User {
   public function create() {
     // Prepares query
     $query = "INSERT INTO " . User::$table_name . " SET firstname=:firstname, lastname=:lastname,
-      username=:username, email=:email, password=:password, isNew=:isNew, isAdmin=:isAdmin, passwordcode=:passwordcode";
+      username=:username, email=:email, image=:image, password=:password, isNew=:isNew, isAdmin=:isAdmin, passwordcode=:passwordcode";
     $stmt = $this->db->prepare($query);
 
     // Sets the variables in the query to the corresponding attribute values of the user object
@@ -66,6 +67,7 @@ class User {
     $stmt->bindParam(":lastname", $this->lastname);
     $stmt->bindParam(":username", $this->username);
     $stmt->bindParam(":email", $this->email);
+    $stmt->bindParam(":image", $this->image);
     $stmt->bindParam(":password", $this->password);
     $stmt->bindParam(":isNew", $this->isNew);
     $stmt->bindParam(":isAdmin", $this->isAdmin);
@@ -85,7 +87,7 @@ class User {
   public function update() {
     // Prepares query
     $query = "UPDATE " . User::$table_name . " SET username=:username, firstname=:firstname, lastname=:lastname,
-      email=:email, password=:password, isNew=:isNew, isAdmin=:isAdmin, passwordcode=:passwordcode WHERE id =:id";
+      email=:email, image=:image, password=:password, isNew=:isNew, isAdmin=:isAdmin, passwordcode=:passwordcode WHERE id =:id";
     $stmt = $this->db->prepare($query);
 
     // Sets the variables in the query to the corresponding attribute values of the user object
@@ -93,11 +95,12 @@ class User {
     $stmt->bindParam(':firstname', $this->firstname);
     $stmt->bindParam(':lastname', $this->lastname);
     $stmt->bindParam(':email', $this->email);
-    $stmt->bindParam(':id', $this->id);
+    $stmt->bindParam(":image", $this->image);
     $stmt->bindParam(":password", $this->password);
     $stmt->bindParam(":isNew", $this->isNew);
     $stmt->bindParam(":isAdmin", $this->isAdmin);
     $stmt->bindParam(":passwordcode", $this->passwordcode);
+    $stmt->bindParam(':id', $this->id);
 
     // Execute the query and return true if the execution was successful
     if($stmt->execute()) {
@@ -342,6 +345,16 @@ class User {
     return $kingAndGame;
   }
 
+  public function getFullImagePath(){
+    $image_name = $this->getImage();
+    if(($image_name != '') AND (file_exists($_SERVER["DOCUMENT_ROOT"] . '/Kegeln/uploads/' . $image_name))){
+      $image = '/Kegeln/uploads/' . $image_name;
+    } else {
+      $image = "/Kegeln/media/user_empty.png";
+    }
+    return $image;
+  }
+
   // Updates all attributes of the consigned User object using the values from the $row parameter.
   public static function updateAttributes($user, $row){
     $user->setId($row['id']);
@@ -349,6 +362,7 @@ class User {
     $user->setLastname($row['lastname']);
     $user->setUsername($row['username']);
     $user->setEmail($row['email']);
+    $user->setImage($row['image']);
     $user->setpassword($row['password']);
     $user->setIsNew($row['isNew']);
     $user->setIsAdmin($row['isAdmin']);
@@ -395,6 +409,14 @@ class User {
 
   public function setEmail($newEmail) {
     $this->email = htmlspecialchars(strip_tags($newEmail));
+  }
+
+  public function getImage() {
+    return $this->image;
+  }
+
+  public function setImage($newImage) {
+    $this->image = htmlspecialchars(strip_tags($newImage));
   }
 
   public function getpassword() {

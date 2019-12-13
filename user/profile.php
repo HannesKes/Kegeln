@@ -23,6 +23,11 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/payment.php';
 
   if (isset($_POST['save'])) {
     try {
+      if(!empty($_FILES["image"]["name"])){
+        $image = uniqid('upl', true) . basename($_FILES["image"]["name"]);
+        $profileUser->setImage($image);
+        uploadImage($image);
+      }
       updateUser($db, $profileUser);
     } catch (Exception $e) { ?>
       <br/>
@@ -31,6 +36,21 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/payment.php';
         <strong>Fehler!</strong> <?php echo $e->getMessage(); ?>
       </div>
       <?php
+    }
+  }
+
+  // Waits for press of the delete profile picture button and deletes the profile picture of
+  // The user when pressed.
+  if (isset($_POST['deleteProfileImage']) ) {
+    try {
+      deleteImage($profileUser);
+      updateUser($db, $profileUser);
+    } catch(Exception $e) { ?>
+      <div class="alert alert-warning alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Warnung!</strong> <?php echo $e->getMessage(); ?>
+      </div>
+    <?php
     }
   }
 ?>
@@ -63,7 +83,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/payment.php';
     <div class="row">
       <!--The profile picture of the user-->
       <div class="col-4">
-        <img src="/Kegeln/media/user_empty.png" alt="Profilbild" class="img-fluid"/>
+        <img src="<?php echo $image; ?>" alt="Profilbild" class="img-fluid"/>
       </div>
       <!--Personal information about the user-->
       <div class="col-4">
@@ -93,13 +113,37 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/payment.php';
     </div>
     <br/>
       <div class="row">
+
         <div class="col-4">
           <div class="row">
             <div class="col">
-              <img src="/Kegeln/media/user_empty.png" class="img-fluid"/>
+              <img src="<?php echo $image; ?>" class="img-fluid"/>
+            </div>
+          </div>
+          <div class="row py-1">
+            <div class="col-8">
+              <div class="row">
+                <label for="image">Profilbild ändern:</label>
+              </div>
+              <div class="row">
+                <input type="file" name="image" class="form-control-file" accept=".png,.jpg,.jpeg,.gif"/>
+              </div>
+            </div>
+            <div class="col-4"><?php
+              if(!(empty($profileUser->getImage()) OR $profileUser->getImage() == "")){?>
+                <input type="submit" name="deleteProfileImage" class="btn btn-danger align-right btn-sm" value="Löschen">
+                <?php
+              }?>
             </div>
           </div>
         </div>
+        <!-- <div class="col-4">
+          <div class="row">
+            <div class="col">
+              <img src="<?php //echo $image; ?>" class="img-fluid"/>
+            </div>
+          </div>
+        </div> -->
         <!-- Listing of all user information. New values can be entered which will be used to update the profile.-->
         <div class="col-7">
           <h3 align="left" hspace="500">Biernutzername</h3>

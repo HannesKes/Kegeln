@@ -139,11 +139,12 @@ $users = User::readNew($db);
               </li>
             </form>
           </ul>
-            <?php if ($loggedin){ ?>
+            <?php if ($loggedin){
+              $profile_image = $loggedin_user->getFullImagePath(); ?>
               <ul class="navbar-nav">
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                    <img src="/Kegeln/media/user_empty.png" class="mr-1" style="height:25px;"/>
+                    <img src="<?php echo $profile_image; ?>" class="mr-1" style="height:25px;"/>
                     <?php echo $loggedin_user->getUsername(); ?>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right">
