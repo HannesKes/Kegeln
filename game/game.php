@@ -174,6 +174,80 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
     <input type="submit" name="edit" class="btn btn-primary" value="Spiel bearbeiten">
   </form> -->
 
+  <br/><br/>
+
+  <!-- Comment Section -->
+
+  <div class="row bootstrap snippets">
+    <div class="col-md-offset-2 col-sm-12">
+        <div class="comment-wrapper">
+            <div class="card">
+                <div class="card-header">
+                    <b>Kommentare</b>
+                </div>
+                <div class="card-body"> <!-- style="max-height:650px; overflow: auto" -->
+                  <form action="" method="POST">
+                    <textarea class="form-control" placeholder="Schreibe einen Kommentar..." rows="3"></textarea>
+                    <br>
+                    <button type="submit" class="btn btn-info float-right">Post</button><br/><br/>
+                  </form>
+                    <hr>
+                    <ul class="media-list">
+                        <li class="media">
+                            <a href="#">
+                                <img src="https://bootdey.com/img/Content/user_1.jpg" style="width:64px; height:64px; border:2px solid #e5e7e8" alt="" class="rounded-circle mr-3">
+                            </a>
+                            <div class="media-body">
+                                <span class="text-muted float-right">
+                                    <small class="text-muted">30 min ago</small>
+                                </span>
+                                <strong class="text-success">@MartinoMont</strong>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    Lorem ipsum dolor sit amet, <a href="#">#consecteturadipiscing </a>.
+                                </p>
+                            </div>
+                        </li>
+                        <hr>
+                        <li class="media">
+                            <a href="#">
+                                <img src="https://bootdey.com/img/Content/user_2.jpg" style="width:64px; height:64px; border:2px solid #e5e7e8" alt="" class="rounded-circle mr-3">
+                            </a>
+                            <div class="media-body">
+                                <span class="text-muted float-right">
+                                    <small class="text-muted">30 min ago</small>
+                                </span>
+                                <strong class="text-success">@LaurenceCorreil</strong>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br/>
+                                    Lorem ipsum dolor <a href="#">#ipsumdolor </a>adipiscing elit.
+                                </p>
+                            </div>
+                        </li>
+                        <hr>
+                        <li class="media">
+                            <a href="#">
+                                <img src="https://bootdey.com/img/Content/user_3.jpg" style="width:64px; height:64px; border:2px solid #e5e7e8" alt="" class="rounded-circle mr-3">
+                            </a>
+                            <div class="media-body">
+                                <span class="text-muted float-right">
+                                    <small class="text-muted">30 min ago</small>
+                                </span>
+                                <strong class="text-success">@JohnNida</strong>
+                                <p>
+                                    Lorem ipsum dolor <a href="#">#sitamet</a> sit amet, consectetur adipiscing elit.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
 <?php
   // }
 

@@ -74,6 +74,8 @@ $users = User::readNew($db);
     <link href="https://use.fontawesome.com/releases/v5.11.1/css/all.css" rel="stylesheet">
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
+    
+
   </head>
   <body>
 
