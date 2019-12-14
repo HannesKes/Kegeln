@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/game.php';
+include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/comment.php';
 
 // Instantiate game
 $game = new Game($db);
@@ -19,10 +20,23 @@ if(!$game->readOne()){
   exit();
 }
 
+$comments = Comment::readAll($game->getId(), null, $db);
+
 // Controls toggle of $edit
 $edit = false;
 if (isset($_POST['edit']) ) {
   $edit = true;
+}
+
+if (isset($_POST['submitComment'])) {
+  $comment = new Comment($db);
+  $comment->setUser($userid);
+  $comment->setGame($id);
+  $comment->setContent($_POST['content']);
+  $comment->create();
+  // After the comment is submitted, reload the page to list the comment
+  header("location: #");
+  exit();
 }
 
 function updateGame($db, $gameId) {

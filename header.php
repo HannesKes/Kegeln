@@ -74,7 +74,7 @@ $users = User::readNew($db);
     <link href="https://use.fontawesome.com/releases/v5.11.1/css/all.css" rel="stylesheet">
     <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 
-    
+
 
   </head>
   <body>
@@ -92,7 +92,7 @@ $users = User::readNew($db);
 			        <a class="nav-link" href="/Kegeln/index.php">Home</a>
 			      </li>
 			      <li class="nav-item <?php if (strpos($_SERVER['PHP_SELF'], "membersarea.php")){echo "active";} ?>">
-			        <a class="nav-link" href="/Kegeln/intern.php">Intern</a>
+			        <a class="nav-link" href="/Kegeln/membersarea.php">Intern</a>
 			      </li>
             <?php
             if ($isAdmin){

@@ -7,12 +7,17 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
   //You may not be on this page when your are logged out or new.
   //Redirect to index page
   $redirect_when_loggedin = false;
-  $redirect_when_loggedout = true;
-  $redirect_when_new = true;
+  $redirect_when_loggedout = false;
+  $redirect_when_new = false; // TODO: hier kann jetzt jeder hin, die Prüfung muss an anderer Stelle erfolgen
   $redirect_when_no_admin = false;
   $redirect_page = '/Kegeln/index.php';
 
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
+
+  if (!$loggedin) {
+    header("Location: /Kegeln/user/login.php");
+    exit();
+  }
 
   // Page that is given in the URL: Default value is one.
   $page = isset($_GET['page']) ? $_GET['page'] : 1;

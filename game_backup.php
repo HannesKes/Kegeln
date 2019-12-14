@@ -13,9 +13,9 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
   $redirect_when_no_admin = false;
   $redirect_page = '/Kegeln/index.php';
 
-  include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
-
   include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/includes/game_inc.php';
+
+  include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/header.php';
 
   $next = false;
   $nextId = $_GET['id']+1;
@@ -191,42 +191,13 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
                 </div>
                 <div class="card-body"> <!-- style="max-height:650px; overflow: auto" -->
                   <form action="" method="POST">
-                    <textarea class="form-control" name="content" placeholder="Schreibe einen Kommentar..." rows="3"></textarea>
+                    <textarea class="form-control" placeholder="Schreibe einen Kommentar..." rows="3"></textarea>
                     <br>
-                    <button type="submit" name="submitComment" class="btn btn-info float-right">Post</button><br/><br/>
+                    <button type="submit" class="btn btn-info float-right">Post</button><br/><br/>
                   </form>
                     <hr>
                     <ul class=""> <!-- media-list -->
-
-                      <?php foreach ($comments as $comment) {
-                        $commentUser = new User($db);
-                        $commentUser->setId($comment->getUser());
-                        $commentUser->readOne();
-
-                        // Timestamp formatieren
-
-                        // TODO: Strich (<hr>) nur, wenn noch nachfolgende Kommentare
-                        ?>
-
                         <li class="media">
-                            <a href="#">
-                                <img src="<?php echo $commentUser->getFullImagePath(); ?>" style="width:64px; height:64px; border:2px solid #e5e7e8" alt="" class="rounded-circle mr-3">
-                            </a>
-                            <div class="media-body">
-                                <span class="text-muted float-right">
-                                    <small class="text-muted"><?php echo $comment->getTimestamp(); ?></small> <!-- 30 min ago -->
-                                </span>
-                                <strong class="text-success">@<?php echo $commentUser->getUsername(); ?></strong>
-                                <p>
-                                    <?php echo $comment->getContent(); ?>
-                                </p>
-                            </div>
-                        </li>
-                        <hr>
-
-                      <?php } ?>
-
-                        <!-- <li class="media">
                             <a href="#">
                                 <img src="https://bootdey.com/img/Content/user_1.jpg" style="width:64px; height:64px; border:2px solid #e5e7e8" alt="" class="rounded-circle mr-3">
                             </a>
@@ -271,8 +242,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
                                     Lorem ipsum dolor <a href="#">#sitamet</a> sit amet, consectetur adipiscing elit.
                                 </p>
                             </div>
-                        </li> -->
-
+                        </li>
                     </ul>
                 </div>
             </div>

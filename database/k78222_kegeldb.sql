@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 10. Dez 2019 um 00:56
+-- Erstellungszeit: 14. Dez 2019 um 19:15
 -- Server-Version: 10.1.38-MariaDB
 -- PHP-Version: 7.3.4
 
@@ -198,6 +198,44 @@ INSERT INTO `bills` (`id`, `date`, `user`, `payment`, `paid`) VALUES
 (169, '2021-12-04', 2, 1, 0),
 (170, '2021-12-04', 3, 1, 0),
 (171, '2021-12-04', 4, 1, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Tabellenstruktur für Tabelle `comments`
+--
+-- Erstellt am: 14. Dez 2019 um 14:44
+--
+
+DROP TABLE IF EXISTS `comments`;
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL,
+  `user` int(11) NOT NULL,
+  `game` int(11) NOT NULL,
+  `content` text COLLATE utf8_german2_ci NOT NULL,
+  `timestamp` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
+
+--
+-- RELATIONEN DER TABELLE `comments`:
+--   `game`
+--       `games` -> `id`
+--   `user`
+--       `users` -> `id`
+--
+
+--
+-- Daten für Tabelle `comments`
+--
+
+INSERT INTO `comments` (`id`, `user`, `game`, `content`, `timestamp`) VALUES
+(1, 1, 45, 'Dies ist ein Test-Kommentar', '2019-12-14 18:26:41'),
+(2, 15, 45, 'Hallooooo', '2019-12-14 18:26:41'),
+(3, 1, 44, 'Hihihihihi\r\n\r\n\r\n\r\nIch mag Zügeeeee!!!\r\n\r\n:DDD', '2019-12-14 18:27:32'),
+(4, 8, 44, '\r\n\r\n\r\n8=======================================D', '2019-12-14 18:27:32'),
+(5, 2, 43, '', '2019-12-14 18:28:22'),
+(6, 10, 42, '0123456789\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n.\r\n9876543210', '2019-12-14 18:28:22'),
+(7, 1, 45, 'Kann ich jetzt endlich Kommentare schreiben?', '2019-12-14 19:08:56');
 
 -- --------------------------------------------------------
 
@@ -641,7 +679,7 @@ INSERT INTO `securitytokens` (`id`, `user_id`, `identifier`, `token`, `created_a
 --
 -- Tabellenstruktur für Tabelle `users`
 --
--- Erstellt am: 09. Dez 2019 um 23:06
+-- Erstellt am: 13. Dez 2019 um 14:39
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -650,6 +688,7 @@ CREATE TABLE `users` (
   `username` varchar(32) COLLATE utf8_german2_ci NOT NULL,
   `password` text COLLATE utf8_german2_ci NOT NULL,
   `email` varchar(64) COLLATE utf8_german2_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8_german2_ci NOT NULL,
   `firstname` varchar(64) COLLATE utf8_german2_ci NOT NULL,
   `lastname` varchar(64) COLLATE utf8_german2_ci NOT NULL,
   `isNew` int(1) NOT NULL,
@@ -665,22 +704,22 @@ CREATE TABLE `users` (
 -- Daten für Tabelle `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `firstname`, `lastname`, `isNew`, `isAdmin`, `passwordcode`) VALUES
-(1, 'HanKes', '$2y$10$lzy98E/xUO78fHjllvDoh.TudCGiJg0OpTPQVrwmF73SiYJ3176vW', 'hannes.kessling@gmail.com', 'Hannes', 'Keßling', 0, 1, 'cd3c040d4e41fc1f279ff8f28ed7906f'),
-(2, 'Tester1', '$2y$10$7691kLH.LwKra54KGQ1Yp.JWNkxtU9cexDPHyfc/tMBMkUkIeyaTm', 'test@test.test', 'Test', 'Testermann', 0, 0, ''),
-(3, 'Tester2', '$2y$10$dGX8rE1TZV8C8Zy2FHUOfu.06ajoR8P/3Ch.B6jTlZm4AO23XX7Z6', 'Test2@test.de', 'Testi', 'Testermann', 0, 0, ''),
-(4, 'Tester3', '$2y$10$bjcnPuD6QMxQl.sY2BiYdeS8HEdggOVLWinaugNGzEiApz5J7ME/S', 'Test2@test.de', 'Tester', 'Testermann', 0, 0, ''),
-(5, 'Furz', '$2y$10$s6sJdJ2ab.X/2Z0h5uzgjuFmVLxDod.Oh0doSVAGJwXuTqKAZDm4C', 'ABC@bombe.de', 'Testaa', 'Testamann', 0, 0, ''),
-(6, 'Arsch123', '$2y$10$Mb/ATna0MNLEoNkA74eoVeNcWCu4UzoIwhIdMkpYNVFRwwx3YfRwm', 'niko@stinkt.hart', 'Bääääääh', 'Kotz', 0, 0, ''),
-(8, 'Niggo', '$2y$10$hBXnOaW2xSiQm02fDn8GHePs/GXRK93IiJRbsUHm..6agPlnJJf52', 'niko.ist@doof.de', 'Niko', 'Theders', 0, 1, ''),
-(9, 'Ich', '$2y$10$66R7cO5REfrlXLQ60GuEReLrULDPAB0mDSgd7CEtQW1Gu97YoeYeG', 'hankes@freenet.de', 'Hannes', 'Keßling', 0, 0, ''),
-(10, 'admin', '$2y$10$UmcqwV4jEiKMEDK8n.EjW.f0kWdaquiCwqIbZPOqwXQl2T5TmEvN6', 'hankes1202@gmail.com', 'Hannes', 'Keßling', 0, 0, ''),
-(11, 'Test42', '$2y$10$LgNJjW.7eMoFwU2Yc/3njO9EqIky.IdAXciz/I5WTBBxdrjJVMchu', 'test@test.test', 'Niko', 'Theders', 0, 0, ''),
-(12, 'Test43', '$2y$10$AoXYnknA6ysIHyxeMMqY9OpfWTZ8acNRLhkjWV3RA3Smfqe5dFFmK', 'test@test.test', 'Ich', 'Bin Cool', 0, 0, ''),
-(13, 'tesssst', '$2y$10$469qxVzMm3MJO9x8mNQwN.28RH3HQFtDxhQG.nEliXm50s5ExOES6', 'test.test.test@test.de', 'Hannes', 'Test', 0, 0, ''),
-(14, 'TestABC', '$2y$10$OOQlz2XmIs1jfgjr/MRbkuH8kG51zX5ixcYvQKqRDjfSm4l7HNGKK', 'djfkgh@xn--fsdglkj-80a.pfdoigh', 'Hallo', 'I Bims', 1, 0, ''),
-(15, 'ABC', '$2y$10$ww8TaQXfMYcVgE5A3q0ibe7Qd5w4EFbSEaG0EYFKUfB0LH5Yg6yky', 'lskjkfghd@fdgslkgsjh.sdhgkjh', 'sfjklgh', 'jgsdhfgk', 1, 0, ''),
-(16, 'IBims', '$2y$10$lxHydwQojFjOgDuX5CIIM..Qx0Kqfjc33WXJxAQs8/YpRo6Pn8XBG', 'hallooo@de.de', 'Hallo', 'I Bims', 1, 0, '');
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `image`, `firstname`, `lastname`, `isNew`, `isAdmin`, `passwordcode`) VALUES
+(1, 'HanKes', '$2y$10$lzy98E/xUO78fHjllvDoh.TudCGiJg0OpTPQVrwmF73SiYJ3176vW', 'hannes.kessling@gmail.com', 'upl5df4151aa327b1.40283490IMG_Kessling_Hannes_ILIAS-Profilbild.jpg', 'Hannes', 'Keßling', 0, 1, '8e6899721580db83f5e0d62a546ade5a'),
+(2, 'Tester1', '$2y$10$7691kLH.LwKra54KGQ1Yp.JWNkxtU9cexDPHyfc/tMBMkUkIeyaTm', 'test@test.test', '', 'Test', 'Testermann', 0, 0, ''),
+(3, 'Tester2', '$2y$10$dGX8rE1TZV8C8Zy2FHUOfu.06ajoR8P/3Ch.B6jTlZm4AO23XX7Z6', 'Test2@test.de', '', 'Testi', 'Testermann', 0, 0, ''),
+(4, 'Tester3', '$2y$10$bjcnPuD6QMxQl.sY2BiYdeS8HEdggOVLWinaugNGzEiApz5J7ME/S', 'Test2@test.de', '', 'Tester', 'Testermann', 0, 0, ''),
+(5, 'Furz', '$2y$10$s6sJdJ2ab.X/2Z0h5uzgjuFmVLxDod.Oh0doSVAGJwXuTqKAZDm4C', 'ABC@bombe.de', '', 'Testaa', 'Testamann', 0, 0, ''),
+(6, 'Arsch123', '$2y$10$Mb/ATna0MNLEoNkA74eoVeNcWCu4UzoIwhIdMkpYNVFRwwx3YfRwm', 'niko@stinkt.hart', '', 'Bääääääh', 'Kotz', 0, 0, ''),
+(8, 'Niggo', '$2y$10$hBXnOaW2xSiQm02fDn8GHePs/GXRK93IiJRbsUHm..6agPlnJJf52', 'niko.ist@doof.de', '', 'Niko', 'Theders', 0, 1, ''),
+(9, 'Ich', '$2y$10$66R7cO5REfrlXLQ60GuEReLrULDPAB0mDSgd7CEtQW1Gu97YoeYeG', 'hankes@freenet.de', '', 'Hannes', 'Keßling', 0, 0, ''),
+(10, 'admin', '$2y$10$UmcqwV4jEiKMEDK8n.EjW.f0kWdaquiCwqIbZPOqwXQl2T5TmEvN6', 'hankes1202@gmail.com', '', 'Hannes', 'Keßling', 0, 0, ''),
+(11, 'Test42', '$2y$10$LgNJjW.7eMoFwU2Yc/3njO9EqIky.IdAXciz/I5WTBBxdrjJVMchu', 'test@test.test', '', 'Niko', 'Theders', 0, 0, ''),
+(12, 'Test43', '$2y$10$AoXYnknA6ysIHyxeMMqY9OpfWTZ8acNRLhkjWV3RA3Smfqe5dFFmK', 'test@test.test', '', 'Ich', 'Bin Cool', 0, 0, ''),
+(13, 'tesssst', '$2y$10$469qxVzMm3MJO9x8mNQwN.28RH3HQFtDxhQG.nEliXm50s5ExOES6', 'test.test.test@test.de', '', 'Hannes', 'Test', 0, 0, ''),
+(14, 'TestABC', '$2y$10$OOQlz2XmIs1jfgjr/MRbkuH8kG51zX5ixcYvQKqRDjfSm4l7HNGKK', 'djfkgh@xn--fsdglkj-80a.pfdoigh', '', 'Hallo', 'I Bims', 1, 0, ''),
+(15, 'ABC', '$2y$10$ww8TaQXfMYcVgE5A3q0ibe7Qd5w4EFbSEaG0EYFKUfB0LH5Yg6yky', 'lskjkfghd@fdgslkgsjh.sdhgkjh', '', 'sfjklgh', 'jgsdhfgk', 1, 0, ''),
+(16, 'IBims', '$2y$10$lxHydwQojFjOgDuX5CIIM..Qx0Kqfjc33WXJxAQs8/YpRo6Pn8XBG', 'hallooo@de.de', '', 'Hallo', 'I Bims', 1, 0, '');
 
 --
 -- Indizes der exportierten Tabellen
@@ -692,6 +731,14 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `firstname`, `lastna
 ALTER TABLE `bills`
   ADD PRIMARY KEY (`id`),
   ADD KEY `bills_user` (`user`);
+
+--
+-- Indizes für die Tabelle `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `comment_user` (`user`),
+  ADD KEY `comment_game` (`game`);
 
 --
 -- Indizes für die Tabelle `games`
@@ -745,6 +792,12 @@ ALTER TABLE `bills`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=172;
 
 --
+-- AUTO_INCREMENT für Tabelle `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT für Tabelle `games`
 --
 ALTER TABLE `games`
@@ -783,6 +836,13 @@ ALTER TABLE `users`
 --
 ALTER TABLE `bills`
   ADD CONSTRAINT `bills_user` FOREIGN KEY (`user`) REFERENCES `users` (`id`);
+
+--
+-- Constraints der Tabelle `comments`
+--
+ALTER TABLE `comments`
+  ADD CONSTRAINT `comment_game` FOREIGN KEY (`game`) REFERENCES `games` (`id`),
+  ADD CONSTRAINT `comment_user` FOREIGN KEY (`user`) REFERENCES `users` (`id`);
 
 --
 -- Constraints der Tabelle `games`
