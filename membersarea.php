@@ -8,7 +8,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
   //Redirect to index page
   $redirect_when_loggedin = false;
   $redirect_when_loggedout = false;
-  $redirect_when_new = false; // TODO: hier kann jetzt jeder hin, die Prüfung muss an anderer Stelle erfolgen
+  $redirect_when_new = false;
   $redirect_when_no_admin = false;
   $redirect_page = '/Kegeln/index.php';
 
@@ -105,7 +105,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
             </tr>
             <tr>
               <th scope="row">Strafe Klingel:</th>
-              <td>1 Euro</td>
+              <td>2 Euro</td>
             </tr>
             <tr>
               <th scope="row">Strafe Pumpenkönig:</th>
@@ -113,7 +113,11 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
             </tr>
             <tr>
               <th scope="row">Verlorene Runde:</th>
-              <td>10 Cent</td>
+              <td>1 Euro</td>
+            </tr>
+            <tr>
+              <th scope="row">Schnapszahl:</th>
+              <td>1 Euro</td>
             </tr>
             <tr>
               <td colspan="2" class="text-center"></td>
@@ -212,7 +216,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
           </tr>
           <tr>
             <th scope="row">Strafe Klingel:</th>
-            <td>1 Euro</td>
+            <td>2 Euro</td>
           </tr>
           <tr>
             <th scope="row">Strafe Pumpenkönig:</th>
@@ -220,7 +224,11 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
           </tr>
           <tr>
             <th scope="row">Verlorene Runde:</th>
-            <td>10 Cent</td>
+            <td>1 Euro</td>
+          </tr>
+          <tr>
+            <th scope="row">Schnapszahl:</th>
+            <td>1 Euro</td>
           </tr>
           <tr>
             <td colspan="2" class="text-center"></td>

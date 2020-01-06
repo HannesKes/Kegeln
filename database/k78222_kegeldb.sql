@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 06. Jan 2020 um 21:40
+-- Erstellungszeit: 06. Jan 2020 um 22:37
 -- Server-Version: 10.1.38-MariaDB
 -- PHP-Version: 7.3.4
 
@@ -29,7 +29,7 @@ USE `k78222_kegeldb`;
 --
 -- Tabellenstruktur für Tabelle `bills`
 --
--- Erstellt am: 06. Jan 2020 um 20:32
+-- Erstellt am: 06. Jan 2020 um 21:08
 --
 
 DROP TABLE IF EXISTS `bills`;
@@ -37,12 +37,14 @@ CREATE TABLE `bills` (
   `id` int(11) NOT NULL,
   `date` date NOT NULL,
   `user` int(11) DEFAULT NULL,
-  `payment` int(11) DEFAULT NULL,
+  `payment` int(11) NOT NULL,
   `paid` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 --
 -- RELATIONEN DER TABELLE `bills`:
+--   `payment`
+--       `payments` -> `id`
 --   `user`
 --       `users` -> `id`
 --
@@ -52,14 +54,16 @@ CREATE TABLE `bills` (
 --
 
 INSERT INTO `bills` (`id`, `date`, `user`, `payment`, `paid`) VALUES
-(1, '2020-01-06', NULL, NULL, 1);
+(1, '2020-01-06', NULL, 6, 1),
+(2, '0001-01-01', 1, 1, 0),
+(3, '0001-01-01', 1, 1, 0);
 
 -- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `comments`
 --
--- Erstellt am: 14. Dez 2019 um 14:44
+-- Erstellt am: 06. Jan 2020 um 21:08
 --
 
 DROP TABLE IF EXISTS `comments`;
@@ -84,7 +88,7 @@ CREATE TABLE `comments` (
 --
 -- Tabellenstruktur für Tabelle `games`
 --
--- Erstellt am: 02. Dez 2019 um 21:42
+-- Erstellt am: 06. Jan 2020 um 21:08
 --
 
 DROP TABLE IF EXISTS `games`;
@@ -102,12 +106,19 @@ CREATE TABLE `games` (
 --       `users` -> `id`
 --
 
+--
+-- Daten für Tabelle `games`
+--
+
+INSERT INTO `games` (`id`, `date`, `king`, `amount`, `nextGame`) VALUES
+(1, '0001-01-01', 2, 10, '2020-01-19');
+
 -- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `game_user`
 --
--- Erstellt am: 10. Nov 2019 um 20:31
+-- Erstellt am: 06. Jan 2020 um 21:08
 --
 
 DROP TABLE IF EXISTS `game_user`;
@@ -132,7 +143,7 @@ CREATE TABLE `game_user` (
 --
 -- Tabellenstruktur für Tabelle `payments`
 --
--- Erstellt am: 13. Nov 2019 um 22:10
+-- Erstellt am: 06. Jan 2020 um 21:08
 --
 
 DROP TABLE IF EXISTS `payments`;
@@ -154,15 +165,16 @@ INSERT INTO `payments` (`id`, `amount`, `description`) VALUES
 (1, 5, 'Monatsbeitrag'),
 (2, 1, 'Pumpenkönig'),
 (3, 2, 'Klingeln'),
-(4, 1, 'Verlorene Runde')
-(5, 1, 'Schnapszahl');
+(4, 1, 'Verlorene Runde'),
+(5, 1, 'Schnapszahl'),
+(6, 344, 'Initialeinpflegung');
 
 -- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `puns`
 --
--- Erstellt am: 27. Nov 2019 um 20:01
+-- Erstellt am: 06. Jan 2020 um 21:08
 --
 
 DROP TABLE IF EXISTS `puns`;
@@ -253,7 +265,7 @@ INSERT INTO `puns` (`id`, `content`) VALUES
 --
 -- Tabellenstruktur für Tabelle `securitytokens`
 --
--- Erstellt am: 04. Nov 2019 um 21:13
+-- Erstellt am: 06. Jan 2020 um 21:08
 --
 
 DROP TABLE IF EXISTS `securitytokens`;
@@ -274,7 +286,7 @@ CREATE TABLE `securitytokens` (
 --
 -- Tabellenstruktur für Tabelle `users`
 --
--- Erstellt am: 13. Dez 2019 um 14:39
+-- Erstellt am: 06. Jan 2020 um 21:08
 --
 
 DROP TABLE IF EXISTS `users`;
@@ -300,7 +312,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `password`, `email`, `image`, `firstname`, `lastname`, `isNew`, `isAdmin`, `passwordcode`) VALUES
-(1, 'HanKes', '$2y$10$lzy98E/xUO78fHjllvDoh.TudCGiJg0OpTPQVrwmF73SiYJ3176vW', 'hannes.kessling@gmail.com', '', 'Hannes', 'Keßling', 0, 1, ''),
+(1, 'HanKes', '$2y$10$85hq5z7.RIpa0uf1DThBouX/ZWbHeVyfm15Ij2901aTOtXqM3VOmu', 'hannes.kessling@gmail.com', '', 'Hannes', 'Keßling', 0, 1, ''),
 (2, 'Niggo', '$2y$10$hBXnOaW2xSiQm02fDn8GHePs/GXRK93IiJRbsUHm..6agPlnJJf52', 'niko.ist@doof.de', '', 'Niko', 'Theders', 0, 1, '');
 
 --
@@ -312,7 +324,8 @@ INSERT INTO `users` (`id`, `username`, `password`, `email`, `image`, `firstname`
 --
 ALTER TABLE `bills`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `bills_user` (`user`);
+  ADD KEY `bills_user` (`user`),
+  ADD KEY `bills_payment` (`payment`);
 
 --
 -- Indizes für die Tabelle `comments`
@@ -371,31 +384,31 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT für Tabelle `bills`
 --
 ALTER TABLE `bills`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT für Tabelle `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `games`
 --
 ALTER TABLE `games`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT für Tabelle `game_user`
 --
 ALTER TABLE `game_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT für Tabelle `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT für Tabelle `puns`
@@ -417,6 +430,7 @@ ALTER TABLE `users`
 -- Constraints der Tabelle `bills`
 --
 ALTER TABLE `bills`
+  ADD CONSTRAINT `bills_payment` FOREIGN KEY (`payment`) REFERENCES `payments` (`id`),
   ADD CONSTRAINT `bills_user` FOREIGN KEY (`user`) REFERENCES `users` (`id`);
 
 --

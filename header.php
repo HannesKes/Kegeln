@@ -27,8 +27,10 @@ if (isset($_SESSION['session_id'])) {
   if($loggedin_user->getIsNew()==1){
     $isNew = true;
   } else {
-    $game = Game::readLast($db); // TODO: ???
-    $nextGame = $game->getNextGame(); // TODO: ???
+    $game = Game::readLast($db);
+    if ($game !== 0) {
+      $nextGame = $game->getNextGame();
+    }
   }
   if($loggedin_user->getIsAdmin()==1){
     $isAdmin = true;

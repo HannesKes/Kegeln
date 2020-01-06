@@ -28,7 +28,7 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
   $date = $game->getDate();
   $formattedDate = substr($date, 8, 2) . "." . substr($date, 5, 2) . "." . substr($date, 0, 4);
 
-  $nextDate = $nextGame->getDate();
+  $nextDate = $game->getNextGame();
   $formattedNext = substr($nextDate, 8, 2) . "." . substr($nextDate, 5, 2) . "." . substr($nextDate, 0, 4);
 
   if ($game->getKing() != null) {
@@ -79,10 +79,14 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
       if ($next){
         echo "<a href='/Kegeln/game/game.php?id=$nextId'>$formattedNext</a>";
       } else {
-        if ($isAdmin) {
-          echo "Sie haben noch kein nächstes Spiel geplant. Sie können das Datum des nächsten Spiels <a href='/Kegeln/game/update_game.php'>hier</a> festlegen.";
+        if ($game->getNextGame() == NULL) {
+          if ($isAdmin) {
+            echo "Sie haben noch kein nächstes Spiel geplant. Sie können das Datum des nächsten Spiels <a href='/Kegeln/game/update_game.php'>hier</a> festlegen.";
+          } else {
+            echo "noch kein nächstes Spiel geplant";
+          }
         } else {
-          echo "noch kein nächstes Spiel geplant";
+          echo $formattedNext;
         }
       }
       ?>

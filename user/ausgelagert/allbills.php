@@ -1,8 +1,8 @@
 <h3>Alle Rechnungen</h3>
-<b>Summe:</b> <u><?php echo $sum_bills; ?> €</u><br/><br/>
 
 <?php
 if (!empty($all_bills)) {
+  ?><b>Summe:</b> <u><?php echo $sum_bills; ?> €</u><br/><br/><?php
 
   $old_payment = new Payment($db);
   $old_payment->setId($all_bills[array_key_first($all_bills)]->getPayment());
@@ -24,7 +24,7 @@ if (!empty($all_bills)) {
 
 } else {
   ?>
-  Geil! Sie haben alle Rechnungen bezahlt!!! <i class='pl-2 far fa-grin-hearts fa-2x'></i>
+  Noch keine Rechnungen zum Anzeigen vorhanden.
   <?php
 }
 ?>
