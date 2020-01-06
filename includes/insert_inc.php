@@ -34,7 +34,7 @@ function insertGame() {
   $game = new Game($db);
   $next = false;
 
-  // Set attributes of the new user object
+  // Set attributes of the new game object
   $game->setDate($_POST['date']);
   if (!isset($_POST['no_pumpking'])) {
     $game->setKing($_POST['pumpking_id']);

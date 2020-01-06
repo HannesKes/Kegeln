@@ -3,11 +3,13 @@
 TODOs:
 
 wichtiges:
-- fix SignUp online ?????
-- Implementierung Passwort vergessen -> nur das schicken der Mail fehlt noch
 - Strafanpassungen einpflegen
-- Paging auf Profilseite für jeden Block einzeln (zentriert) -> schwierig wegen unterschiedlichen Überschriften -> Überschrift wiederholen nötig
-- kein Spiel mit Datum in der Zukunft erfassbar -> verhindern nicht ermöglichen (ist das schon auskommentiert drin??)
+- mehr GIFs und Sprüche!!!
+- Initialen Kontostand einpflegen -> als bill mit payment = spende (neu) -> user/game = null erlauben? -> admin/test-user für Spenden erfassen
+
+etwas weniger wichtig bzw. klärungsbedarf: (auch schwierigere Dinge)
+- kein Spiel mit Datum in der Zukunft erfassbar
+- Nutzerübersicht: "Über mich" -> Zugriff auf andere Profile + Profilbild (außer Bilder von Whatsapp gedownloaded funktioniert es...)
 - Strafe "verlorenes Spiel": Mehrfachauswahl bei Spieler
 - Nutzer nicht ausloggen bei Registrierung -> Zugriff auf Profilseite
 - Navigationsleiste: "Bierspruch" hängt tiefer
@@ -15,17 +17,9 @@ wichtiges:
 - redirects prüfen -> auch Kommentare darüber
 - Passwort vergessen + ändern aufhübschen
 - Nach Passwort-Wechsel einloggen
-- insert NULL in DB -> gucken wie in Hopfenspeicher user.php:104
-- Fehlermeldungen prüfen! -> zum Beispiel bei Passwort zurücksetzen o.ä.
-
 - Kommentare: Leerzeichen durch <br/> ersetzen -> posten geht noch nicht
-
-- mehr GIFs und Sprüche!!!
-- Initialen Kontostand einpflegen -> als bill mit payment = spende (neu) -> user/game = null erlauben? -> admin/test-user für Spenden erfassen
-
-etwas weniger wichtig bzw. klärungsbedarf: (auch schwierigere Dinge)
-- Nutzerübersicht: "Über mich" -> Zugriff auf andere Profile + Profilbild (außer Bilder von Whatsapp gedownloaded funktioniert es...)
 - neue Buttons: zurück und "Spiel bearbeiten" -> sehr komplex, sollte vielleicht später gemacht werden
+- Paging auf Profilseite für jeden Block einzeln (zentriert) -> schwierig wegen unterschiedlichen Überschriften -> Überschrift wiederholen nötig
 - Spielerstellung -> bei Fehler Felder mit zuvor abgeschickten Werten füllen (ähnlich wie "bearbeiten")
 - Kommentarfunktion -> Unter Spielen und auf Profilseite
 - Admin-Rechte vergeben (temporär?)
@@ -44,6 +38,8 @@ etwas weniger wichtig bzw. klärungsbedarf: (auch schwierigere Dinge)
 - Tabelle game_user -> nur erfassen, wenn present = true?
 - Passwortprüfung?
 - Zeitstempel für Insert User nötig?
+- insert NULL in DB -> gucken wie in Hopfenspeicher user.php:104
+- Fehlermeldungen prüfen! -> zum Beispiel bei Passwort zurücksetzen o.ä.
 
 Infos:
 - Strafen aktuell nur nach Spielerstellung anwendbar
