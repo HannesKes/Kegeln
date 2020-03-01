@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 06. Jan 2020 um 22:37
+-- Erstellungszeit: 01. Mrz 2020 um 16:45
 -- Server-Version: 10.1.38-MariaDB
 -- PHP-Version: 7.3.4
 
@@ -29,10 +29,9 @@ USE `k78222_kegeldb`;
 --
 -- Tabellenstruktur für Tabelle `bills`
 --
--- Erstellt am: 06. Jan 2020 um 21:08
+-- Erstellt am: 29. Feb 2020 um 14:20
 --
 
-DROP TABLE IF EXISTS `bills`;
 CREATE TABLE `bills` (
   `id` int(11) NOT NULL,
   `date` date NOT NULL,
@@ -55,18 +54,16 @@ CREATE TABLE `bills` (
 
 INSERT INTO `bills` (`id`, `date`, `user`, `payment`, `paid`) VALUES
 (1, '2020-01-06', NULL, 6, 1),
-(2, '0001-01-01', 1, 1, 0),
-(3, '0001-01-01', 1, 1, 0);
+(2, '0001-01-01', 1, 1, 0);
 
 -- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `comments`
 --
--- Erstellt am: 06. Jan 2020 um 21:08
+-- Erstellt am: 29. Feb 2020 um 14:20
 --
 
-DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL,
   `user` int(11) NOT NULL,
@@ -88,10 +85,9 @@ CREATE TABLE `comments` (
 --
 -- Tabellenstruktur für Tabelle `games`
 --
--- Erstellt am: 06. Jan 2020 um 21:08
+-- Erstellt am: 29. Feb 2020 um 14:20
 --
 
-DROP TABLE IF EXISTS `games`;
 CREATE TABLE `games` (
   `id` int(11) NOT NULL,
   `date` date NOT NULL,
@@ -118,10 +114,9 @@ INSERT INTO `games` (`id`, `date`, `king`, `amount`, `nextGame`) VALUES
 --
 -- Tabellenstruktur für Tabelle `game_user`
 --
--- Erstellt am: 06. Jan 2020 um 21:08
+-- Erstellt am: 29. Feb 2020 um 14:20
 --
 
-DROP TABLE IF EXISTS `game_user`;
 CREATE TABLE `game_user` (
   `id` int(11) NOT NULL,
   `game` int(11) NOT NULL,
@@ -143,10 +138,9 @@ CREATE TABLE `game_user` (
 --
 -- Tabellenstruktur für Tabelle `payments`
 --
--- Erstellt am: 06. Jan 2020 um 21:08
+-- Erstellt am: 29. Feb 2020 um 14:20
 --
 
-DROP TABLE IF EXISTS `payments`;
 CREATE TABLE `payments` (
   `id` int(11) NOT NULL,
   `amount` double NOT NULL,
@@ -167,17 +161,16 @@ INSERT INTO `payments` (`id`, `amount`, `description`) VALUES
 (3, 2, 'Klingeln'),
 (4, 1, 'Verlorene Runde'),
 (5, 1, 'Schnapszahl'),
-(6, 344, 'Initialeinpflegung');
+(6, 360, 'Initialeinpflegung');
 
 -- --------------------------------------------------------
 
 --
 -- Tabellenstruktur für Tabelle `puns`
 --
--- Erstellt am: 06. Jan 2020 um 21:08
+-- Erstellt am: 29. Feb 2020 um 14:20
 --
 
-DROP TABLE IF EXISTS `puns`;
 CREATE TABLE `puns` (
   `id` int(11) NOT NULL,
   `content` varchar(500) COLLATE utf8_german2_ci NOT NULL
@@ -265,10 +258,9 @@ INSERT INTO `puns` (`id`, `content`) VALUES
 --
 -- Tabellenstruktur für Tabelle `securitytokens`
 --
--- Erstellt am: 06. Jan 2020 um 21:08
+-- Erstellt am: 29. Feb 2020 um 14:20
 --
 
-DROP TABLE IF EXISTS `securitytokens`;
 CREATE TABLE `securitytokens` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
@@ -286,21 +278,20 @@ CREATE TABLE `securitytokens` (
 --
 -- Tabellenstruktur für Tabelle `users`
 --
--- Erstellt am: 06. Jan 2020 um 21:08
+-- Erstellt am: 29. Feb 2020 um 14:20
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `username` varchar(32) COLLATE utf8_german2_ci NOT NULL,
   `password` text COLLATE utf8_german2_ci NOT NULL,
   `email` varchar(64) COLLATE utf8_german2_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8_german2_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8_german2_ci DEFAULT NULL,
   `firstname` varchar(64) COLLATE utf8_german2_ci NOT NULL,
   `lastname` varchar(64) COLLATE utf8_german2_ci NOT NULL,
   `isNew` int(1) NOT NULL,
   `isAdmin` int(1) NOT NULL,
-  `passwordcode` varchar(255) COLLATE utf8_german2_ci NOT NULL
+  `passwordcode` varchar(255) COLLATE utf8_german2_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_german2_ci;
 
 --
