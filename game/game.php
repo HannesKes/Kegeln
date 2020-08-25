@@ -35,7 +35,10 @@ include_once $_SERVER["DOCUMENT_ROOT"] . '/Kegeln/objects/bill.php';
     $user = new User($db);
     $user->setId($game->getKing());
     $user->readOne();
-    $king = $user->getUsername() . " (" . $user->getFirstname() . " " . $user->getLastname() . ")";
+    $king = $user->getUsername();
+    if ($isAdmin) {
+      $king = $king . " (" . $user->getFirstname() . " " . $user->getLastname() . ")";
+    }
   }
 
   $punishments = Bill::getPunishmentsByDate($db, $date);
